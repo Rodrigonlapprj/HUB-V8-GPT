@@ -1,0 +1,1265 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Painel Administrativo | Hub Brasil</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f6f8;
+            color: #202124;
+        }
+
+        /* =========================
+           LAYOUT PRINCIPAL
+        ========================= */
+
+        .app {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* =========================
+           MENU LATERAL
+        ========================= */
+
+        .sidebar {
+            width: 250px;
+            background: #111827;
+            color: white;
+            padding: 25px 15px;
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            overflow-y: auto;
+        }
+
+        .brand {
+            padding: 5px 10px 30px;
+        }
+
+        .brand h1 {
+            font-size: 22px;
+            margin-bottom: 5px;
+        }
+
+        .brand p {
+            font-size: 13px;
+            color: #9ca3af;
+        }
+
+        .menu {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .menu button {
+            width: 100%;
+            border: 0;
+            background: transparent;
+            color: #d1d5db;
+            text-align: left;
+            padding: 13px 14px;
+            border-radius: 9px;
+            cursor: pointer;
+            font-size: 15px;
+            transition: .2s;
+        }
+
+        .menu button:hover {
+            background: #1f2937;
+            color: white;
+        }
+
+        .menu button.active {
+            background: #facc15;
+            color: #111827;
+            font-weight: bold;
+        }
+
+        .sidebar-footer {
+            position: absolute;
+            bottom: 20px;
+            left: 25px;
+            right: 25px;
+            font-size: 12px;
+            color: #6b7280;
+        }
+
+        /* =========================
+           CONTEÚDO
+        ========================= */
+
+        .content {
+            margin-left: 250px;
+            width: calc(100% - 250px);
+            padding: 30px;
+        }
+
+        .topbar {
+            background: white;
+            border-radius: 14px;
+            padding: 20px 25px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,.05);
+        }
+
+        .topbar h2 {
+            font-size: 24px;
+        }
+
+        .status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: #16a34a;
+        }
+
+        .status-dot {
+            width: 9px;
+            height: 9px;
+            background: #22c55e;
+            border-radius: 50%;
+        }
+
+        /* =========================
+           SEÇÕES
+        ========================= */
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .card {
+            background: white;
+            border-radius: 14px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,.05);
+        }
+
+        .card-header {
+            margin-bottom: 20px;
+        }
+
+        .card-header h3 {
+            font-size: 19px;
+            margin-bottom: 5px;
+        }
+
+        .card-header p {
+            font-size: 14px;
+            color: #6b7280;
+        }
+
+        /* =========================
+           DASHBOARD
+        ========================= */
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+            margin-bottom: 20px;
+        }
+
+        .stat {
+            background: white;
+            padding: 22px;
+            border-radius: 14px;
+            box-shadow: 0 2px 10px rgba(0,0,0,.05);
+        }
+
+        .stat span {
+            font-size: 13px;
+            color: #6b7280;
+        }
+
+        .stat strong {
+            display: block;
+            margin-top: 8px;
+            font-size: 28px;
+        }
+
+        /* =========================
+           FORMULÁRIOS
+        ========================= */
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .field.full {
+            grid-column: 1 / -1;
+        }
+
+        .field label {
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .field input,
+        .field textarea,
+        .field select {
+            width: 100%;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            padding: 11px 12px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .field textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .field input:focus,
+        .field textarea:focus,
+        .field select:focus {
+            border-color: #facc15;
+        }
+
+        /* =========================
+           BOTÕES
+        ========================= */
+
+        .actions {
+            margin-top: 22px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            border: 0;
+            border-radius: 8px;
+            padding: 11px 17px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .btn-primary {
+            background: #facc15;
+            color: #111827;
+        }
+
+        .btn-secondary {
+            background: #e5e7eb;
+            color: #374151;
+        }
+
+        .btn-danger {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+
+        /* =========================
+           PRODUTOS
+        ========================= */
+
+        .product-list {
+            display: grid;
+            gap: 12px;
+        }
+
+        .product {
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .product-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .product-image {
+            width: 65px;
+            height: 65px;
+            border-radius: 10px;
+            object-fit: cover;
+            background: #f3f4f6;
+        }
+
+        .product-info h4 {
+            margin-bottom: 5px;
+        }
+
+        .product-info p {
+            font-size: 13px;
+            color: #6b7280;
+        }
+
+        .product-price {
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        /* =========================
+           CATEGORIAS
+        ========================= */
+
+        .category-list {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .category {
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .category strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .category span {
+            font-size: 13px;
+            color: #6b7280;
+        }
+
+        /* =========================
+           AVISO
+        ========================= */
+
+        .notice {
+            padding: 15px;
+            border-radius: 10px;
+            background: #fffbeb;
+            border: 1px solid #fde68a;
+            color: #92400e;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        /* =========================
+           RESPONSIVO
+        ========================= */
+
+        @media (max-width: 900px) {
+
+            .sidebar {
+                width: 210px;
+            }
+
+            .content {
+                margin-left: 210px;
+                width: calc(100% - 210px);
+            }
+
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .category-list {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 650px) {
+
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+            }
+
+            .sidebar-footer {
+                position: relative;
+                left: auto;
+                bottom: auto;
+                margin-top: 25px;
+            }
+
+            .app {
+                display: block;
+            }
+
+            .content {
+                margin-left: 0;
+                width: 100%;
+                padding: 15px;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .field.full {
+                grid-column: auto;
+            }
+
+            .category-list {
+                grid-template-columns: 1fr;
+            }
+
+            .product {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- =========================
+         MENU
+    ========================= -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+            <h1>HUB BRASIL</h1>
+            <p>Painel administrativo</p>
+        </div>
+
+        <nav class="menu">
+
+            <button class="menu-btn active" data-section="dashboard">
+                ?? Dashboard
+            </button>
+
+            <button class="menu-btn" data-section="loja">
+                ?? Minha Loja
+            </button>
+
+            <button class="menu-btn" data-section="produtos">
+                ?? Produtos
+            </button>
+
+            <button class="menu-btn" data-section="categorias">
+                ?? Categorias
+            </button>
+
+            <button class="menu-btn" data-section="redes">
+                ?? Redes Sociais
+            </button>
+
+            <button class="menu-btn" data-section="aparencia">
+                ?? Aparência
+            </button>
+
+            <button class="menu-btn" data-section="configuracoes">
+                ?? Configurações
+            </button>
+
+        </nav>
+
+        <div class="sidebar-footer">
+            Hub Brasil • V1
+        </div>
+
+    </aside>
+
+
+    <!-- =========================
+         CONTEÚDO
+    ========================= -->
+
+    <main class="content">
+
+        <div class="topbar">
+
+            <div>
+                <h2 id="pageTitle">Dashboard</h2>
+            </div>
+
+            <div class="status">
+                <span class="status-dot"></span>
+                Sistema funcionando
+            </div>
+
+        </div>
+
+
+        <!-- =========================
+             DASHBOARD
+        ========================= -->
+
+        <section id="dashboard" class="section active">
+
+            <div class="stats">
+
+                <div class="stat">
+                    <span>Produtos</span>
+                    <strong id="totalProdutos">0</strong>
+                </div>
+
+                <div class="stat">
+                    <span>Categorias</span>
+                    <strong id="totalCategorias">0</strong>
+                </div>
+
+                <div class="stat">
+                    <span>Produtos ativos</span>
+                    <strong id="produtosAtivos">0</strong>
+                </div>
+
+                <div class="stat">
+                    <span>Destaques</span>
+                    <strong id="totalDestaques">0</strong>
+                </div>
+
+            </div>
+
+            <div class="card">
+
+                <div class="card-header">
+                    <h3>Bem-vindo ao Hub Brasil</h3>
+
+                    <p>
+                        Este será o centro de gerenciamento da sua loja digital.
+                    </p>
+                </div>
+
+                <div class="notice">
+                    ?? Esta é a primeira versão do painel.
+                    Os dados ainda são armazenados localmente no navegador.
+                    Em uma próxima etapa vamos conectar tudo ao banco de dados.
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             MINHA LOJA
+        ========================= -->
+
+        <section id="loja" class="section">
+
+            <div class="card">
+
+                <div class="card-header">
+                    <h3>Informações da Loja</h3>
+
+                    <p>
+                        Configure as informações principais que aparecerão no seu Hub.
+                    </p>
+                </div>
+
+                <div class="form-grid">
+
+                    <div class="field">
+                        <label>Nome da loja</label>
+                        <input id="lojaNome" type="text" value="Carioca Ice Cream">
+                    </div>
+
+                    <div class="field">
+                        <label>Telefone / WhatsApp</label>
+                        <input id="lojaTelefone" type="text" placeholder="(00) 00000-0000">
+                    </div>
+
+                    <div class="field full">
+                        <label>Endereço</label>
+                        <input id="lojaEndereco" type="text" placeholder="Digite o endereço da loja">
+                    </div>
+
+                    <div class="field">
+                        <label>Horário de funcionamento</label>
+                        <input id="lojaHorario" type="text" value="13h às 21h">
+                    </div>
+
+                    <div class="field">
+                        <label>Cidade</label>
+                        <input id="lojaCidade" type="text" placeholder="Rio de Janeiro">
+                    </div>
+
+                    <div class="field full">
+                        <label>Descrição da loja</label>
+                        <textarea id="lojaDescricao">Sorvetes, açaí, milk shakes e muito mais.</textarea>
+                    </div>
+
+                </div>
+
+                <div class="actions">
+                    <button class="btn btn-primary" onclick="salvarLoja()">
+                        ?? Salvar informações
+                    </button>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             PRODUTOS
+        ========================= -->
+
+        <section id="produtos" class="section">
+
+            <div class="card">
+
+                <div class="card-header">
+
+                    <h3>Produtos</h3>
+
+                    <p>
+                        Gerencie os produtos apresentados no cardápio.
+                    </p>
+
+                </div>
+
+                <div id="listaProdutos" class="product-list"></div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             CATEGORIAS
+        ========================= -->
+
+        <section id="categorias" class="section">
+
+            <div class="card">
+
+                <div class="card-header">
+
+                    <h3>Categorias</h3>
+
+                    <p>
+                        Categorias disponíveis no cardápio.
+                    </p>
+
+                </div>
+
+                <div id="listaCategorias" class="category-list"></div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             REDES SOCIAIS
+        ========================= -->
+
+        <section id="redes" class="section">
+
+            <div class="card">
+
+                <div class="card-header">
+
+                    <h3>Redes Sociais</h3>
+
+                    <p>
+                        Configure os links das redes sociais da loja.
+                    </p>
+
+                </div>
+
+                <div class="form-grid">
+
+                    <div class="field">
+                        <label>Instagram</label>
+                        <input id="instagram" type="text" placeholder="@sualoja">
+                    </div>
+
+                    <div class="field">
+                        <label>Facebook</label>
+                        <input id="facebook" type="text" placeholder="facebook.com/sualoja">
+                    </div>
+
+                    <div class="field">
+                        <label>TikTok</label>
+                        <input id="tiktok" type="text" placeholder="@sualoja">
+                    </div>
+
+                    <div class="field">
+                        <label>WhatsApp</label>
+                        <input id="whatsapp" type="text" placeholder="5511999999999">
+                    </div>
+
+                </div>
+
+                <div class="actions">
+
+                    <button class="btn btn-primary" onclick="salvarRedes()">
+                        ?? Salvar redes sociais
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             APARÊNCIA
+        ========================= -->
+
+        <section id="aparencia" class="section">
+
+            <div class="card">
+
+                <div class="card-header">
+
+                    <h3>Aparência</h3>
+
+                    <p>
+                        Personalize a identidade visual da sua loja.
+                    </p>
+
+                </div>
+
+                <div class="form-grid">
+
+                    <div class="field">
+                        <label>Cor principal</label>
+                        <input id="corPrincipal" type="color" value="#facc15">
+                    </div>
+
+                    <div class="field">
+                        <label>Cor secundária</label>
+                        <input id="corSecundaria" type="color" value="#7c3aed">
+                    </div>
+
+                </div>
+
+                <div class="actions">
+
+                    <button class="btn btn-primary" onclick="salvarAparencia()">
+                        ?? Salvar aparência
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             CONFIGURAÇÕES
+        ========================= -->
+
+        <section id="configuracoes" class="section">
+
+            <div class="card">
+
+                <div class="card-header">
+
+                    <h3>Configurações</h3>
+
+                    <p>
+                        Configurações gerais da plataforma.
+                    </p>
+
+                </div>
+
+                <div class="notice">
+                    ?? O sistema de login, usuários e banco de dados será
+                    implementado na próxima fase.
+                </div>
+
+                <button class="btn btn-secondary" onclick="limparDados()">
+                    Limpar dados locais
+                </button>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<script>
+
+    /* =========================
+       NAVEGAÇÃO
+    ========================= */
+
+    const botoes = document.querySelectorAll(".menu-btn");
+    const secoes = document.querySelectorAll(".section");
+    const titulo = document.getElementById("pageTitle");
+
+    botoes.forEach(botao => {
+
+        botao.addEventListener("click", () => {
+
+            botoes.forEach(b => b.classList.remove("active"));
+
+            botao.classList.add("active");
+
+            secoes.forEach(secao => {
+                secao.classList.remove("active");
+            });
+
+            const id = botao.dataset.section;
+
+            document.getElementById(id).classList.add("active");
+
+            titulo.textContent = botao.textContent.trim();
+
+        });
+
+    });
+
+
+    /* =========================
+       PRODUTOS DEMONSTRATIVOS
+    ========================= */
+
+    const produtosDemo = [
+
+        {
+            nome: "Açaí Copo 300ml",
+            categoria: "Açaí",
+            preco: 9,
+            disponivel: true
+        },
+
+        {
+            nome: "Açaí Copo 500ml",
+            categoria: "Açaí",
+            preco: 13,
+            disponivel: true
+        },
+
+        {
+            nome: "Casquinha Tradicional",
+            categoria: "Casquinhas",
+            preco: 4,
+            disponivel: true
+        },
+
+        {
+            nome: "Sundae Tradicional",
+            categoria: "Sundaes",
+            preco: 8,
+            disponivel: true
+        },
+
+        {
+            nome: "Milk Shake 500ml",
+            categoria: "Milk Shake",
+            preco: 15,
+            disponivel: true
+        },
+
+        {
+            nome: "Pote de Sorvete 1L",
+            categoria: "Potes",
+            preco: 20,
+            disponivel: true
+        }
+
+    ];
+
+
+    /* =========================
+       CARREGAR PRODUTOS
+    ========================= */
+
+    function carregarProdutos() {
+
+        const lista = document.getElementById("listaProdutos");
+
+        lista.innerHTML = "";
+
+        produtosDemo.forEach((produto, index) => {
+
+            const item = document.createElement("div");
+
+            item.className = "product";
+
+            item.innerHTML = `
+
+                <div class="product-info">
+
+                    <div class="product-image"></div>
+
+                    <div>
+
+                        <h4>${produto.nome}</h4>
+
+                        <p>${produto.categoria}</p>
+
+                        <div class="product-price">
+                            R$ ${produto.preco.toFixed(2).replace(".", ",")}
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="product-actions">
+
+                    <button
+                        class="btn btn-secondary"
+                        onclick="editarProduto(${index})">
+                        ?? Editar
+                    </button>
+
+                    <button
+                        class="btn btn-danger"
+                        onclick="alternarProduto(${index})">
+                        ${produto.disponivel ? "Desativar" : "Ativar"}
+                    </button>
+
+                </div>
+
+            `;
+
+            lista.appendChild(item);
+
+        });
+
+    }
+
+
+    /* =========================
+       EDITAR PRODUTO
+    ========================= */
+
+    function editarProduto(index) {
+
+        const produto = produtosDemo[index];
+
+        const novoNome = prompt(
+            "Nome do produto:",
+            produto.nome
+        );
+
+        if (novoNome === null) {
+            return;
+        }
+
+        produto.nome = novoNome;
+
+        const novoPreco = prompt(
+            "Preço:",
+            produto.preco
+        );
+
+        if (novoPreco !== null && novoPreco !== "") {
+
+            produto.preco = parseFloat(
+                novoPreco.replace(",", ".")
+            );
+
+        }
+
+        carregarProdutos();
+
+    }
+
+
+    /* =========================
+       ATIVAR / DESATIVAR
+    ========================= */
+
+    function alternarProduto(index) {
+
+        produtosDemo[index].disponivel =
+            !produtosDemo[index].disponivel;
+
+        carregarProdutos();
+
+        atualizarDashboard();
+
+    }
+
+
+    /* =========================
+       CATEGORIAS
+    ========================= */
+
+    const categoriasDemo = [
+
+        "Açaí",
+        "Sorvete",
+        "Casquinhas",
+        "Sundaes",
+        "Milk Shake",
+        "Potes"
+
+    ];
+
+
+    function carregarCategorias() {
+
+        const lista =
+            document.getElementById("listaCategorias");
+
+        lista.innerHTML = "";
+
+        categoriasDemo.forEach(categoria => {
+
+            const quantidade =
+                produtosDemo.filter(
+                    produto =>
+                        produto.categoria === categoria
+                ).length;
+
+            const item =
+                document.createElement("div");
+
+            item.className = "category";
+
+            item.innerHTML = `
+
+                <strong>${categoria}</strong>
+
+                <span>
+                    ${quantidade} produto(s)
+                </span>
+
+            `;
+
+            lista.appendChild(item);
+
+        });
+
+    }
+
+
+    /* =========================
+       DASHBOARD
+    ========================= */
+
+    function atualizarDashboard() {
+
+        const total =
+            produtosDemo.length;
+
+        const ativos =
+            produtosDemo.filter(
+                produto => produto.disponivel
+            ).length;
+
+        document.getElementById(
+            "totalProdutos"
+        ).textContent = total;
+
+        document.getElementById(
+            "totalCategorias"
+        ).textContent = categoriasDemo.length;
+
+        document.getElementById(
+            "produtosAtivos"
+        ).textContent = ativos;
+
+        document.getElementById(
+            "totalDestaques"
+        ).textContent = 0;
+
+    }
+
+
+    /* =========================
+       LOJA
+    ========================= */
+
+    function salvarLoja() {
+
+        const dados = {
+
+            nome:
+                document.getElementById(
+                    "lojaNome"
+                ).value,
+
+            telefone:
+                document.getElementById(
+                    "lojaTelefone"
+                ).value,
+
+            endereco:
+                document.getElementById(
+                    "lojaEndereco"
+                ).value,
+
+            horario:
+                document.getElementById(
+                    "lojaHorario"
+                ).value,
+
+            cidade:
+                document.getElementById(
+                    "lojaCidade"
+                ).value,
+
+            descricao:
+                document.getElementById(
+                    "lojaDescricao"
+                ).value
+
+        };
+
+        localStorage.setItem(
+            "hubLoja",
+            JSON.stringify(dados)
+        );
+
+        alert("Informações da loja salvas!");
+
+    }
+
+
+    /* =========================
+       REDES SOCIAIS
+    ========================= */
+
+    function salvarRedes() {
+
+        const dados = {
+
+            instagram:
+                document.getElementById(
+                    "instagram"
+                ).value,
+
+            facebook:
+                document.getElementById(
+                    "facebook"
+                ).value,
+
+            tiktok:
+                document.getElementById(
+                    "tiktok"
+                ).value,
+
+            whatsapp:
+                document.getElementById(
+                    "whatsapp"
+                ).value
+
+        };
+
+        localStorage.setItem(
+            "hubRedes",
+            JSON.stringify(dados)
+        );
+
+        alert("Redes sociais salvas!");
+
+    }
+
+
+    /* =========================
+       APARÊNCIA
+    ========================= */
+
+    function salvarAparencia() {
+
+        const dados = {
+
+            principal:
+                document.getElementById(
+                    "corPrincipal"
+                ).value,
+
+            secundaria:
+                document.getElementById(
+                    "corSecundaria"
+                ).value
+
+        };
+
+        localStorage.setItem(
+            "hubAparencia",
+            JSON.stringify(dados)
+        );
+
+        alert("Aparência salva!");
+
+    }
+
+
+    /* =========================
+       LIMPAR DADOS
+    ========================= */
+
+    function limparDados() {
+
+        const confirmar =
+            confirm(
+                "Deseja realmente apagar os dados locais?"
+            );
+
+        if (!confirmar) {
+            return;
+        }
+
+        localStorage.removeItem("hubLoja");
+        localStorage.removeItem("hubRedes");
+        localStorage.removeItem("hubAparencia");
+
+        alert("Dados locais apagados.");
+
+        location.reload();
+
+    }
+
+
+    /* =========================
+       INICIALIZAÇÃO
+    ========================= */
+
+    carregarProdutos();
+
+    carregarCategorias();
+
+    atualizarDashboard();
+
+</script>
+
+</body>
+</html>
