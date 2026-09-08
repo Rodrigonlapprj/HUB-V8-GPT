@@ -27,7 +27,6 @@
         }
         .menu button:hover { background: #1f2937; color: white; }
         .menu button.active { background: #facc15; color: #111827; font-weight: bold; }
-        .menu-icon { width: 19px; height: 19px; flex-shrink: 0; }
         .sidebar-footer { position: absolute; bottom: 20px; left: 25px; right: 25px; font-size: 12px; color: #6b7280; }
 
         .content { margin-left: 250px; width: calc(100% - 250px); padding: 30px; }
@@ -62,7 +61,6 @@
             display: flex; justify-content: space-between; align-items: center; gap: 15px;
         }
         .product-info { display: flex; align-items: center; gap: 15px; min-width: 0; }
-        .product-image { width: 70px; height: 70px; border-radius: 10px; object-fit: cover; background: #f3f4f6; flex-shrink: 0; }
         .product-actions { display: flex; gap: 8px; flex-shrink: 0; flex-wrap: wrap; }
 
         .btn {
@@ -85,16 +83,7 @@
         }
         .actions { margin-top: 22px; display: flex; gap: 10px; }
 
-        .horarios-semana { border: 1px solid #e5e7eb; border-radius: 12px; overflow: hidden; background: #fff; }
-        .horario-cabecalho, .horario-linha {
-            display: grid; grid-template-columns: minmax(150px, 1.5fr) 80px 1fr 1fr;
-            align-items: center; gap: 12px; padding: 12px 15px;
-        }
-        .horario-cabecalho { background: #f9fafb; color: #6b7280; font-size: 12px; font-weight: bold; border-bottom: 1px solid #e5e7eb; }
-        .horario-linha { border-bottom: 1px solid #f0f0f0; }
-        .horario-linha:last-child { border-bottom: 0; }
-
-        .store-logo-box, .image-upload-box { border: 1px dashed #d1d5db; border-radius: 12px; padding: 16px; background: #f9fafb; }
+        .store-logo-box { border: 1px dashed #d1d5db; border-radius: 12px; padding: 16px; background: #f9fafb; }
         .store-logo-row { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
         .store-logo-preview { width: 110px; height: 110px; border-radius: 16px; object-fit: contain; background: white; border: 1px solid #e5e7eb; display: none; }
 
@@ -116,12 +105,16 @@
         .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
         .close-modal { width: 35px; height: 35px; border: 0; border-radius: 50%; background: #f3f4f6; cursor: pointer; font-size: 18px; }
 
-        /* QR CODE CARD */
         .qr-card-box {
             background: #fff; border: 1px solid #e5e7eb; border-radius: 14px;
             padding: 20px; display: flex; align-items: center; gap: 20px; margin-top: 15px;
         }
         .qr-img { width: 130px; height: 130px; border-radius: 10px; border: 1px solid #e5e7eb; }
+
+        /* Tabela de Bairros */
+        .tabela-bairros { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        .tabela-bairros th, .tabela-bairros td { padding: 10px 14px; text-align: left; border-bottom: 1px solid #e5e7eb; font-size: 14px; }
+        .tabela-bairros th { background: #f9fafb; font-weight: bold; }
 
         @media (max-width: 900px) {
             .sidebar { width: 210px; }
@@ -153,6 +146,7 @@
         <nav class="menu">
             <button class="menu-btn active" data-section="dashboard">Dashboard</button>
             <button class="menu-btn" data-section="loja">Minha Loja</button>
+            <button class="menu-btn" data-section="delivery_pagamento">Taxas & Pagamento</button>
             <button class="menu-btn" data-section="produtos">Produtos</button>
             <button class="menu-btn" data-section="qrcode">QR Code & Divulgação</button>
             <button class="menu-btn" data-section="whatsapp">Central WhatsApp</button>
@@ -176,12 +170,12 @@
                 <div class="stat"><span>Produtos</span><strong id="totalProdutos">0</strong></div>
                 <div class="stat"><span>Categorias</span><strong id="totalCategorias">0</strong></div>
                 <div class="stat"><span>Produtos Ativos</span><strong id="produtosAtivos">0</strong></div>
-                <div class="stat"><span>Destaques</span><strong id="totalDestaques">0</strong></div>
+                <div class="stat"><span>Bairros RJ</span><strong id="totalBairros">0</strong></div>
             </div>
             <div class="card">
                 <div class="card-header">
                     <h3>Bem-vindo ao Painel do Administrador</h3>
-                    <p>Aqui você gerencia o modelo visual da loja, produtos e compartilha seu QR Code.</p>
+                    <p>Aqui você gerencia o modelo visual da loja, produtos, formas de pagamento e taxas de entrega.</p>
                 </div>
             </div>
         </section>
@@ -247,12 +241,76 @@
             </div>
         </section>
 
+        <!-- TAXAS & PAGAMENTO (NOVA INTEGRAÇÃO) -->
+        <section id="delivery_pagamento" class="section">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Configurações de Pagamento & PIX</h3>
+                    <p>Configure sua chave para receber pagamentos instantâneos via PIX no checkout.</p>
+                </div>
+                <div class="form-grid">
+                    <div class="field">
+                        <label>Tipo de Chave PIX</label>
+                        <select id="pixTipo">
+                            <option value="CNPJ">CNPJ</option>
+                            <option value="CPF">CPF</option>
+                            <option value="Telefone">Telefone / Celular</option>
+                            <option value="E-mail">E-mail</option>
+                            <option value="Aleatória">Chave Aleatória</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label>Chave PIX (Copia e Cola)</label>
+                        <input id="pixChave" type="text" placeholder="Ex: 21999999999 ou chave@loja.com">
+                    </div>
+                    <div class="field full">
+                        <label>Nome do Favorecido / Titular</label>
+                        <input id="pixFavorecido" type="text" placeholder="Ex: Carioca Ice Cream Ltda">
+                    </div>
+                </div>
+                <div class="actions">
+                    <button class="btn btn-primary" onclick="salvarPix()">Salvar Dados do PIX</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h3>Bairros e Taxas de Entrega (Rio de Janeiro)</h3>
+                    <p>Bairros atendidos no checkout do cliente sem necessidade de digitar CEP.</p>
+                </div>
+                <div class="form-grid">
+                    <div class="field">
+                        <label>Nome do Bairro</label>
+                        <input id="novoBairroNome" type="text" placeholder="Ex: Tijuca, Méier, Copacabana...">
+                    </div>
+                    <div class="field">
+                        <label>Taxa de Entrega (R$)</label>
+                        <input id="novoBairroTaxa" type="number" step="0.50" placeholder="Ex: 8.00 (coloque 0 para grátis)">
+                    </div>
+                </div>
+                <div class="actions">
+                    <button class="btn btn-primary" onclick="adicionarBairro()">+ Adicionar Bairro</button>
+                </div>
+
+                <table class="tabela-bairros">
+                    <thead>
+                        <tr>
+                            <th>Bairro</th>
+                            <th>Taxa (R$)</th>
+                            <th style="width: 80px;">Ação</th>
+                        </tr>
+                    </thead>
+                    <tbody id="listaBairrosTabela"></tbody>
+                </table>
+            </div>
+        </section>
+
         <!-- PRODUTOS -->
         <section id="produtos" class="section">
             <div class="card">
                 <div class="card-header">
                     <h3>Produtos</h3>
-                    <p>Itens que aparecerão nos 3 modelos de visualização.</p>
+                    <p>Itens que aparecerão nos modelos de visualização e no cardápio de pedidos.</p>
                 </div>
                 <div class="products-toolbar">
                     <div class="search-box">
@@ -339,7 +397,7 @@
             </div>
         </section>
 
-        <!-- APARÊNCIA & SELEÇÃO DE LAYOUT (EXCLUSIVO ADMIN) -->
+        <!-- APARÊNCIA & SELEÇÃO DE LAYOUT -->
         <section id="aparencia" class="section">
             <div class="card">
                 <div class="card-header">
@@ -441,7 +499,18 @@
         { id: "p2", nome: "Cascão Duplo Artesanal", categoria: "Sorvetes", preco: 15.00, descricao: "Duas bolas de sorvete premium.", disponivel: true, destaque: true }
     ];
 
+    const BAIRROS_PADRAO = [
+        { id: 1, nome: "Tijuca", taxa: 6.00 },
+        { id: 2, nome: "Maracanã", taxa: 7.00 },
+        { id: 3, nome: "Vila Isabel", taxa: 7.50 },
+        { id: 4, nome: "Grajaú", taxa: 8.00 },
+        { id: 5, nome: "Centro (RJ)", taxa: 10.00 },
+        { id: 6, nome: "Botafogo", taxa: 12.00 },
+        { id: 7, nome: "Copacabana", taxa: 14.00 }
+    ];
+
     let produtosPainel = JSON.parse(localStorage.getItem("hubProdutos")) || PRODUTOS_PADRAO;
+    let bairrosPainel = JSON.parse(localStorage.getItem("hubBairros")) || BAIRROS_PADRAO;
     let novaImagemProduto = "";
     let produtoEditando = null;
     window.logoLojaAtual = "";
@@ -462,6 +531,7 @@
             if (targetId === "produtos") renderizarProdutos();
             if (targetId === "dashboard") atualizarDashboard();
             if (targetId === "qrcode") gerarQrCodePainel();
+            if (targetId === "delivery_pagamento") renderizarBairros();
         });
     });
 
@@ -609,6 +679,62 @@
         }
     }
 
+    /* GESTÃO DE PIX */
+    function salvarPix() {
+        const pix = {
+            tipo: document.getElementById("pixTipo").value,
+            chave: document.getElementById("pixChave").value.trim(),
+            favorecido: document.getElementById("pixFavorecido").value.trim()
+        };
+        localStorage.setItem("hubPix", JSON.stringify(pix));
+        alert("Configurações do PIX salvas!");
+    }
+
+    function carregarPix() {
+        const pix = JSON.parse(localStorage.getItem("hubPix") || "{}");
+        if (pix.tipo) document.getElementById("pixTipo").value = pix.tipo;
+        if (pix.chave) document.getElementById("pixChave").value = pix.chave;
+        if (pix.favorecido) document.getElementById("pixFavorecido").value = pix.favorecido;
+    }
+
+    /* GESTÃO DE BAIRROS */
+    function renderizarBairros() {
+        const tbody = document.getElementById("listaBairrosTabela");
+        tbody.innerHTML = "";
+        bairrosPainel.forEach(b => {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+                <td><strong>${b.nome}</strong></td>
+                <td>R$ ${formatarPreco(b.taxa)}</td>
+                <td><button class="btn btn-danger" onclick="excluirBairro(${b.id})">Excluir</button></td>
+            `;
+            tbody.appendChild(tr);
+        });
+        document.getElementById("totalBairros").textContent = bairrosPainel.length;
+    }
+
+    function adicionarBairro() {
+        const nome = document.getElementById("novoBairroNome").value.trim();
+        const taxa = parseFloat(document.getElementById("novoBairroTaxa").value);
+        if (!nome || isNaN(taxa)) {
+            alert("Preencha o nome do bairro e a taxa de entrega.");
+            return;
+        }
+        bairrosPainel.push({ id: Date.now(), nome, taxa });
+        localStorage.setItem("hubBairros", JSON.stringify(bairrosPainel));
+        document.getElementById("novoBairroNome").value = "";
+        document.getElementById("novoBairroTaxa").value = "";
+        renderizarBairros();
+    }
+
+    function excluirBairro(id) {
+        if (confirm("Deseja remover este bairro?")) {
+            bairrosPainel = bairrosPainel.filter(b => b.id !== id);
+            localStorage.setItem("hubBairros", JSON.stringify(bairrosPainel));
+            renderizarBairros();
+        }
+    }
+
     function salvarRedes() {
         const r = {
             instagram: document.getElementById("instagram").value.trim(),
@@ -647,8 +773,7 @@
 
     /* QR CODE NO PAINEL */
     function obterUrlVitrine() {
-        const urlBase = window.location.href.replace("teste1.html", "teste.html");
-        return urlBase;
+        return window.location.href.replace("teste1.html", "teste.html");
     }
 
     function gerarQrCodePainel() {
@@ -677,11 +802,18 @@
         document.getElementById("totalProdutos").textContent = produtosPainel.length;
         document.getElementById("totalCategorias").textContent = new Set(produtosPainel.map(p => p.categoria)).size;
         document.getElementById("produtosAtivos").textContent = produtosPainel.filter(p => p.disponivel !== false).length;
-        document.getElementById("totalDestaques").textContent = produtosPainel.filter(p => p.destaque).length;
+        document.getElementById("totalBairros").textContent = bairrosPainel.length;
     }
 
     function exportarDados() {
-        const backup = { produtos: produtosPainel, loja: localStorage.getItem("hubLoja"), aparencia: localStorage.getItem("hubAparencia"), redes: localStorage.getItem("hubRedes") };
+        const backup = {
+            produtos: produtosPainel,
+            loja: localStorage.getItem("hubLoja"),
+            aparencia: localStorage.getItem("hubAparencia"),
+            redes: localStorage.getItem("hubRedes"),
+            pix: localStorage.getItem("hubPix"),
+            bairros: localStorage.getItem("hubBairros")
+        };
         const blob = new Blob([JSON.stringify(backup, null, 2)], { type: "application/json" });
         const a = document.createElement("a");
         a.href = URL.createObjectURL(blob);
@@ -695,8 +827,10 @@
 
     document.addEventListener("DOMContentLoaded", () => {
         carregarDadosLoja();
+        carregarPix();
         carregarRedes();
         carregarAparencia();
+        renderizarBairros();
         atualizarDashboard();
         renderizarProdutos();
         gerarQrCodePainel();
@@ -705,4 +839,3 @@
 
 </body>
 </html>
-
