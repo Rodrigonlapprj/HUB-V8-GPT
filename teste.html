@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cardápio & Vitrine Digital</title>
+  <title>Cardápio & Pedidos Online</title>
 
   <!-- Fallbacks dos arquivos locais existentes -->
   <script src="loja.js"></script>
@@ -20,6 +20,7 @@
       --text-color: #1f2937;
       --text-muted: #6b7280;
       --border-color: #e5e7eb;
+      --whatsapp-green: #25D366;
     }
 
     * {
@@ -37,38 +38,40 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      padding-bottom: 110px; /* Espaço para a barra flutuante do carrinho */
     }
 
     .main-wrapper {
       width: 100%;
-      max-width: 580px;
-      padding: 20px 16px 80px;
+      max-width: 600px;
+      padding: 16px;
     }
 
     /* ========================================================
-       MODELO 1: HUB CLÁSSICO / LINKTREE (Centralizado com botões)
+       MODELO 1: HUB CLÁSSICO / LINKTREE (Centralizado)
        ======================================================== */
     .layout-hub-classico {
       text-align: center;
-    }
-
-    .hub-header {
       margin-bottom: 24px;
     }
 
+    .hub-header {
+      margin-bottom: 20px;
+    }
+
     .hub-logo {
-      width: 100px;
-      height: 100px;
+      width: 105px;
+      height: 105px;
       border-radius: 50%;
       object-fit: cover;
       margin: 0 auto 12px;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
       border: 3px solid var(--primary-color);
       background: white;
     }
 
     .hub-title {
-      font-size: 1.4rem;
+      font-size: 1.45rem;
       font-weight: 800;
       margin-bottom: 6px;
     }
@@ -80,7 +83,6 @@
       margin-bottom: 16px;
     }
 
-    /* PLAYER DE MÚSICA */
     .music-player-box {
       background: var(--card-bg);
       border: 1px solid var(--border-color);
@@ -89,13 +91,13 @@
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      margin-bottom: 22px;
+      margin-bottom: 20px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.04);
     }
 
     .music-btn {
-      width: 32px;
-      height: 32px;
+      width: 34px;
+      height: 34px;
       border-radius: 50%;
       border: none;
       background: var(--primary-color);
@@ -108,8 +110,7 @@
     .hub-buttons-list {
       display: flex;
       flex-direction: column;
-      gap: 14px;
-      margin-bottom: 25px;
+      gap: 12px;
     }
 
     .hub-btn {
@@ -121,17 +122,17 @@
       border: 2px solid var(--primary-color);
       color: var(--text-color);
       text-decoration: none;
-      padding: 16px 20px;
+      padding: 15px 20px;
       border-radius: 14px;
       font-weight: 700;
       font-size: 1rem;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.04);
-      transition: transform .15s, background .15s;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.03);
+      cursor: pointer;
+      transition: transform .15s;
     }
 
-    .hub-btn:hover, .hub-btn:active {
-      transform: translateY(-2px);
-      background: #fafafa;
+    .hub-btn:active {
+      transform: scale(0.98);
     }
 
     .hub-btn.highlight {
@@ -139,51 +140,30 @@
       color: #111827;
     }
 
-    /* MODAL DO CARDÁPIO QUANDO ESTIVER NO MODELO 1 */
-    .modal-hub-cardapio {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.6);
-      z-index: 999;
-      padding: 20px;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .modal-hub-cardapio.active {
-      display: flex;
-    }
-
-    .modal-hub-body {
-      background: white;
-      width: 100%;
-      max-width: 540px;
-      max-height: 85vh;
-      border-radius: 20px;
-      padding: 20px;
-      overflow-y: auto;
-    }
-
     /* ========================================================
        MODELO 2: VITRINE COM ABAS (Cardápio / Info / Horários)
        ======================================================== */
-    .layout-vitrine-abas .topo-bar {
+    .layout-vitrine-abas {
+      margin-bottom: 20px;
+    }
+
+    .topo-bar {
       display: flex;
       align-items: center;
       gap: 14px;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
       background: var(--card-bg);
       padding: 16px;
       border-radius: 16px;
       border: 1px solid var(--border-color);
     }
 
-    .layout-vitrine-abas .topo-logo {
+    .topo-logo {
       width: 60px;
       height: 60px;
       border-radius: 12px;
       object-fit: cover;
+      background: #eee;
     }
 
     .abas-nav {
@@ -192,7 +172,7 @@
       border-radius: 12px;
       border: 1px solid var(--border-color);
       overflow: hidden;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
     }
 
     .aba-btn {
@@ -217,18 +197,22 @@
       background: var(--card-bg);
       border: 1px solid var(--border-color);
       border-radius: 14px;
-      padding: 20px;
-      margin-bottom: 20px;
+      padding: 18px;
+      margin-bottom: 16px;
     }
 
     /* ========================================================
        MODELO 3: APP DELIVERY / CATÁLOGO RÁPIDO
        ======================================================== */
-    .layout-app-delivery .app-header {
+    .layout-app-delivery {
+      margin-bottom: 16px;
+    }
+
+    .app-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 18px;
+      margin-bottom: 16px;
     }
 
     .app-brand {
@@ -242,13 +226,14 @@
       height: 48px;
       border-radius: 50%;
       object-fit: cover;
+      background: #eee;
     }
 
     .app-quick-actions {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 8px;
-      margin-bottom: 18px;
+      margin-bottom: 16px;
     }
 
     .app-action-chip {
@@ -267,10 +252,12 @@
       font-weight: bold;
     }
 
-    /* COMPONENTES COMPARTILHADOS: LISTAGEM DE PRODUTOS */
+    /* ========================================================
+       COMPONENTES COMPARTILHADOS: CATÁLOGO DE PRODUTOS
+       ======================================================== */
     .search-box {
       width: 100%;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
 
     .search-box input {
@@ -281,6 +268,10 @@
       font-size: 0.95rem;
       outline: none;
       background: var(--card-bg);
+    }
+
+    .search-box input:focus {
+      border-color: var(--secondary-color);
     }
 
     .chips-bar {
@@ -324,6 +315,7 @@
       border: 1px solid var(--border-color);
       padding: 12px;
       gap: 12px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
     }
 
     .product-card img {
@@ -332,6 +324,7 @@
       border-radius: 10px;
       object-fit: cover;
       background: #eee;
+      flex-shrink: 0;
     }
 
     .product-card-body {
@@ -352,14 +345,226 @@
       margin-bottom: 4px;
     }
 
-    .btn-pedir {
+    .product-actions-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 8px;
+    }
+
+    /* CONTROLE DE QUANTIDADE / BOTÃO ADICIONAR */
+    .btn-add-cart {
       background: var(--primary-color);
+      color: #111827;
       border: none;
       border-radius: 8px;
-      padding: 6px 14px;
+      padding: 7px 14px;
       font-weight: bold;
-      cursor: pointer;
       font-size: 0.82rem;
+      cursor: pointer;
+    }
+
+    .qty-counter {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #f3f4f6;
+      border-radius: 8px;
+      padding: 3px 6px;
+    }
+
+    .qty-counter button {
+      width: 26px;
+      height: 26px;
+      border: none;
+      border-radius: 6px;
+      background: white;
+      font-weight: bold;
+      font-size: 1rem;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+    }
+
+    .qty-counter span {
+      font-weight: bold;
+      font-size: 0.9rem;
+      min-width: 16px;
+      text-align: center;
+    }
+
+    /* ========================================================
+       BARRA FLUTUANTE DO CARRINHO (RODAPÉ)
+       ======================================================== */
+    .cart-floating-bar {
+      display: none;
+      position: fixed;
+      bottom: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 32px);
+      max-width: 580px;
+      background: #111827;
+      color: white;
+      border-radius: 16px;
+      padding: 14px 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      z-index: 1000;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      animation: slideUp .2s ease;
+    }
+
+    @keyframes slideUp {
+      from { transform: translate(-50%, 40px); opacity: 0; }
+      to { transform: translate(-50%, 0); opacity: 1; }
+    }
+
+    .cart-floating-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .cart-floating-badge {
+      background: var(--primary-color);
+      color: #111827;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      font-size: 0.85rem;
+    }
+
+    .cart-floating-right {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--primary-color);
+    }
+
+    /* ========================================================
+       MODAIS: CARRINHO & MODAL DE CARDÁPIO DO HUB
+       ======================================================== */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.65);
+      z-index: 1100;
+      padding: 16px;
+      align-items: flex-end; /* Abre no estilo drawer móvel */
+      justify-content: center;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: white;
+      width: 100%;
+      max-width: 540px;
+      max-height: 88vh;
+      border-radius: 20px 20px 14px 14px;
+      padding: 20px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      animation: slideDrawer .2s ease;
+    }
+
+    @keyframes slideDrawer {
+      from { transform: translateY(50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 14px;
+    }
+
+    .modal-header h3 {
+      font-size: 1.25rem;
+    }
+
+    .close-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: none;
+      background: #f3f4f6;
+      font-weight: bold;
+      font-size: 1.1rem;
+      cursor: pointer;
+    }
+
+    /* FORMULÁRIO DENTRO DO CARRINHO */
+    .cart-items-box {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .cart-item-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #f3f4f6;
+    }
+
+    .cart-item-info {
+      flex: 1;
+      padding-right: 10px;
+    }
+
+    .cart-form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .cart-form-field label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+
+    .cart-form-field input, .cart-form-field select, .cart-form-field textarea {
+      width: 100%;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-size: 0.9rem;
+      outline: none;
+    }
+
+    .btn-send-whatsapp {
+      background: var(--whatsapp-green);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      padding: 15px;
+      font-size: 1rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 15px;
     }
   </style>
 </head>
@@ -377,20 +582,20 @@
         <h1 id="hubNomeLoja" class="hub-title">Carioca Ice Cream</h1>
         <p id="hubDescricaoLoja" class="hub-desc">Sorvetes artesanais, açaí no copo e sobremesas.</p>
 
-        <!-- Player de Áudio Opcional -->
+        <!-- Player de Áudio -->
         <div id="hubMusicBox" class="music-player-box" style="display:none;">
           <button class="music-btn" onclick="alternarAudio()">🎵</button>
-          <span style="font-size: 0.8rem; font-weight: bold;">Música de Fundo</span>
+          <span id="labelAudio" style="font-size: 0.8rem; font-weight: bold;">Música de Fundo</span>
           <audio id="audioFundo" loop></audio>
         </div>
       </div>
 
       <div class="hub-buttons-list">
-        <button class="hub-btn highlight" onclick="abrirModalCardapioHub()">
-          <span>🍨</span> Ver Cardápio Completo
+        <button class="hub-btn highlight" onclick="abrirCardapioHub()">
+          <span>🍨</span> Ver Cardápio & Fazer Pedido
         </button>
         <a id="btnHubWhats" href="#" target="_blank" class="hub-btn">
-          <span>💬</span> Fazer Pedido no WhatsApp
+          <span>💬</span> WhatsApp Direto
         </a>
         <a id="btnHubInsta" href="#" target="_blank" class="hub-btn">
           <span>📸</span> Siga no Instagram
@@ -444,7 +649,7 @@
           <img id="appLogoImg" src="" alt="Logo">
           <div>
             <h2 id="appNomeLoja" style="font-size:1.1rem;">Carioca Ice Cream</h2>
-            <small style="color:#16a34a; font-weight:bold;">● Aberto agora</small>
+            <small style="color:#16a34a; font-weight:bold;">● Aberto para Pedidos</small>
           </div>
         </div>
       </div>
@@ -465,7 +670,7 @@
       </div>
     </div>
 
-    <!-- CONTAINER COMPARTILHADO DE PRODUTOS (Para os layouts 2, 3 e modal do layout 1) -->
+    <!-- CATÁLOGO DE PRODUTOS COMPARTILHADO -->
     <div id="catalogoProdutosContainer">
       <div class="search-box">
         <input type="text" id="campoBusca" placeholder="🔍 Buscar no cardápio..." oninput="filtrarProdutos()">
@@ -476,14 +681,86 @@
 
   </div>
 
-  <!-- MODAL PARA EXIBIR O CARDÁPIO NO LAYOUT 1 -->
-  <div id="modalHub" class="modal-hub-cardapio">
-    <div class="modal-hub-body">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
-        <h3 style="font-size:1.2rem;">Nosso Cardápio</h3>
-        <button onclick="fecharModalCardapioHub()" style="border:0; background:#eee; width:32px; height:32px; border-radius:50%; cursor:pointer; font-weight:bold;">&times;</button>
+  <!-- BARRA FLUTUANTE DO CARRINHO (APARECE QUANDO HÁ ITENS) -->
+  <div id="cartFloatingBar" class="cart-floating-bar" onclick="abrirModalCarrinho()">
+    <div class="cart-floating-left">
+      <div id="cartTotalItems" class="cart-floating-badge">0</div>
+      <div>
+        <div style="font-size:0.75rem; color:#9ca3af;">Meu Pedido</div>
+        <div id="cartTotalPrice" style="font-weight:800;">R$ 0,00</div>
       </div>
-      <div id="modalCardapioInjetado"></div>
+    </div>
+    <div class="cart-floating-right">
+      <span>Ver Sacola</span>
+      <span>➔</span>
+    </div>
+  </div>
+
+  <!-- MODAL DO CARRINHO E CHECKOUT PARA WHATSAPP -->
+  <div id="modalCarrinho" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>🛍️ Sacola de Pedidos</h3>
+        <button class="close-btn" onclick="fecharModalCarrinho()">&times;</button>
+      </div>
+
+      <!-- ITENS NO CARRINHO -->
+      <div id="cartItemsList" class="cart-items-box"></div>
+
+      <div style="display:flex; justify-content:space-between; align-items:center; padding:12px 0; border-top:2px dashed var(--border-color); margin-bottom:14px;">
+        <strong style="font-size:1.1rem;">Total do Pedido:</strong>
+        <strong id="cartModalTotal" style="font-size:1.25rem; color:var(--secondary-color);">R$ 0,00</strong>
+      </div>
+
+      <!-- DADOS DE ENTREGA -->
+      <div class="cart-form-field">
+        <label>Seu Nome *</label>
+        <input type="text" id="pedidoNomeCliente" placeholder="Como podemos te chamar?">
+      </div>
+
+      <div class="cart-form-field">
+        <label>Tipo de Pedido</label>
+        <select id="pedidoTipo" onchange="alternarCampoEndereco()">
+          <option value="Entrega (Delivery)">Entrega (Delivery)</option>
+          <option value="Retirar no Balcão">Retirar no Balcão</option>
+          <option value="Consumo no Local">Consumo no Local</option>
+        </select>
+      </div>
+
+      <div id="campoEnderecoBox" class="cart-form-field">
+        <label>Endereço de Entrega *</label>
+        <input type="text" id="pedidoEndereco" placeholder="Rua, número, complemento e bairro">
+      </div>
+
+      <div class="cart-form-field">
+        <label>Forma de Pagamento</label>
+        <select id="pedidoPagamento">
+          <option value="PIX">PIX</option>
+          <option value="Cartão de Crédito">Cartão de Crédito</option>
+          <option value="Cartão de Débito">Cartão de Débito</option>
+          <option value="Dinheiro">Dinheiro</option>
+        </select>
+      </div>
+
+      <div class="cart-form-field">
+        <label>Observações (Opcional)</label>
+        <textarea id="pedidoObservacoes" rows="2" placeholder="Ex: Sem cebola, troco para 50, etc."></textarea>
+      </div>
+
+      <button class="btn-send-whatsapp" onclick="finalizarPedidoWhatsApp()">
+        <span>💬</span> Concluir Pedido no WhatsApp
+      </button>
+    </div>
+  </div>
+
+  <!-- MODAL DE CARDÁPIO QUANDO O LAYOUT 1 (HUB) ESTIVER SELECIONADO -->
+  <div id="modalHubCardapio" class="modal-overlay">
+    <div class="modal-content" style="max-height:92vh;">
+      <div class="modal-header">
+        <h3>Cardápio Digital</h3>
+        <button class="close-btn" onclick="fecharCardapioHub()">&times;</button>
+      </div>
+      <div id="modalHubContentArea"></div>
     </div>
   </div>
 
@@ -493,21 +770,21 @@
     let dadosAparencia = {};
     let produtosLoja = [];
     let categoriaSelecionada = "todos";
+    let carrinho = {}; // Formato: { "prodId": { produto: obj, qtd: 1 } }
 
     function carregarDados() {
-      // 1. LOJA
+      // 1. DADOS DA LOJA
       const lojaSalva = JSON.parse(localStorage.getItem("hubLoja") || "{}");
       const fallbackLoja = (typeof loja !== 'undefined') ? loja : {};
       dadosLoja = { ...fallbackLoja, ...lojaSalva };
 
-      // 2. REDES
+      // 2. REDES SOCIAIS & LINKS
       const redesSalvas = JSON.parse(localStorage.getItem("hubRedes") || "{}");
       const fallbackContatos = fallbackLoja.contatos || {};
       dadosRedes = { ...fallbackContatos, ...redesSalvas };
 
-      // 3. APARÊNCIA & LAYOUT DO ADMINISTRADOR
+      // 3. APARÊNCIA & LAYOUT DEFINIDO PELO ADMIN
       dadosAparencia = JSON.parse(localStorage.getItem("hubAparencia") || "{}");
-
       if (dadosAparencia.principal) {
         document.documentElement.style.setProperty("--primary-color", dadosAparencia.principal);
       }
@@ -524,7 +801,7 @@
       } else {
         produtosLoja = [
           { id: "p1", nome: "Copo de Açaí 500ml", categoria: "Açaí", preco: 20.00, descricao: "Açaí batido na hora com banana e granola.", disponivel: true, destaque: true },
-          { id: "p2", nome: "Cascão Duplo", categoria: "Sorvetes", preco: 15.00, descricao: "Duas bolas de sorvete cremoso.", disponivel: true, destaque: true }
+          { id: "p2", nome: "Cascão Duplo Artesanal", categoria: "Sorvetes", preco: 15.00, descricao: "Duas bolas de sorvete premium.", disponivel: true, destaque: true }
         ];
       }
 
@@ -532,15 +809,15 @@
       aplicarLayoutDefinidoPeloAdmin();
       renderizarCategorias();
       filtrarProdutos();
+      atualizarCarrinhoVisual();
     }
 
     function popularTextosELinks() {
       const nome = dadosLoja.nome || "Carioca Ice Cream";
-      const desc = dadosLoja.descricao || "Sorvetes artesanais e sobremesas deliciosas.";
+      const desc = dadosLoja.descricao || "Sorvetes artesanais, sobremesas e lanches.";
       const enderecoPartes = [dadosLoja.endereco, dadosLoja.bairro, dadosLoja.cidade].filter(Boolean);
       const enderecoCompleto = enderecoPartes.length ? enderecoPartes.join(" • ") : "Rio de Janeiro - RJ";
 
-      // Links com fallback
       const whatsNum = (dadosLoja.whatsapp || dadosRedes.whatsapp || '5521999999999').replace(/\D/g, '');
       const whatsLink = `https://api.whatsapp.com/send?phone=${whatsNum}`;
 
@@ -573,14 +850,14 @@
       document.getElementById("btnAppGoogle").href = googleLink;
       document.getElementById("btnAppMaps").href = mapaLink;
 
-      // Logos
+      // Imagens de Logo
       if (dadosLoja.logo) {
         document.getElementById("hubLogoImg").src = dadosLoja.logo;
         document.getElementById("abasLogoImg").src = dadosLoja.logo;
         document.getElementById("appLogoImg").src = dadosLoja.logo;
       }
 
-      // Música
+      // Áudio de fundo
       if (dadosLoja.musicaUrl) {
         const audio = document.getElementById("audioFundo");
         audio.src = dadosLoja.musicaUrl;
@@ -590,7 +867,6 @@
       montarHorariosSemana();
     }
 
-    /* CONTROLE TOTAL PELO ADMINISTRADOR */
     function aplicarLayoutDefinidoPeloAdmin() {
       const modelo = dadosAparencia.modelo || "hub_classico";
 
@@ -605,7 +881,7 @@
 
       if (modelo === "hub_classico") {
         l1.style.display = "block";
-        catalogo.style.display = "none"; // Fica dentro do modal quando o cliente clicar
+        catalogo.style.display = "none"; 
       } else if (modelo === "vitrine_abas") {
         l2.style.display = "block";
         catalogo.style.display = "block";
@@ -613,6 +889,29 @@
         l3.style.display = "block";
         catalogo.style.display = "block";
       }
+    }
+
+    function alternarAudio() {
+      const audio = document.getElementById("audioFundo");
+      const lbl = document.getElementById("labelAudio");
+      if (audio.paused) {
+        audio.play().then(() => lbl.textContent = "Tocando...").catch(() => {});
+      } else {
+        audio.pause();
+        lbl.textContent = "Música Pausada";
+      }
+    }
+
+    function abrirCardapioHub() {
+      const catalogo = document.getElementById("catalogoProdutosContainer");
+      const destino = document.getElementById("modalHubContentArea");
+      destino.appendChild(catalogo);
+      catalogo.style.display = "block";
+      document.getElementById("modalHubCardapio").classList.add("active");
+    }
+
+    function fecharCardapioHub() {
+      document.getElementById("modalHubCardapio").classList.remove("active");
     }
 
     function trocarAba(index) {
@@ -659,27 +958,6 @@
       });
     }
 
-    function alternarAudio() {
-      const audio = document.getElementById("audioFundo");
-      if (audio.paused) {
-        audio.play();
-      } else {
-        audio.pause();
-      }
-    }
-
-    function abrirModalCardapioHub() {
-      const catalogo = document.getElementById("catalogoProdutosContainer");
-      const destino = document.getElementById("modalCardapioInjetado");
-      destino.appendChild(catalogo);
-      catalogo.style.display = "block";
-      document.getElementById("modalHub").classList.add("active");
-    }
-
-    function fecharModalCardapioHub() {
-      document.getElementById("modalHub").classList.remove("active");
-    }
-
     function renderizarCategorias() {
       const container = document.getElementById("listaCategoriasChips");
       container.innerHTML = "";
@@ -698,6 +976,10 @@
         };
         container.appendChild(btn);
       });
+    }
+
+    function formatarMoeda(val) {
+      return Number(val || 0).toFixed(2).replace(".", ",");
     }
 
     function filtrarProdutos() {
@@ -723,7 +1005,22 @@
 
         const imgTag = p.imagem 
           ? `<img src="${p.imagem}" alt="${p.nome}">`
-          : `<div style="width:85px;height:85px;border-radius:10px;background:#f3f4f6;display:grid;place-items:center;font-size:26px;">🍨</div>`;
+          : `<div style="width:85px;height:85px;border-radius:10px;background:#f3f4f6;display:grid;place-items:center;font-size:26px;flex-shrink:0;">🍨</div>`;
+
+        const qtdNoCarrinho = carrinho[p.id] ? carrinho[p.id].qtd : 0;
+
+        let btnAcao = "";
+        if (qtdNoCarrinho > 0) {
+          btnAcao = `
+            <div class="qty-counter">
+              <button onclick="alterarQtd('${p.id}', -1)">-</button>
+              <span>${qtdNoCarrinho}</span>
+              <button onclick="alterarQtd('${p.id}', 1)">+</button>
+            </div>
+          `;
+        } else {
+          btnAcao = `<button class="btn-add-cart" onclick="adicionarAoCarrinho('${p.id}')">+ Adicionar</button>`;
+        }
 
         card.innerHTML = `
           ${imgTag}
@@ -733,9 +1030,9 @@
               <strong style="font-size:0.95rem; display:block; margin-bottom:3px;">${p.nome}</strong>
               <small style="color:var(--text-muted); line-height:1.2; display:block;">${p.descricao || ""}</small>
             </div>
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
-              <strong style="font-size:1rem;">R$ ${Number(p.preco || 0).toFixed(2).replace(".", ",")}</strong>
-              <button class="btn-pedir" onclick="pedirWhatsApp('${p.nome}', ${p.preco})">Pedir</button>
+            <div class="product-actions-row">
+              <strong style="font-size:1rem;">R$ ${formatarMoeda(p.preco)}</strong>
+              ${btnAcao}
             </div>
           </div>
         `;
@@ -743,10 +1040,164 @@
       });
     }
 
-    function pedirWhatsApp(nome, preco) {
-      const whats = (dadosLoja.whatsapp || dadosRedes.whatsapp || '5521999999999').replace(/\D/g, '');
-      const msg = encodeURIComponent(`Olá! Gostaria de pedir: *${nome}* (R$ ${Number(preco).toFixed(2).replace(".", ",")}).`);
-      window.open(`https://api.whatsapp.com/send?phone=${whats}&text=${msg}`, '_blank');
+    /* ========================================================
+       LÓGICA DO CARRINHO DE COMPRAS
+       ======================================================== */
+    function adicionarAoCarrinho(id) {
+      const produto = produtosLoja.find(p => p.id === id);
+      if (!produto) return;
+
+      if (!carrinho[id]) {
+        carrinho[id] = { produto: produto, qtd: 1 };
+      } else {
+        carrinho[id].qtd += 1;
+      }
+
+      atualizarCarrinhoVisual();
+      filtrarProdutos();
+    }
+
+    function alterarQtd(id, delta) {
+      if (!carrinho[id]) return;
+      carrinho[id].qtd += delta;
+
+      if (carrinho[id].qtd <= 0) {
+        delete carrinho[id];
+      }
+
+      atualizarCarrinhoVisual();
+      filtrarProdutos();
+      renderizarItensModalCarrinho();
+    }
+
+    function atualizarCarrinhoVisual() {
+      let totalQtd = 0;
+      let totalValor = 0;
+
+      Object.values(carrinho).forEach(item => {
+        totalQtd += item.qtd;
+        totalValor += (item.qtd * item.produto.preco);
+      });
+
+      const barra = document.getElementById("cartFloatingBar");
+      if (totalQtd > 0) {
+        barra.style.display = "flex";
+        document.getElementById("cartTotalItems").textContent = totalQtd;
+        document.getElementById("cartTotalPrice").textContent = `R$ ${formatarMoeda(totalValor)}`;
+        document.getElementById("cartModalTotal").textContent = `R$ ${formatarMoeda(totalValor)}`;
+      } else {
+        barra.style.display = "none";
+        fecharModalCarrinho();
+      }
+    }
+
+    function abrirModalCarrinho() {
+      renderizarItensModalCarrinho();
+      document.getElementById("modalCarrinho").classList.add("active");
+    }
+
+    function fecharModalCarrinho() {
+      document.getElementById("modalCarrinho").classList.remove("active");
+    }
+
+    function renderizarItensModalCarrinho() {
+      const container = document.getElementById("cartItemsList");
+      container.innerHTML = "";
+
+      const chaves = Object.keys(carrinho);
+      if (chaves.length === 0) {
+        container.innerHTML = `<p style="text-align:center; color:#6b7280; padding:20px;">Sua sacola está vazia.</p>`;
+        return;
+      }
+
+      chaves.forEach(id => {
+        const item = carrinho[id];
+        const subtotal = item.qtd * item.produto.preco;
+
+        const row = document.createElement("div");
+        row.className = "cart-item-row";
+        row.innerHTML = `
+          <div class="cart-item-info">
+            <strong style="display:block; font-size:0.95rem;">${item.produto.nome}</strong>
+            <small style="color:var(--text-muted);">R$ ${formatarMoeda(item.produto.preco)} cada • <b>Subtotal: R$ ${formatarMoeda(subtotal)}</b></small>
+          </div>
+          <div class="qty-counter">
+            <button onclick="alterarQtd('${id}', -1)">-</button>
+            <span>${item.qtd}</span>
+            <button onclick="alterarQtd('${id}', 1)">+</button>
+          </div>
+        `;
+        container.appendChild(row);
+      });
+    }
+
+    function alternarCampoEndereco() {
+      const tipo = document.getElementById("pedidoTipo").value;
+      const box = document.getElementById("campoEnderecoBox");
+      if (tipo.includes("Entrega")) {
+        box.style.display = "flex";
+      } else {
+        box.style.display = "none";
+      }
+    }
+
+    /* FINALIZAR PEDIDO FORMATADO PARA O WHATSAPP */
+    function finalizarPedidoWhatsApp() {
+      const chaves = Object.keys(carrinho);
+      if (chaves.length === 0) {
+        alert("Adicione itens à sua sacola antes de continuar.");
+        return;
+      }
+
+      const nomeCliente = document.getElementById("pedidoNomeCliente").value.trim();
+      if (!nomeCliente) {
+        alert("Por favor, preencha o seu nome.");
+        document.getElementById("pedidoNomeCliente").focus();
+        return;
+      }
+
+      const tipoPedido = document.getElementById("pedidoTipo").value;
+      const endereco = document.getElementById("pedidoEndereco").value.trim();
+
+      if (tipoPedido.includes("Entrega") && !endereco) {
+        alert("Por favor, informe o endereço para entrega.");
+        document.getElementById("pedidoEndereco").focus();
+        return;
+      }
+
+      const pagamento = document.getElementById("pedidoPagamento").value;
+      const obs = document.getElementById("pedidoObservacoes").value.trim();
+
+      let totalGeral = 0;
+      let resumoItens = "";
+
+      chaves.forEach(id => {
+        const item = carrinho[id];
+        const sub = item.qtd * item.produto.preco;
+        totalGeral += sub;
+        resumoItens += `▪️ *${item.qtd}x* ${item.produto.nome} — R$ ${formatarMoeda(sub)}\n`;
+      });
+
+      const nomeLoja = dadosLoja.nome || "Carioca Ice Cream";
+
+      let mensagem = `🍧 *NOVO PEDIDO - ${nomeLoja.toUpperCase()}* 🍧\n\n`;
+      mensagem += `👤 *Cliente:* ${nomeCliente}\n`;
+      mensagem += `🛵 *Tipo:* ${tipoPedido}\n`;
+      if (tipoPedido.includes("Entrega")) {
+        mensagem += `📍 *Endereço:* ${endereco}\n`;
+      }
+      mensagem += `💳 *Pagamento:* ${pagamento}\n`;
+      if (obs) {
+        mensagem += `📝 *Observação:* ${obs}\n`;
+      }
+      mensagem += `\n🛒 *ITENS DO PEDIDO:*\n${resumoItens}\n`;
+      mensagem += `💰 *TOTAL A PAGAR:* R$ ${formatarMoeda(totalGeral)}\n\n`;
+      mensagem += `Por favor, confirme a disponibilidade e o tempo estimado! 😊`;
+
+      const whatsNum = (dadosLoja.whatsapp || dadosRedes.whatsapp || '5521999999999').replace(/\D/g, '');
+      const urlWhats = `https://api.whatsapp.com/send?phone=${whatsNum}&text=${encodeURIComponent(mensagem)}`;
+
+      window.open(urlWhats, '_blank');
     }
 
     document.addEventListener("DOMContentLoaded", carregarDados);
