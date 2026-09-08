@@ -450,13 +450,6 @@
             cursor: pointer;
         }
 
-        .horario-ajuda {
-            display: block;
-            margin-top: 8px;
-            color: #6b7280;
-            font-size: 12px;
-        }
-
         /* CATEGORIAS */
         .category-list {
             display: grid;
@@ -611,7 +604,7 @@
             line-height: 1;
         }
 
-        /* CONFIGURAÇÕES & WHATSAPP CARDS */
+        /* CONFIGURAÇÕES */
         .settings-grid {
             display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -649,23 +642,6 @@
             align-items: center;
             justify-content: center;
             font-size: 20px;
-        }
-
-        .settings-summary {
-            grid-column: 2;
-            display: grid;
-            gap: 7px;
-            margin-top: 5px;
-        }
-
-        .settings-summary span {
-            display: flex;
-            justify-content: space-between;
-            gap: 20px;
-            font-size: 13px;
-            color: #6b7280;
-            border-bottom: 1px solid #f3f4f6;
-            padding-bottom: 6px;
         }
 
         .setting-danger {
@@ -971,7 +947,7 @@
                         <div class="store-logo-row">
                             <img id="lojaLogoPreview" class="store-logo-preview" alt="Pré-visualização da logo">
                             <div class="store-logo-info">
-                                <input id="lojaLogoArquivo" type="file" accept="image/png,image/jpeg,image/webp">
+                                <input id="lojaLogoArquivo" type="file" accept="image/png,image/jpeg,image/webp" onchange="selecionarLogoLoja(event)">
                                 <small>Escolha o arquivo do logo. Ele será redimensionado e salvo no navegador.</small>
                             </div>
                         </div>
@@ -1050,9 +1026,7 @@
                         <img id="lojaPreviewLogoFinal" class="store-preview-logo" alt="Logo" style="display:none;">
                         <div>
                             <strong id="lojaPreviewNome">Carioca Ice Cream</strong>
-                            <span id="lojaPreviewEndereco">Endereço não informado</span>
-                            <span id="lojaPreviewDias">Todos os dias</span>
-                            <span id="lojaPreviewHorario">13h às 21h</span>
+                            <span id="lojaPreviewEndereco" style="display:block; font-size:13px; color:#6b7280;">Endereço não informado</span>
                         </div>
                     </div>
                 </div>
@@ -1125,18 +1099,18 @@
             </div>
         </section>
 
-        <!-- REDES SOCIAIS -->
+        <!-- REDES SOCIAIS & LOCALIZAÇÃO -->
         <section id="redes" class="section">
             <div class="card">
                 <div class="card-header">
-                    <h3>Redes Sociais</h3>
-                    <p>Configure os links oficiais da sua loja.</p>
+                    <h3>Redes Sociais & Links Externos</h3>
+                    <p>Configure os links oficiais da sua loja para sincronizar com o cardápio.</p>
                 </div>
 
                 <div class="form-grid">
                     <div class="field">
                         <label>Instagram</label>
-                        <input id="instagram" type="text" placeholder="@sualoja">
+                        <input id="instagram" type="text" placeholder="@sualoja ou link completo">
                     </div>
                     <div class="field">
                         <label>Facebook</label>
@@ -1149,6 +1123,14 @@
                     <div class="field">
                         <label>WhatsApp de Pedidos</label>
                         <input id="whatsappRede" type="text" placeholder="5521999999999">
+                    </div>
+                    <div class="field">
+                        <label>Link de Avaliações no Google</label>
+                        <input id="googleAvaliacoes" type="text" placeholder="https://g.page/r/...">
+                    </div>
+                    <div class="field">
+                        <label>Link do Google Maps (Como Chegar)</label>
+                        <input id="linkMapa" type="text" placeholder="https://maps.app.goo.gl/...">
                     </div>
                 </div>
 
@@ -1364,6 +1346,7 @@
     let produtosPainel = JSON.parse(localStorage.getItem("hubProdutos")) || PRODUTOS_PADRAO;
     let novaImagemProduto = "";
     let produtoEditando = null;
+    window.logoLojaAtual = "";
 
     /* NAVEGAÇÃO ENTRE ABAS */
     const botoesMenu = document.querySelectorAll(".menu-btn");
@@ -1427,9 +1410,7 @@
                     </div>
                 </div>
                 <div class="product-actions">
-                    <button class="btn btn-whatsapp" onclick="enviarProdutoIndividual(${indexOriginal})" title="Enviar este item no WhatsApp">
-                        Enviar no Whats
-                    </button>
+                    <button class="btn btn-whatsapp" onclick="enviarProdutoIndividual(${indexOriginal})" title="Enviar no WhatsApp">Whats</button>
                     <button class="btn btn-secondary" onclick="editarProduto(${indexOriginal})">Editar</button>
                     <button class="btn ${produto.disponivel ? 'btn-danger' : 'btn-success'}" onclick="alternarDisponibilidade(${indexOriginal})">
                         ${produto.disponivel ? 'Pausar' : 'Ativar'}
@@ -1572,6 +1553,36 @@
         reader.readAsDataURL(file);
     }
 
+    /* GESTÃO DE LOGO */
+    function selecionarLogoLoja(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = function(evt) {
+            const img = new Image();
+            img.onload = function() {
+                const canvas = document.createElement("canvas");
+                const max = 300;
+                let w = img.width, h = img.height;
+                if (w > max || h > max) {
+                    const ratio = Math.min(max / w, max / h);
+                    w = Math.round(w * ratio);
+                    h = Math.round(h * ratio);
+                }
+                canvas.width = w;
+                canvas.height = h;
+                canvas.getContext("2d").drawImage(img, 0, 0, w, h);
+                window.logoLojaAtual = canvas.toDataURL("image/png", 0.9);
+                const preview = document.getElementById("lojaLogoPreview");
+                preview.src = window.logoLojaAtual;
+                preview.style.display = "block";
+            };
+            img.src = evt.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+
     /* INTEGRAÇÕES COM O WHATSAPP */
     function obterNomeLoja() {
         const loja = JSON.parse(localStorage.getItem("hubLoja") || "{}");
@@ -1638,6 +1649,15 @@
     const DIAS = ["Segunda", "Terca", "Quarta", "Quinta", "Sexta", "Sabado", "Domingo"];
 
     function salvarLoja() {
+        const horarios = {};
+        DIAS.forEach(d => {
+            horarios[d] = {
+                aberto: document.getElementById("dia" + d).checked,
+                abre: document.getElementById("abre" + d).value,
+                fecha: document.getElementById("fecha" + d).value
+            };
+        });
+
         const dados = {
             nome: document.getElementById("lojaNome").value.trim(),
             telefone: document.getElementById("lojaTelefone").value.trim(),
@@ -1648,14 +1668,15 @@
             estado: document.getElementById("lojaEstado").value.trim().toUpperCase(),
             cep: document.getElementById("lojaCep").value.trim(),
             descricao: document.getElementById("lojaDescricao").value.trim(),
-            logo: window.logoLojaAtual || ""
+            logo: window.logoLojaAtual || "",
+            horarios: horarios
         };
 
         if (!dados.nome) { alert("Informe o nome do seu estabelecimento."); return; }
         localStorage.setItem("hubLoja", JSON.stringify(dados));
         atualizarVisualizacaoLoja(dados);
         document.getElementById("dashboardNomeLoja").textContent = dados.nome;
-        alert("Dados da loja atualizados!");
+        alert("Dados da loja salvos com sucesso!");
     }
 
     function carregarDadosLoja() {
@@ -1670,6 +1691,17 @@
         document.getElementById("lojaCep").value = salvo.cep || "";
         document.getElementById("lojaDescricao").value = salvo.descricao || "";
         window.logoLojaAtual = salvo.logo || "";
+
+        if (salvo.horarios) {
+            DIAS.forEach(d => {
+                if (salvo.horarios[d]) {
+                    document.getElementById("dia" + d).checked = salvo.horarios[d].aberto;
+                    document.getElementById("abre" + d).value = salvo.horarios[d].abre || "13:00";
+                    document.getElementById("fecha" + d).value = salvo.horarios[d].fecha || "21:00";
+                }
+            });
+        }
+
         atualizarVisualizacaoLoja(salvo);
     }
 
@@ -1681,7 +1713,34 @@
             const imgPreview = document.getElementById("lojaPreviewLogoFinal");
             imgPreview.src = dados.logo;
             imgPreview.style.display = "block";
+            const topPreview = document.getElementById("lojaLogoPreview");
+            topPreview.src = dados.logo;
+            topPreview.style.display = "block";
         }
+    }
+
+    /* REDES SOCIAIS & LOCALIZAÇÃO */
+    function salvarRedes() {
+        const redes = {
+            instagram: document.getElementById("instagram").value.trim(),
+            facebook: document.getElementById("facebook").value.trim(),
+            tiktok: document.getElementById("tiktok").value.trim(),
+            whatsapp: document.getElementById("whatsappRede").value.trim(),
+            googleAvaliacoes: document.getElementById("googleAvaliacoes").value.trim(),
+            mapa: document.getElementById("linkMapa").value.trim()
+        };
+        localStorage.setItem("hubRedes", JSON.stringify(redes));
+        alert("Redes sociais e links salvos com sucesso!");
+    }
+
+    function carregarRedes() {
+        const redes = JSON.parse(localStorage.getItem("hubRedes") || "{}");
+        if (redes.instagram) document.getElementById("instagram").value = redes.instagram;
+        if (redes.facebook) document.getElementById("facebook").value = redes.facebook;
+        if (redes.tiktok) document.getElementById("tiktok").value = redes.tiktok;
+        if (redes.whatsapp) document.getElementById("whatsappRede").value = redes.whatsapp;
+        if (redes.googleAvaliacoes) document.getElementById("googleAvaliacoes").value = redes.googleAvaliacoes;
+        if (redes.mapa) document.getElementById("linkMapa").value = redes.mapa;
     }
 
     /* CATEGORIAS & DASHBOARD */
@@ -1709,18 +1768,6 @@
         document.getElementById("totalCategorias").textContent = new Set(produtosPainel.map(p => p.categoria).filter(Boolean)).size;
         document.getElementById("produtosAtivos").textContent = produtosPainel.filter(p => p.disponivel !== false).length;
         document.getElementById("totalDestaques").textContent = produtosPainel.filter(p => p.destaque).length;
-    }
-
-    /* REDES SOCIAIS */
-    function salvarRedes() {
-        const redes = {
-            instagram: document.getElementById("instagram").value,
-            facebook: document.getElementById("facebook").value,
-            tiktok: document.getElementById("tiktok").value,
-            whatsapp: document.getElementById("whatsappRede").value
-        };
-        localStorage.setItem("hubRedes", JSON.stringify(redes));
-        alert("Redes sociais salvas com sucesso!");
     }
 
     /* APARÊNCIA */
@@ -1782,7 +1829,7 @@
                 if (dados.loja) localStorage.setItem("hubLoja", JSON.stringify(dados.loja));
                 if (dados.redes) localStorage.setItem("hubRedes", JSON.stringify(dados.redes));
                 if (dados.aparencia) localStorage.setItem("hubAparencia", JSON.stringify(dados.aparencia));
-                alert("Dados restaurados! Recarregando página...");
+                alert("Dados restaurados com sucesso!");
                 location.reload();
             } catch (err) {
                 alert("Arquivo de backup inválido.");
@@ -1801,11 +1848,11 @@
     /* EVENTOS INICIAIS */
     document.addEventListener("DOMContentLoaded", () => {
         carregarDadosLoja();
+        carregarRedes();
         atualizarDashboard();
         renderizarProdutos();
         renderizarCategorias();
 
-        // Sincronização de cores
         const cp = document.getElementById("aparenciaCorPrincipal");
         const cpHex = document.getElementById("aparenciaCorPrincipalHex");
         const cs = document.getElementById("aparenciaCorSecundaria");
