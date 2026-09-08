@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cardápio & Pedidos Online</title>
+  <title>Cardápio & Vitrine Digital</title>
 
   <!-- Fallbacks dos arquivos locais existentes -->
   <script src="loja.js"></script>
@@ -23,12 +23,7 @@
       --whatsapp-green: #25D366;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      -webkit-tap-highlight-color: transparent;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -38,533 +33,137 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding-bottom: 110px; /* Espaço para a barra flutuante do carrinho */
+      padding-bottom: 120px;
     }
 
-    .main-wrapper {
-      width: 100%;
-      max-width: 600px;
-      padding: 16px;
-    }
+    .main-wrapper { width: 100%; max-width: 600px; padding: 16px; }
 
-    /* ========================================================
-       MODELO 1: HUB CLÁSSICO / LINKTREE (Centralizado)
-       ======================================================== */
-    .layout-hub-classico {
-      text-align: center;
-      margin-bottom: 24px;
-    }
-
-    .hub-header {
-      margin-bottom: 20px;
-    }
-
+    /* LAYOUT 1: HUB CLÁSSICO */
+    .layout-hub-classico { text-align: center; margin-bottom: 24px; }
+    .hub-header { margin-bottom: 20px; }
     .hub-logo {
-      width: 105px;
-      height: 105px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin: 0 auto 12px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      border: 3px solid var(--primary-color);
-      background: white;
+      width: 105px; height: 105px; border-radius: 50%; object-fit: cover;
+      margin: 0 auto 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      border: 3px solid var(--primary-color); background: white;
     }
-
-    .hub-title {
-      font-size: 1.45rem;
-      font-weight: 800;
-      margin-bottom: 6px;
-    }
-
-    .hub-desc {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      line-height: 1.4;
-      margin-bottom: 16px;
-    }
+    .hub-title { font-size: 1.45rem; font-weight: 800; margin-bottom: 6px; }
+    .hub-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.4; margin-bottom: 16px; }
 
     .music-player-box {
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 30px;
-      padding: 8px 16px;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 20px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      background: var(--card-bg); border: 1px solid var(--border-color);
+      border-radius: 30px; padding: 8px 16px; display: inline-flex;
+      align-items: center; gap: 10px; margin-bottom: 20px;
     }
-
     .music-btn {
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
-      border: none;
-      background: var(--primary-color);
-      cursor: pointer;
-      display: grid;
-      place-items: center;
-      font-size: 14px;
+      width: 34px; height: 34px; border-radius: 50%; border: none;
+      background: var(--primary-color); cursor: pointer; display: grid; place-items: center;
     }
 
-    .hub-buttons-list {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
+    .hub-buttons-list { display: flex; flex-direction: column; gap: 12px; }
     .hub-btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      background: var(--card-bg);
-      border: 2px solid var(--primary-color);
-      color: var(--text-color);
-      text-decoration: none;
-      padding: 15px 20px;
-      border-radius: 14px;
-      font-weight: 700;
-      font-size: 1rem;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.03);
-      cursor: pointer;
-      transition: transform .15s;
+      display: flex; align-items: center; justify-content: center; gap: 12px;
+      background: var(--card-bg); border: 2px solid var(--primary-color);
+      color: var(--text-color); text-decoration: none; padding: 15px 20px;
+      border-radius: 14px; font-weight: 700; font-size: 1rem; cursor: pointer;
     }
+    .hub-btn.highlight { background: var(--primary-color); color: #111827; }
 
-    .hub-btn:active {
-      transform: scale(0.98);
-    }
-
-    .hub-btn.highlight {
-      background: var(--primary-color);
-      color: #111827;
-    }
-
-    /* ========================================================
-       MODELO 2: VITRINE COM ABAS (Cardápio / Info / Horários)
-       ======================================================== */
-    .layout-vitrine-abas {
-      margin-bottom: 20px;
-    }
-
+    /* LAYOUT 2: VITRINE COM ABAS */
     .topo-bar {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      margin-bottom: 16px;
-      background: var(--card-bg);
-      padding: 16px;
-      border-radius: 16px;
-      border: 1px solid var(--border-color);
+      display: flex; align-items: center; gap: 14px; margin-bottom: 16px;
+      background: var(--card-bg); padding: 16px; border-radius: 16px; border: 1px solid var(--border-color);
     }
-
-    .topo-logo {
-      width: 60px;
-      height: 60px;
-      border-radius: 12px;
-      object-fit: cover;
-      background: #eee;
-    }
-
+    .topo-logo { width: 60px; height: 60px; border-radius: 12px; object-fit: cover; }
     .abas-nav {
-      display: flex;
-      background: var(--card-bg);
-      border-radius: 12px;
-      border: 1px solid var(--border-color);
-      overflow: hidden;
-      margin-bottom: 16px;
+      display: flex; background: var(--card-bg); border-radius: 12px;
+      border: 1px solid var(--border-color); overflow: hidden; margin-bottom: 16px;
     }
-
     .aba-btn {
-      flex: 1;
-      border: 0;
-      background: transparent;
-      padding: 12px;
-      font-weight: bold;
-      font-size: 0.85rem;
-      cursor: pointer;
-      color: var(--text-muted);
-      border-bottom: 3px solid transparent;
+      flex: 1; border: 0; background: transparent; padding: 12px;
+      font-weight: bold; font-size: 0.85rem; cursor: pointer; color: var(--text-muted);
     }
+    .aba-btn.active { color: var(--secondary-color); background: #faf5ff; border-bottom: 3px solid var(--secondary-color); }
+    .box-aba-conteudo { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 14px; padding: 18px; margin-bottom: 16px; }
 
-    .aba-btn.active {
-      color: var(--secondary-color);
-      border-bottom-color: var(--secondary-color);
-      background: #faf5ff;
-    }
-
-    .box-aba-conteudo {
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 14px;
-      padding: 18px;
-      margin-bottom: 16px;
-    }
-
-    /* ========================================================
-       MODELO 3: APP DELIVERY / CATÁLOGO RÁPIDO
-       ======================================================== */
-    .layout-app-delivery {
-      margin-bottom: 16px;
-    }
-
-    .app-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 16px;
-    }
-
-    .app-brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .app-brand img {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      object-fit: cover;
-      background: #eee;
-    }
-
-    .app-quick-actions {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 8px;
-      margin-bottom: 16px;
-    }
-
+    /* LAYOUT 3: APP DELIVERY */
+    .app-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+    .app-brand { display: flex; align-items: center; gap: 12px; }
+    .app-brand img { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; }
+    .app-quick-actions { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 16px; }
     .app-action-chip {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 4px;
-      padding: 10px 4px;
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      text-decoration: none;
-      color: var(--text-color);
-      font-size: 0.72rem;
-      font-weight: bold;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 4px; padding: 10px 4px; background: var(--card-bg); border: 1px solid var(--border-color);
+      border-radius: 12px; text-decoration: none; color: var(--text-color); font-size: 0.72rem; font-weight: bold;
     }
 
-    /* ========================================================
-       COMPONENTES COMPARTILHADOS: CATÁLOGO DE PRODUTOS
-       ======================================================== */
-    .search-box {
-      width: 100%;
-      margin-bottom: 14px;
-    }
-
+    /* CATÁLOGO E LISTA */
+    .search-box { width: 100%; margin-bottom: 14px; }
     .search-box input {
-      width: 100%;
-      padding: 12px 16px;
-      border-radius: 12px;
-      border: 1px solid var(--border-color);
-      font-size: 0.95rem;
-      outline: none;
-      background: var(--card-bg);
+      width: 100%; padding: 12px 16px; border-radius: 12px;
+      border: 1px solid var(--border-color); font-size: 0.95rem; outline: none; background: var(--card-bg);
     }
-
-    .search-box input:focus {
-      border-color: var(--secondary-color);
-    }
-
-    .chips-bar {
-      display: flex;
-      gap: 8px;
-      overflow-x: auto;
-      padding-bottom: 10px;
-      margin-bottom: 16px;
-      scrollbar-width: none;
-    }
-
+    .chips-bar { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 16px; }
     .chips-bar::-webkit-scrollbar { display: none; }
-
     .chip-item {
-      white-space: nowrap;
-      padding: 7px 14px;
-      border-radius: 20px;
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      font-size: 0.8rem;
-      font-weight: bold;
-      cursor: pointer;
+      white-space: nowrap; padding: 7px 14px; border-radius: 20px;
+      background: var(--card-bg); border: 1px solid var(--border-color);
+      font-size: 0.8rem; font-weight: bold; cursor: pointer;
     }
+    .chip-item.active { background: var(--secondary-color); color: white; border-color: var(--secondary-color); }
 
-    .chip-item.active {
-      background: var(--secondary-color);
-      color: white;
-      border-color: var(--secondary-color);
-    }
-
-    .products-list {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
+    .products-list { display: flex; flex-direction: column; gap: 12px; }
     .product-card {
-      display: flex;
-      background: var(--card-bg);
-      border-radius: 14px;
-      border: 1px solid var(--border-color);
-      padding: 12px;
-      gap: 12px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+      display: flex; background: var(--card-bg); border-radius: 14px;
+      border: 1px solid var(--border-color); padding: 12px; gap: 12px;
     }
+    .product-card img { width: 85px; height: 85px; border-radius: 10px; object-fit: cover; background: #eee; flex-shrink: 0; }
+    .product-card-body { flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+    .product-actions-row { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; }
 
-    .product-card img {
-      width: 85px;
-      height: 85px;
-      border-radius: 10px;
-      object-fit: cover;
-      background: #eee;
-      flex-shrink: 0;
-    }
-
-    .product-card-body {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .badge-destaque {
-      font-size: 0.65rem;
-      background: #fef08a;
-      color: #854d0e;
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-weight: bold;
-      width: fit-content;
-      margin-bottom: 4px;
-    }
-
-    .product-actions-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 8px;
-    }
-
-    /* CONTROLE DE QUANTIDADE / BOTÃO ADICIONAR */
     .btn-add-cart {
-      background: var(--primary-color);
-      color: #111827;
-      border: none;
-      border-radius: 8px;
-      padding: 7px 14px;
-      font-weight: bold;
-      font-size: 0.82rem;
-      cursor: pointer;
+      background: var(--primary-color); color: #111827; border: none;
+      border-radius: 8px; padding: 7px 14px; font-weight: bold; font-size: 0.82rem; cursor: pointer;
     }
+    .qty-counter { display: flex; align-items: center; gap: 8px; background: #f3f4f6; border-radius: 8px; padding: 3px 6px; }
+    .qty-counter button { width: 26px; height: 26px; border: none; border-radius: 6px; background: white; font-weight: bold; cursor: pointer; }
+    .qty-counter span { font-weight: bold; font-size: 0.9rem; min-width: 16px; text-align: center; }
 
-    .qty-counter {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      background: #f3f4f6;
-      border-radius: 8px;
-      padding: 3px 6px;
-    }
-
-    .qty-counter button {
-      width: 26px;
-      height: 26px;
-      border: none;
-      border-radius: 6px;
-      background: white;
-      font-weight: bold;
-      font-size: 1rem;
-      cursor: pointer;
-      display: grid;
-      place-items: center;
-    }
-
-    .qty-counter span {
-      font-weight: bold;
-      font-size: 0.9rem;
-      min-width: 16px;
-      text-align: center;
-    }
-
-    /* ========================================================
-       BARRA FLUTUANTE DO CARRINHO (RODAPÉ)
-       ======================================================== */
+    /* BARRA FLUTUANTE DO CARRINHO (Z-INDEX ALTO PARA SEMPRE FICAR EM CIMA DO MODAL) */
     .cart-floating-bar {
-      display: none;
-      position: fixed;
-      bottom: 16px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: calc(100% - 32px);
-      max-width: 580px;
-      background: #111827;
-      color: white;
-      border-radius: 16px;
-      padding: 14px 20px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-      z-index: 1000;
-      justify-content: space-between;
-      align-items: center;
-      cursor: pointer;
-      animation: slideUp .2s ease;
+      display: none; position: fixed; bottom: 16px; left: 50%;
+      transform: translateX(-50%); width: calc(100% - 32px); max-width: 580px;
+      background: #111827; color: white; border-radius: 16px; padding: 14px 20px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.35); z-index: 1200; /* ACIMA DE TODOS OS MODAIS */
+      justify-content: space-between; align-items: center; cursor: pointer;
     }
-
-    @keyframes slideUp {
-      from { transform: translate(-50%, 40px); opacity: 0; }
-      to { transform: translate(-50%, 0); opacity: 1; }
-    }
-
-    .cart-floating-left {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
     .cart-floating-badge {
-      background: var(--primary-color);
-      color: #111827;
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      font-weight: 800;
-      font-size: 0.85rem;
+      background: var(--primary-color); color: #111827; width: 28px; height: 28px;
+      border-radius: 50%; display: grid; place-items: center; font-weight: 800;
     }
 
-    .cart-floating-right {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-weight: 700;
-      font-size: 0.95rem;
-      color: var(--primary-color);
-    }
-
-    /* ========================================================
-       MODAIS: CARRINHO & MODAL DE CARDÁPIO DO HUB
-       ======================================================== */
+    /* MODAIS */
     .modal-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.65);
-      z-index: 1100;
-      padding: 16px;
-      align-items: flex-end; /* Abre no estilo drawer móvel */
-      justify-content: center;
+      display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.65);
+      z-index: 1100; padding: 16px; align-items: flex-end; justify-content: center;
     }
-
-    .modal-overlay.active {
-      display: flex;
-    }
-
+    .modal-overlay.active { display: flex; }
     .modal-content {
-      background: white;
-      width: 100%;
-      max-width: 540px;
-      max-height: 88vh;
-      border-radius: 20px 20px 14px 14px;
-      padding: 20px;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      animation: slideDrawer .2s ease;
+      background: white; width: 100%; max-width: 540px; max-height: 88vh;
+      border-radius: 20px 20px 14px 14px; padding: 20px; overflow-y: auto;
+      display: flex; flex-direction: column;
     }
+    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+    .close-btn { width: 32px; height: 32px; border-radius: 50%; border: none; background: #f3f4f6; font-weight: bold; cursor: pointer; }
 
-    @keyframes slideDrawer {
-      from { transform: translateY(50px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-bottom: 14px;
-      border-bottom: 1px solid var(--border-color);
-      margin-bottom: 14px;
-    }
-
-    .modal-header h3 {
-      font-size: 1.25rem;
-    }
-
-    .close-btn {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      border: none;
-      background: #f3f4f6;
-      font-weight: bold;
-      font-size: 1.1rem;
-      cursor: pointer;
-    }
-
-    /* FORMULÁRIO DENTRO DO CARRINHO */
-    .cart-items-box {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin-bottom: 18px;
-    }
-
-    .cart-item-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-bottom: 10px;
-      border-bottom: 1px solid #f3f4f6;
-    }
-
-    .cart-item-info {
-      flex: 1;
-      padding-right: 10px;
-    }
-
-    .cart-form-field {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      margin-bottom: 12px;
-    }
-
-    .cart-form-field label {
-      font-size: 0.8rem;
-      font-weight: 700;
-      color: var(--text-muted);
-    }
-
+    .cart-item-row { display: flex; justify-content: space-between; align-items: center; padding-bottom: 10px; border-bottom: 1px solid #f3f4f6; margin-bottom: 10px; }
+    .cart-form-field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
+    .cart-form-field label { font-size: 0.8rem; font-weight: 700; color: var(--text-muted); }
     .cart-form-field input, .cart-form-field select, .cart-form-field textarea {
-      width: 100%;
-      border: 1px solid var(--border-color);
-      border-radius: 10px;
-      padding: 10px 12px;
-      font-size: 0.9rem;
-      outline: none;
+      width: 100%; border: 1px solid var(--border-color); border-radius: 10px; padding: 10px 12px; outline: none;
     }
-
     .btn-send-whatsapp {
-      background: var(--whatsapp-green);
-      color: white;
-      border: none;
-      border-radius: 12px;
-      padding: 15px;
-      font-size: 1rem;
-      font-weight: 800;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      margin-top: 15px;
+      background: var(--whatsapp-green); color: white; border: none; border-radius: 12px;
+      padding: 15px; font-size: 1rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px;
     }
   </style>
 </head>
@@ -573,16 +172,13 @@
 
   <div class="main-wrapper">
 
-    <!-- ========================================================
-         1. LAYOUT 1: HUB CLÁSSICO / LINKTREE
-         ======================================================== -->
+    <!-- 1. HUB CLÁSSICO -->
     <div id="layoutHubClassico" class="layout-hub-classico" style="display:none;">
       <div class="hub-header">
-        <img id="hubLogoImg" class="hub-logo" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100'><circle cx='50' cy='50' r='50' fill='%23FFD400'/><text x='50%25' y='55%25' font-size='26' font-family='Arial' font-weight='bold' text-anchor='middle' fill='%23000' dy='.3em'>HB</text></svg>" alt="Logo">
+        <img id="hubLogoImg" class="hub-logo" src="" alt="Logo">
         <h1 id="hubNomeLoja" class="hub-title">Carioca Ice Cream</h1>
-        <p id="hubDescricaoLoja" class="hub-desc">Sorvetes artesanais, açaí no copo e sobremesas.</p>
+        <p id="hubDescricaoLoja" class="hub-desc">Sorvetes artesanais e sobremesas deliciosas.</p>
 
-        <!-- Player de Áudio -->
         <div id="hubMusicBox" class="music-player-box" style="display:none;">
           <button class="music-btn" onclick="alternarAudio()">🎵</button>
           <span id="labelAudio" style="font-size: 0.8rem; font-weight: bold;">Música de Fundo</span>
@@ -594,14 +190,17 @@
         <button class="hub-btn highlight" onclick="abrirCardapioHub()">
           <span>🍨</span> Ver Cardápio & Fazer Pedido
         </button>
+        <button class="hub-btn" onclick="abrirModalCompartilhar()">
+          <span>📲</span> Compartilhar / QR Code
+        </button>
         <a id="btnHubWhats" href="#" target="_blank" class="hub-btn">
-          <span>💬</span> WhatsApp Direto
+          <span>💬</span> Falar no WhatsApp
         </a>
         <a id="btnHubInsta" href="#" target="_blank" class="hub-btn">
-          <span>📸</span> Siga no Instagram
+          <span>📸</span> Instagram da Loja
         </a>
         <a id="btnHubGoogle" href="#" target="_blank" class="hub-btn">
-          <span>⭐</span> Avaliações no Google
+          <span>⭐</span> Avaliações Google
         </a>
         <a id="btnHubMaps" href="#" target="_blank" class="hub-btn">
           <span>📍</span> Como Chegar (Localização)
@@ -609,40 +208,30 @@
       </div>
     </div>
 
-    <!-- ========================================================
-         2. LAYOUT 2: VITRINE COM ABAS
-         ======================================================== -->
+    <!-- 2. VITRINE COM ABAS -->
     <div id="layoutVitrineAbas" class="layout-vitrine-abas" style="display:none;">
       <div class="topo-bar">
         <img id="abasLogoImg" class="topo-logo" src="" alt="Logo">
-        <div>
+        <div style="flex:1;">
           <h2 id="abasNomeLoja" style="font-size:1.15rem;">Carioca Ice Cream</h2>
           <small id="abasEnderecoLoja" style="color:var(--text-muted);">Rio de Janeiro - RJ</small>
         </div>
+        <button class="btn-add-cart" onclick="abrirModalCompartilhar()" style="padding:6px 10px;">📲 QR</button>
       </div>
 
       <div class="abas-nav">
         <button class="aba-btn active" onclick="trocarAba(0)">🍽️ Cardápio</button>
         <button class="aba-btn" onclick="trocarAba(1)">ℹ️ Informações</button>
-        <button class="aba-btn" onclick="trocarAba(2)">🕒 Horários</button>
       </div>
 
       <div id="abaConteudoInfo" class="box-aba-conteudo" style="display:none;">
-        <p style="margin-bottom:12px;"><strong id="infoSobre">Sorvetes e sobremesas finas.</strong></p>
-        <p style="margin-bottom:8px;">📍 <strong>Endereço:</strong> <span id="infoEndereco">Endereço não informado</span></p>
-        <p style="margin-bottom:8px;">📞 <strong>Telefone:</strong> <span id="infoTelefone">Não informado</span></p>
-        <p style="margin-bottom:8px;">💬 <strong>WhatsApp:</strong> <span id="infoWhatsapp">Não informado</span></p>
-      </div>
-
-      <div id="abaConteudoHorarios" class="box-aba-conteudo" style="display:none;">
-        <h4 style="margin-bottom:12px;">Horários Semanais</h4>
-        <div id="listaHorariosAbas" style="display:grid; gap:8px; font-size:0.9rem;"></div>
+        <p style="margin-bottom:8px;"><strong id="infoSobre"></strong></p>
+        <p style="margin-bottom:6px;">📍 <strong>Endereço:</strong> <span id="infoEndereco"></span></p>
+        <p style="margin-bottom:6px;">📞 <strong>Telefone:</strong> <span id="infoTelefone"></span></p>
       </div>
     </div>
 
-    <!-- ========================================================
-         3. LAYOUT 3: APP DELIVERY / CATÁLOGO
-         ======================================================== -->
+    <!-- 3. APP DELIVERY -->
     <div id="layoutAppDelivery" class="layout-app-delivery" style="display:none;">
       <div class="app-header">
         <div class="app-brand">
@@ -652,21 +241,14 @@
             <small style="color:#16a34a; font-weight:bold;">● Aberto para Pedidos</small>
           </div>
         </div>
+        <button class="btn-add-cart" onclick="abrirModalCompartilhar()" style="padding:6px 10px;">📲 QR Code</button>
       </div>
 
       <div class="app-quick-actions">
-        <a id="btnAppWhats" href="#" target="_blank" class="app-action-chip">
-          <span>💬</span> Whats
-        </a>
-        <a id="btnAppInsta" href="#" target="_blank" class="app-action-chip">
-          <span>📸</span> Insta
-        </a>
-        <a id="btnAppGoogle" href="#" target="_blank" class="app-action-chip">
-          <span>⭐</span> Avaliar
-        </a>
-        <a id="btnAppMaps" href="#" target="_blank" class="app-action-chip">
-          <span>📍</span> Mapa
-        </a>
+        <a id="btnAppWhats" href="#" target="_blank" class="app-action-chip"><span>💬</span> Whats</a>
+        <a id="btnAppInsta" href="#" target="_blank" class="app-action-chip"><span>📸</span> Insta</a>
+        <a id="btnAppGoogle" href="#" target="_blank" class="app-action-chip"><span>⭐</span> Avaliar</a>
+        <a id="btnAppMaps" href="#" target="_blank" class="app-action-chip"><span>📍</span> Mapa</a>
       </div>
     </div>
 
@@ -681,54 +263,50 @@
 
   </div>
 
-  <!-- BARRA FLUTUANTE DO CARRINHO (APARECE QUANDO HÁ ITENS) -->
+  <!-- BARRA FLUTUANTE DO CARRINHO (SEMPRE POR CIMA DE TUDO) -->
   <div id="cartFloatingBar" class="cart-floating-bar" onclick="abrirModalCarrinho()">
-    <div class="cart-floating-left">
+    <div style="display:flex; align-items:center; gap:12px;">
       <div id="cartTotalItems" class="cart-floating-badge">0</div>
       <div>
         <div style="font-size:0.75rem; color:#9ca3af;">Meu Pedido</div>
         <div id="cartTotalPrice" style="font-weight:800;">R$ 0,00</div>
       </div>
     </div>
-    <div class="cart-floating-right">
-      <span>Ver Sacola</span>
-      <span>➔</span>
+    <div style="color:var(--primary-color); font-weight:bold;">
+      Ver Sacola ➔
     </div>
   </div>
 
-  <!-- MODAL DO CARRINHO E CHECKOUT PARA WHATSAPP -->
-  <div id="modalCarrinho" class="modal-overlay">
+  <!-- MODAL DO CARRINHO & FINALIZAÇÃO NO WHATSAPP -->
+  <div id="modalCarrinho" class="modal-overlay" style="z-index: 1300;">
     <div class="modal-content">
       <div class="modal-header">
         <h3>🛍️ Sacola de Pedidos</h3>
         <button class="close-btn" onclick="fecharModalCarrinho()">&times;</button>
       </div>
 
-      <!-- ITENS NO CARRINHO -->
-      <div id="cartItemsList" class="cart-items-box"></div>
+      <div id="cartItemsList"></div>
 
       <div style="display:flex; justify-content:space-between; align-items:center; padding:12px 0; border-top:2px dashed var(--border-color); margin-bottom:14px;">
-        <strong style="font-size:1.1rem;">Total do Pedido:</strong>
-        <strong id="cartModalTotal" style="font-size:1.25rem; color:var(--secondary-color);">R$ 0,00</strong>
+        <strong>Total a Pagar:</strong>
+        <strong id="cartModalTotal" style="font-size:1.2rem; color:var(--secondary-color);">R$ 0,00</strong>
       </div>
 
-      <!-- DADOS DE ENTREGA -->
       <div class="cart-form-field">
         <label>Seu Nome *</label>
-        <input type="text" id="pedidoNomeCliente" placeholder="Como podemos te chamar?">
+        <input type="text" id="pedidoNomeCliente" placeholder="Informe seu nome">
       </div>
 
       <div class="cart-form-field">
-        <label>Tipo de Pedido</label>
+        <label>Tipo de Entrega</label>
         <select id="pedidoTipo" onchange="alternarCampoEndereco()">
           <option value="Entrega (Delivery)">Entrega (Delivery)</option>
           <option value="Retirar no Balcão">Retirar no Balcão</option>
-          <option value="Consumo no Local">Consumo no Local</option>
         </select>
       </div>
 
       <div id="campoEnderecoBox" class="cart-form-field">
-        <label>Endereço de Entrega *</label>
+        <label>Endereço Completo *</label>
         <input type="text" id="pedidoEndereco" placeholder="Rua, número, complemento e bairro">
       </div>
 
@@ -742,25 +320,38 @@
         </select>
       </div>
 
-      <div class="cart-form-field">
-        <label>Observações (Opcional)</label>
-        <textarea id="pedidoObservacoes" rows="2" placeholder="Ex: Sem cebola, troco para 50, etc."></textarea>
-      </div>
-
       <button class="btn-send-whatsapp" onclick="finalizarPedidoWhatsApp()">
-        <span>💬</span> Concluir Pedido no WhatsApp
+        <span>💬</span> Enviar Pedido no WhatsApp
       </button>
     </div>
   </div>
 
-  <!-- MODAL DE CARDÁPIO QUANDO O LAYOUT 1 (HUB) ESTIVER SELECIONADO -->
+  <!-- MODAL DO CARDÁPIO QUANDO ESTIVER NO LAYOUT 1 -->
   <div id="modalHubCardapio" class="modal-overlay">
     <div class="modal-content" style="max-height:92vh;">
       <div class="modal-header">
         <h3>Cardápio Digital</h3>
         <button class="close-btn" onclick="fecharCardapioHub()">&times;</button>
       </div>
-      <div id="modalHubContentArea"></div>
+      <div id="modalHubContentArea" style="padding-bottom: 70px;"></div>
+    </div>
+  </div>
+
+  <!-- MODAL DE COMPARTILHAMENTO / QR CODE -->
+  <div id="modalCompartilhar" class="modal-overlay" style="z-index: 1400;">
+    <div class="modal-content" style="text-align:center; align-items:center;">
+      <div class="modal-header" style="width:100%;">
+        <h3>📲 Compartilhar Loja</h3>
+        <button class="close-btn" onclick="fecharModalCompartilhar()">&times;</button>
+      </div>
+
+      <img id="imgQrCodeCliente" style="width:200px; height:200px; margin:15px auto; border-radius:12px; border:1px solid #e5e7eb;" src="" alt="QR Code">
+      <p style="font-size:13px; color:#6b7280; margin-bottom:15px;">Aponte a câmera do seu celular para abrir o cardápio.</p>
+
+      <div style="display:flex; gap:10px; width:100%;">
+        <button class="hub-btn highlight" style="flex:1; padding:12px;" onclick="copiarLinkCliente()">Copiar Link</button>
+        <button class="hub-btn" style="flex:1; padding:12px;" onclick="compartilharNativo()">Enviar</button>
+      </div>
     </div>
   </div>
 
@@ -770,51 +361,38 @@
     let dadosAparencia = {};
     let produtosLoja = [];
     let categoriaSelecionada = "todos";
-    let carrinho = {}; // Formato: { "prodId": { produto: obj, qtd: 1 } }
+    let carrinho = {};
 
     function carregarDados() {
-      // 1. DADOS DA LOJA
       const lojaSalva = JSON.parse(localStorage.getItem("hubLoja") || "{}");
-      const fallbackLoja = (typeof loja !== 'undefined') ? loja : {};
-      dadosLoja = { ...fallbackLoja, ...lojaSalva };
+      dadosLoja = { ...(typeof loja !== 'undefined' ? loja : {}), ...lojaSalva };
 
-      // 2. REDES SOCIAIS & LINKS
       const redesSalvas = JSON.parse(localStorage.getItem("hubRedes") || "{}");
-      const fallbackContatos = fallbackLoja.contatos || {};
-      dadosRedes = { ...fallbackContatos, ...redesSalvas };
+      dadosRedes = { ...(typeof loja !== 'undefined' && loja.contatos ? loja.contatos : {}), ...redesSalvas };
 
-      // 3. APARÊNCIA & LAYOUT DEFINIDO PELO ADMIN
       dadosAparencia = JSON.parse(localStorage.getItem("hubAparencia") || "{}");
-      if (dadosAparencia.principal) {
-        document.documentElement.style.setProperty("--primary-color", dadosAparencia.principal);
-      }
-      if (dadosAparencia.secundaria) {
-        document.documentElement.style.setProperty("--secondary-color", dadosAparencia.secundaria);
-      }
+      if (dadosAparencia.principal) document.documentElement.style.setProperty("--primary-color", dadosAparencia.principal);
+      if (dadosAparencia.secundaria) document.documentElement.style.setProperty("--secondary-color", dadosAparencia.secundaria);
 
-      // 4. PRODUTOS
       const prodsSalvos = localStorage.getItem("hubProdutos");
-      if (prodsSalvos) {
-        produtosLoja = JSON.parse(prodsSalvos);
-      } else if (typeof produtos !== 'undefined' && Array.isArray(produtos)) {
-        produtosLoja = produtos;
-      } else {
-        produtosLoja = [
-          { id: "p1", nome: "Copo de Açaí 500ml", categoria: "Açaí", preco: 20.00, descricao: "Açaí batido na hora com banana e granola.", disponivel: true, destaque: true },
-          { id: "p2", nome: "Cascão Duplo Artesanal", categoria: "Sorvetes", preco: 15.00, descricao: "Duas bolas de sorvete premium.", disponivel: true, destaque: true }
-        ];
-      }
+      if (prodsSalvos) produtosLoja = JSON.parse(prodsSalvos);
+      else if (typeof produtos !== 'undefined' && Array.isArray(produtos)) produtosLoja = produtos;
+      else produtosLoja = [
+        { id: "p1", nome: "Copo de Açaí 500ml", categoria: "Açaí", preco: 20.00, descricao: "Açaí cremoso com banana e granola.", disponivel: true, destaque: true },
+        { id: "p2", nome: "Cascão Duplo", categoria: "Sorvetes", preco: 15.00, descricao: "Duas bolas artesanais.", disponivel: true, destaque: true }
+      ];
 
       popularTextosELinks();
       aplicarLayoutDefinidoPeloAdmin();
       renderizarCategorias();
       filtrarProdutos();
       atualizarCarrinhoVisual();
+      gerarQrCodeCliente();
     }
 
     function popularTextosELinks() {
       const nome = dadosLoja.nome || "Carioca Ice Cream";
-      const desc = dadosLoja.descricao || "Sorvetes artesanais, sobremesas e lanches.";
+      const desc = dadosLoja.descricao || "Sorvetes artesanais e sobremesas deliciosas.";
       const enderecoPartes = [dadosLoja.endereco, dadosLoja.bairro, dadosLoja.cidade].filter(Boolean);
       const enderecoCompleto = enderecoPartes.length ? enderecoPartes.join(" • ") : "Rio de Janeiro - RJ";
 
@@ -825,7 +403,7 @@
       if (!insta.startsWith("http")) insta = `https://instagram.com/${insta.replace("@", "")}`;
 
       const googleLink = dadosLoja.googleAvaliacoes || dadosRedes.googleAvaliacoes || 'https://maps.google.com';
-      const mapaLink = dadosLoja.maps || dadosRedes.mapa || 'https://maps.google.com';
+      const mapaLink = dadosLoja.linkMapa || dadosRedes.linkMapa || 'https://maps.google.com';
 
       // Layout 1
       document.getElementById("hubNomeLoja").textContent = nome;
@@ -841,7 +419,6 @@
       document.getElementById("infoSobre").textContent = desc;
       document.getElementById("infoEndereco").textContent = enderecoCompleto;
       document.getElementById("infoTelefone").textContent = dadosLoja.telefone || "Não informado";
-      document.getElementById("infoWhatsapp").textContent = dadosLoja.whatsapp || "Não informado";
 
       // Layout 3
       document.getElementById("appNomeLoja").textContent = nome;
@@ -850,26 +427,20 @@
       document.getElementById("btnAppGoogle").href = googleLink;
       document.getElementById("btnAppMaps").href = mapaLink;
 
-      // Imagens de Logo
       if (dadosLoja.logo) {
         document.getElementById("hubLogoImg").src = dadosLoja.logo;
         document.getElementById("abasLogoImg").src = dadosLoja.logo;
         document.getElementById("appLogoImg").src = dadosLoja.logo;
       }
 
-      // Áudio de fundo
       if (dadosLoja.musicaUrl) {
-        const audio = document.getElementById("audioFundo");
-        audio.src = dadosLoja.musicaUrl;
+        document.getElementById("audioFundo").src = dadosLoja.musicaUrl;
         document.getElementById("hubMusicBox").style.display = "inline-flex";
       }
-
-      montarHorariosSemana();
     }
 
     function aplicarLayoutDefinidoPeloAdmin() {
       const modelo = dadosAparencia.modelo || "hub_classico";
-
       const l1 = document.getElementById("layoutHubClassico");
       const l2 = document.getElementById("layoutVitrineAbas");
       const l3 = document.getElementById("layoutAppDelivery");
@@ -881,11 +452,11 @@
 
       if (modelo === "hub_classico") {
         l1.style.display = "block";
-        catalogo.style.display = "none"; 
+        catalogo.style.display = "none";
       } else if (modelo === "vitrine_abas") {
         l2.style.display = "block";
         catalogo.style.display = "block";
-      } else if (modelo === "app_delivery") {
+      } else {
         l3.style.display = "block";
         catalogo.style.display = "block";
       }
@@ -893,19 +464,13 @@
 
     function alternarAudio() {
       const audio = document.getElementById("audioFundo");
-      const lbl = document.getElementById("labelAudio");
-      if (audio.paused) {
-        audio.play().then(() => lbl.textContent = "Tocando...").catch(() => {});
-      } else {
-        audio.pause();
-        lbl.textContent = "Música Pausada";
-      }
+      if (audio.paused) audio.play();
+      else audio.pause();
     }
 
     function abrirCardapioHub() {
       const catalogo = document.getElementById("catalogoProdutosContainer");
-      const destino = document.getElementById("modalHubContentArea");
-      destino.appendChild(catalogo);
+      document.getElementById("modalHubContentArea").appendChild(catalogo);
       catalogo.style.display = "block";
       document.getElementById("modalHubCardapio").classList.add("active");
     }
@@ -914,73 +479,34 @@
       document.getElementById("modalHubCardapio").classList.remove("active");
     }
 
-    function trocarAba(index) {
+    function trocarAba(idx) {
       const botoes = document.querySelectorAll(".aba-btn");
       botoes.forEach(b => b.classList.remove("active"));
-      botoes[index].classList.add("active");
-
-      const catalogo = document.getElementById("catalogoProdutosContainer");
-      const info = document.getElementById("abaConteudoInfo");
-      const horarios = document.getElementById("abaConteudoHorarios");
-
-      catalogo.style.display = "none";
-      info.style.display = "none";
-      horarios.style.display = "none";
-
-      if (index === 0) catalogo.style.display = "block";
-      if (index === 1) info.style.display = "block";
-      if (index === 2) horarios.style.display = "block";
-    }
-
-    function montarHorariosSemana() {
-      const lista = document.getElementById("listaHorariosAbas");
-      lista.innerHTML = "";
-      const dias = [
-        { id: "Segunda", nome: "Segunda-feira" },
-        { id: "Terca", nome: "Terça-feira" },
-        { id: "Quarta", nome: "Quarta-feira" },
-        { id: "Quinta", nome: "Quinta-feira" },
-        { id: "Sexta", nome: "Sexta-feira" },
-        { id: "Sabado", nome: "Sábado" },
-        { id: "Domingo", nome: "Domingo" }
-      ];
-
-      const hSalvo = dadosLoja.horarios || {};
-      dias.forEach(d => {
-        const h = hSalvo[d.id] || { aberto: true, abre: "13:00", fecha: "21:00" };
-        const linha = document.createElement("div");
-        linha.style.display = "flex";
-        linha.style.justifyContent = "space-between";
-        linha.style.borderBottom = "1px solid #f3f4f6";
-        linha.style.padding = "6px 0";
-        linha.innerHTML = `<strong>${d.nome}</strong><span>${h.aberto ? `${h.abre} às ${h.fecha}` : '<span style="color:#ef4444;">Fechado</span>'}</span>`;
-        lista.appendChild(linha);
-      });
+      botoes[idx].classList.add("active");
+      document.getElementById("catalogoProdutosContainer").style.display = idx === 0 ? "block" : "none";
+      document.getElementById("abaConteudoInfo").style.display = idx === 1 ? "block" : "none";
     }
 
     function renderizarCategorias() {
       const container = document.getElementById("listaCategoriasChips");
       container.innerHTML = "";
+      const cats = ["todos", ...new Set(produtosLoja.map(p => p.categoria).filter(Boolean))];
 
-      const categorias = ["todos", ...new Set(produtosLoja.map(p => p.categoria).filter(Boolean))];
-
-      categorias.forEach(cat => {
-        const btn = document.createElement("button");
-        btn.className = `chip-item ${cat === categoriaSelecionada ? "active" : ""}`;
-        btn.textContent = cat === "todos" ? "Todos os Itens" : cat;
-        btn.onclick = () => {
-          categoriaSelecionada = cat;
-          document.querySelectorAll(".chip-item").forEach(c => c.classList.remove("active"));
-          btn.classList.add("active");
+      cats.forEach(c => {
+        const b = document.createElement("button");
+        b.className = `chip-item ${c === categoriaSelecionada ? "active" : ""}`;
+        b.textContent = c === "todos" ? "Todos os Itens" : c;
+        b.onclick = () => {
+          categoriaSelecionada = c;
+          document.querySelectorAll(".chip-item").forEach(el => el.classList.remove("active"));
+          b.classList.add("active");
           filtrarProdutos();
         };
-        container.appendChild(btn);
+        container.appendChild(b);
       });
     }
 
-    function formatarMoeda(val) {
-      return Number(val || 0).toFixed(2).replace(".", ",");
-    }
+    function formatarMoeda(v) { return Number(v || 0).toFixed(2).replace(".", ","); }
 
     function filtrarProdutos() {
       const busca = document.getElementById("campoBusca").value.toLowerCase().trim();
@@ -988,51 +514,31 @@
       grid.innerHTML = "";
 
       const filtrados = produtosLoja.filter(p => {
-        const condicaoAtivo = p.disponivel !== false;
-        const condicaoCat = (categoriaSelecionada === "todos" || p.categoria === categoriaSelecionada);
-        const condicaoBusca = (p.nome + " " + (p.descricao || "")).toLowerCase().includes(busca);
-        return condicaoAtivo && condicaoCat && condicaoBusca;
+        const ativo = p.disponivel !== false;
+        const cat = (categoriaSelecionada === "todos" || p.categoria === categoriaSelecionada);
+        const match = (p.nome + " " + (p.descricao || "")).toLowerCase().includes(busca);
+        return ativo && cat && match;
       });
-
-      if (filtrados.length === 0) {
-        grid.innerHTML = `<div style="text-align:center; padding:20px; color:#6b7280; font-size:14px;">Nenhum produto encontrado.</div>`;
-        return;
-      }
 
       filtrados.forEach(p => {
         const card = document.createElement("div");
         card.className = "product-card";
 
-        const imgTag = p.imagem 
-          ? `<img src="${p.imagem}" alt="${p.nome}">`
-          : `<div style="width:85px;height:85px;border-radius:10px;background:#f3f4f6;display:grid;place-items:center;font-size:26px;flex-shrink:0;">🍨</div>`;
-
-        const qtdNoCarrinho = carrinho[p.id] ? carrinho[p.id].qtd : 0;
-
-        let btnAcao = "";
-        if (qtdNoCarrinho > 0) {
-          btnAcao = `
-            <div class="qty-counter">
-              <button onclick="alterarQtd('${p.id}', -1)">-</button>
-              <span>${qtdNoCarrinho}</span>
-              <button onclick="alterarQtd('${p.id}', 1)">+</button>
-            </div>
-          `;
-        } else {
-          btnAcao = `<button class="btn-add-cart" onclick="adicionarAoCarrinho('${p.id}')">+ Adicionar</button>`;
-        }
+        const qtd = carrinho[p.id] ? carrinho[p.id].qtd : 0;
+        let acao = qtd > 0 
+          ? `<div class="qty-counter"><button onclick="alterarQtd('${p.id}', -1)">-</button><span>${qtd}</span><button onclick="alterarQtd('${p.id}', 1)">+</button></div>`
+          : `<button class="btn-add-cart" onclick="adicionarAoCarrinho('${p.id}')">+ Adicionar</button>`;
 
         card.innerHTML = `
-          ${imgTag}
+          ${p.imagem ? `<img src="${p.imagem}" alt="${p.nome}">` : `<div style="width:85px;height:85px;border-radius:10px;background:#eee;display:grid;place-items:center;font-size:24px;">🍦</div>`}
           <div class="product-card-body">
             <div>
-              ${p.destaque ? '<div class="badge-destaque">⭐ Destaque</div>' : ''}
-              <strong style="font-size:0.95rem; display:block; margin-bottom:3px;">${p.nome}</strong>
-              <small style="color:var(--text-muted); line-height:1.2; display:block;">${p.descricao || ""}</small>
+              <strong style="display:block;font-size:0.95rem;">${p.nome}</strong>
+              <small style="color:var(--text-muted);">${p.descricao || ""}</small>
             </div>
             <div class="product-actions-row">
               <strong style="font-size:1rem;">R$ ${formatarMoeda(p.preco)}</strong>
-              ${btnAcao}
+              ${acao}
             </div>
           </div>
         `;
@@ -1040,19 +546,11 @@
       });
     }
 
-    /* ========================================================
-       LÓGICA DO CARRINHO DE COMPRAS
-       ======================================================== */
+    /* CARRINHO */
     function adicionarAoCarrinho(id) {
-      const produto = produtosLoja.find(p => p.id === id);
-      if (!produto) return;
-
-      if (!carrinho[id]) {
-        carrinho[id] = { produto: produto, qtd: 1 };
-      } else {
-        carrinho[id].qtd += 1;
-      }
-
+      const prod = produtosLoja.find(p => p.id === id);
+      if (!prod) return;
+      carrinho[id] = { produto: prod, qtd: 1 };
       atualizarCarrinhoVisual();
       filtrarProdutos();
     }
@@ -1060,23 +558,17 @@
     function alterarQtd(id, delta) {
       if (!carrinho[id]) return;
       carrinho[id].qtd += delta;
-
-      if (carrinho[id].qtd <= 0) {
-        delete carrinho[id];
-      }
-
+      if (carrinho[id].qtd <= 0) delete carrinho[id];
       atualizarCarrinhoVisual();
       filtrarProdutos();
-      renderizarItensModalCarrinho();
+      renderizarItensCarrinho();
     }
 
     function atualizarCarrinhoVisual() {
-      let totalQtd = 0;
-      let totalValor = 0;
-
-      Object.values(carrinho).forEach(item => {
-        totalQtd += item.qtd;
-        totalValor += (item.qtd * item.produto.preco);
+      let totalQtd = 0, totalValor = 0;
+      Object.values(carrinho).forEach(i => {
+        totalQtd += i.qtd;
+        totalValor += i.qtd * i.produto.preco;
       });
 
       const barra = document.getElementById("cartFloatingBar");
@@ -1092,7 +584,7 @@
     }
 
     function abrirModalCarrinho() {
-      renderizarItensModalCarrinho();
+      renderizarItensCarrinho();
       document.getElementById("modalCarrinho").classList.add("active");
     }
 
@@ -1100,26 +592,17 @@
       document.getElementById("modalCarrinho").classList.remove("active");
     }
 
-    function renderizarItensModalCarrinho() {
-      const container = document.getElementById("cartItemsList");
-      container.innerHTML = "";
-
-      const chaves = Object.keys(carrinho);
-      if (chaves.length === 0) {
-        container.innerHTML = `<p style="text-align:center; color:#6b7280; padding:20px;">Sua sacola está vazia.</p>`;
-        return;
-      }
-
-      chaves.forEach(id => {
+    function renderizarItensCarrinho() {
+      const cont = document.getElementById("cartItemsList");
+      cont.innerHTML = "";
+      Object.keys(carrinho).forEach(id => {
         const item = carrinho[id];
-        const subtotal = item.qtd * item.produto.preco;
-
         const row = document.createElement("div");
         row.className = "cart-item-row";
         row.innerHTML = `
-          <div class="cart-item-info">
-            <strong style="display:block; font-size:0.95rem;">${item.produto.nome}</strong>
-            <small style="color:var(--text-muted);">R$ ${formatarMoeda(item.produto.preco)} cada • <b>Subtotal: R$ ${formatarMoeda(subtotal)}</b></small>
+          <div>
+            <strong>${item.produto.nome}</strong><br>
+            <small>R$ ${formatarMoeda(item.produto.preco)} cada</small>
           </div>
           <div class="qty-counter">
             <button onclick="alterarQtd('${id}', -1)">-</button>
@@ -1127,77 +610,71 @@
             <button onclick="alterarQtd('${id}', 1)">+</button>
           </div>
         `;
-        container.appendChild(row);
+        cont.appendChild(row);
       });
     }
 
     function alternarCampoEndereco() {
       const tipo = document.getElementById("pedidoTipo").value;
-      const box = document.getElementById("campoEnderecoBox");
-      if (tipo.includes("Entrega")) {
-        box.style.display = "flex";
-      } else {
-        box.style.display = "none";
-      }
+      document.getElementById("campoEnderecoBox").style.display = tipo.includes("Entrega") ? "flex" : "none";
     }
 
-    /* FINALIZAR PEDIDO FORMATADO PARA O WHATSAPP */
     function finalizarPedidoWhatsApp() {
       const chaves = Object.keys(carrinho);
-      if (chaves.length === 0) {
-        alert("Adicione itens à sua sacola antes de continuar.");
-        return;
-      }
+      if (chaves.length === 0) return;
 
-      const nomeCliente = document.getElementById("pedidoNomeCliente").value.trim();
-      if (!nomeCliente) {
-        alert("Por favor, preencha o seu nome.");
-        document.getElementById("pedidoNomeCliente").focus();
-        return;
-      }
+      const nome = document.getElementById("pedidoNomeCliente").value.trim();
+      if (!nome) { alert("Informe seu nome."); return; }
 
-      const tipoPedido = document.getElementById("pedidoTipo").value;
-      const endereco = document.getElementById("pedidoEndereco").value.trim();
+      const tipo = document.getElementById("pedidoTipo").value;
+      const end = document.getElementById("pedidoEndereco").value.trim();
+      if (tipo.includes("Entrega") && !end) { alert("Informe o endereço de entrega."); return; }
 
-      if (tipoPedido.includes("Entrega") && !endereco) {
-        alert("Por favor, informe o endereço para entrega.");
-        document.getElementById("pedidoEndereco").focus();
-        return;
-      }
-
-      const pagamento = document.getElementById("pedidoPagamento").value;
-      const obs = document.getElementById("pedidoObservacoes").value.trim();
-
-      let totalGeral = 0;
-      let resumoItens = "";
-
+      let total = 0, txtItens = "";
       chaves.forEach(id => {
-        const item = carrinho[id];
-        const sub = item.qtd * item.produto.preco;
-        totalGeral += sub;
-        resumoItens += `▪️ *${item.qtd}x* ${item.produto.nome} — R$ ${formatarMoeda(sub)}\n`;
+        const i = carrinho[id];
+        const sub = i.qtd * i.produto.preco;
+        total += sub;
+        txtItens += `▪️ *${i.qtd}x* ${i.produto.nome} — R$ ${formatarMoeda(sub)}\n`;
       });
 
-      const nomeLoja = dadosLoja.nome || "Carioca Ice Cream";
+      let msg = `🍧 *NOVO PEDIDO - ${dadosLoja.nome || "LOJA"}*\n\n`;
+      msg += `👤 *Cliente:* ${nome}\n`;
+      msg += `🛵 *Tipo:* ${tipo}\n`;
+      if (tipo.includes("Entrega")) msg += `📍 *Endereço:* ${end}\n`;
+      msg += `💳 *Pagamento:* ${document.getElementById("pedidoPagamento").value}\n\n`;
+      msg += `🛒 *ITENS:*\n${txtItens}\n`;
+      msg += `💰 *TOTAL:* R$ ${formatarMoeda(total)}`;
 
-      let mensagem = `🍧 *NOVO PEDIDO - ${nomeLoja.toUpperCase()}* 🍧\n\n`;
-      mensagem += `👤 *Cliente:* ${nomeCliente}\n`;
-      mensagem += `🛵 *Tipo:* ${tipoPedido}\n`;
-      if (tipoPedido.includes("Entrega")) {
-        mensagem += `📍 *Endereço:* ${endereco}\n`;
+      const whats = (dadosLoja.whatsapp || dadosRedes.whatsapp || '5521999999999').replace(/\D/g, '');
+      window.open(`https://api.whatsapp.com/send?phone=${whats}&text=${encodeURIComponent(msg)}`, '_blank');
+    }
+
+    /* COMPARTILHAMENTO & QR CODE */
+    function gerarQrCodeCliente() {
+      const url = window.location.href;
+      document.getElementById("imgQrCodeCliente").src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(url)}`;
+    }
+
+    function abrirModalCompartilhar() {
+      gerarQrCodeCliente();
+      document.getElementById("modalCompartilhar").classList.add("active");
+    }
+
+    function fecharModalCompartilhar() {
+      document.getElementById("modalCompartilhar").classList.remove("active");
+    }
+
+    function copiarLinkCliente() {
+      navigator.clipboard.writeText(window.location.href).then(() => alert("Link copiado para a área de transferência!"));
+    }
+
+    function compartilharNativo() {
+      if (navigator.share) {
+        navigator.share({ title: dadosLoja.nome || "Cardápio Digital", url: window.location.href });
+      } else {
+        copiarLinkCliente();
       }
-      mensagem += `💳 *Pagamento:* ${pagamento}\n`;
-      if (obs) {
-        mensagem += `📝 *Observação:* ${obs}\n`;
-      }
-      mensagem += `\n🛒 *ITENS DO PEDIDO:*\n${resumoItens}\n`;
-      mensagem += `💰 *TOTAL A PAGAR:* R$ ${formatarMoeda(totalGeral)}\n\n`;
-      mensagem += `Por favor, confirme a disponibilidade e o tempo estimado! 😊`;
-
-      const whatsNum = (dadosLoja.whatsapp || dadosRedes.whatsapp || '5521999999999').replace(/\D/g, '');
-      const urlWhats = `https://api.whatsapp.com/send?phone=${whatsNum}&text=${encodeURIComponent(mensagem)}`;
-
-      window.open(urlWhats, '_blank');
     }
 
     document.addEventListener("DOMContentLoaded", carregarDados);
