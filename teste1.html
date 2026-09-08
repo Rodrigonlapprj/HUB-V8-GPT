@@ -23,7 +23,6 @@
             font-family: inherit;
         }
 
-        /* ESTRUTURA */
         .app {
             display: flex;
             min-height: 100vh;
@@ -142,7 +141,6 @@
             border-radius: 50%;
         }
 
-        /* SEÇÕES E CARDS */
         .section {
             display: none;
         }
@@ -328,34 +326,11 @@
             transition: .15s ease;
         }
 
-        .btn-primary {
-            background: #facc15;
-            color: #111827;
-        }
-
-        .btn-secondary {
-            background: #e5e7eb;
-            color: #374151;
-        }
-
-        .btn-danger {
-            background: #fee2e2;
-            color: #b91c1c;
-        }
-
-        .btn-success {
-            background: #dcfce7;
-            color: #166534;
-        }
-
-        .btn-whatsapp {
-            background: #25d366;
-            color: white;
-        }
-
-        .btn-whatsapp:hover {
-            background: #20ba5a;
-        }
+        .btn-primary { background: #facc15; color: #111827; }
+        .btn-secondary { background: #e5e7eb; color: #374151; }
+        .btn-danger { background: #fee2e2; color: #b91c1c; }
+        .btn-success { background: #dcfce7; color: #166534; }
+        .btn-whatsapp { background: #25d366; color: white; }
 
         /* FORMULÁRIOS */
         .form-grid {
@@ -393,10 +368,6 @@
             resize: vertical;
         }
 
-        .field input:focus, .field textarea:focus, .field select:focus {
-            border-color: #facc15;
-        }
-
         .actions {
             margin-top: 22px;
             display: flex;
@@ -431,50 +402,11 @@
             border-bottom: 1px solid #f0f0f0;
         }
 
-        .horario-linha:last-child {
-            border-bottom: 0;
-        }
+        .horario-linha strong { font-size: 14px; }
+        .horario-linha input[type="time"] { width: 100%; min-width: 0; }
+        .horario-linha input[type="checkbox"] { width: 18px; height: 18px; cursor: pointer; }
 
-        .horario-linha strong {
-            font-size: 14px;
-        }
-
-        .horario-linha input[type="time"] {
-            width: 100%;
-            min-width: 0;
-        }
-
-        .horario-linha input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
-            cursor: pointer;
-        }
-
-        /* CATEGORIAS */
-        .category-list {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-        }
-
-        .category {
-            border: 1px solid #e5e7eb;
-            border-radius: 10px;
-            padding: 20px;
-            text-align: center;
-        }
-
-        .category strong {
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        .category span {
-            font-size: 13px;
-            color: #6b7280;
-        }
-
-        /* LOGO & IMAGENS */
+        /* LOGO */
         .store-logo-box, .image-upload-box {
             border: 1px dashed #d1d5db;
             border-radius: 12px;
@@ -510,40 +442,7 @@
             display: none;
         }
 
-        .image-url-input {
-            margin-top: 12px;
-        }
-
-        .store-preview-card {
-            margin-top: 22px;
-            padding: 18px;
-            border: 1px solid #e5e7eb;
-            border-radius: 12px;
-            background: #fafafa;
-        }
-
-        .store-preview-title {
-            font-size: 13px;
-            font-weight: bold;
-            color: #6b7280;
-            margin-bottom: 12px;
-        }
-
-        .store-preview-content {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-
-        .store-preview-logo {
-            width: 60px;
-            height: 60px;
-            border-radius: 12px;
-            object-fit: contain;
-            background: white;
-            border: 1px solid #e5e7eb;
-            padding: 5px;
-        }
+        .image-url-input { margin-top: 12px; }
 
         .notice {
             padding: 15px;
@@ -567,9 +466,7 @@
             justify-content: center;
         }
 
-        .modal-overlay.active {
-            display: flex;
-        }
+        .modal-overlay.active { display: flex; }
 
         .modal {
             width: 100%;
@@ -589,10 +486,6 @@
             margin-bottom: 20px;
         }
 
-        .modal-header h3 {
-            font-size: 20px;
-        }
-
         .close-modal {
             width: 35px;
             height: 35px;
@@ -601,7 +494,6 @@
             background: #f3f4f6;
             cursor: pointer;
             font-size: 18px;
-            line-height: 1;
         }
 
         /* CONFIGURAÇÕES */
@@ -622,28 +514,6 @@
             background: #fff;
         }
 
-        .setting-card h4 {
-            font-size: 16px;
-            margin-bottom: 5px;
-        }
-
-        .setting-card p {
-            color: #6b7280;
-            font-size: 13px;
-            line-height: 1.5;
-        }
-
-        .setting-icon {
-            width: 42px;
-            height: 42px;
-            border-radius: 10px;
-            background: #f3f4f6;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-        }
-
         .setting-danger {
             border-color: #fecaca;
             background: #fffafa;
@@ -652,14 +522,9 @@
         /* APARÊNCIA */
         .appearance-grid {
             display: grid;
-            grid-template-columns: minmax(300px, 1fr) minmax(320px, 1fr);
+            grid-template-columns: minmax(320px, 1fr) minmax(320px, 1fr);
             gap: 28px;
             align-items: start;
-        }
-
-        .appearance-controls {
-            display: grid;
-            gap: 16px;
         }
 
         .color-control {
@@ -699,101 +564,17 @@
         .appearance-preview {
             --preview-primary: #FFD400;
             --preview-secondary: #7B2CBF;
-            --preview-bg: #f8fafc;
-            --preview-card: #fff;
-            --preview-text: #202124;
-            min-height: 450px;
             border: 1px solid #e5e7eb;
             border-radius: 18px;
-            padding: 18px;
-            background: var(--preview-bg);
-            color: var(--preview-text);
+            padding: 22px;
+            background: #f8fafc;
             box-shadow: 0 8px 28px rgba(0,0,0,.06);
-            transition: .2s ease;
         }
 
-        .appearance-preview.dark {
-            --preview-bg: #17181c;
-            --preview-card: #24262b;
-            --preview-text: #f4f4f5;
-        }
-
-        .preview-store-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            background: var(--preview-card);
-            border-radius: 14px;
-            padding: 12px;
-        }
-
-        .preview-logo {
-            width: 46px;
-            height: 46px;
-            border-radius: 12px;
-            display: grid;
-            place-items: center;
-            background: var(--preview-primary);
-            color: #202124;
-            font-weight: 900;
-        }
-
-        .preview-banner {
-            margin: 16px 0;
-            min-height: 90px;
-            border-radius: 16px;
-            padding: 18px;
-            display: flex;
-            align-items: flex-end;
-            font-size: 18px;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--preview-primary), var(--preview-secondary));
-            color: #fff;
-        }
-
-        .preview-category-row {
-            display: flex;
-            gap: 8px;
-            overflow-x: auto;
-            padding-bottom: 4px;
-        }
-
-        .preview-chip {
-            white-space: nowrap;
-            padding: 6px 12px;
-            border-radius: 999px;
-            background: var(--preview-card);
-            border: 1px solid #e5e7eb;
-            font-size: 12px;
-        }
-
-        .preview-chip.active {
-            background: var(--preview-secondary);
-            border-color: var(--preview-secondary);
-            color: #fff;
-        }
-
-        .preview-product-card {
-            display: flex;
-            gap: 14px;
-            margin-top: 14px;
-            padding: 12px;
-            background: var(--preview-card);
-            border-radius: 14px;
-        }
-
-        .preview-product-image {
-            width: 80px;
-            height: 80px;
-            border-radius: 10px;
-            background: linear-gradient(135deg, #e5e7eb, #f9fafb);
-        }
-
-        /* RESPONSIVO */
         @media (max-width: 900px) {
             .sidebar { width: 210px; }
             .content { margin-left: 210px; width: calc(100% - 210px); }
-            .stats, .category-list, .settings-grid, .appearance-grid { grid-template-columns: 1fr; }
+            .stats, .settings-grid, .appearance-grid { grid-template-columns: 1fr; }
         }
 
         @media (max-width: 650px) {
@@ -805,7 +586,6 @@
             .product { flex-direction: column; align-items: flex-start; }
             .product-actions { width: 100%; }
             .product-actions button { flex: 1; }
-            .products-toolbar { flex-direction: column; align-items: stretch; }
         }
     </style>
 </head>
@@ -818,7 +598,7 @@
     <aside class="sidebar">
         <div class="brand">
             <h1>HUB BRASIL</h1>
-            <p>Painel administrativo</p>
+            <p>Painel Administrativo</p>
         </div>
 
         <nav class="menu">
@@ -844,13 +624,6 @@
                 Produtos
             </button>
 
-            <button class="menu-btn" data-section="categorias">
-                <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M4 4h6v6H4z"/><path d="M14 4h6v6h-6z"/><path d="M4 14h6v6H4z"/><path d="M14 14h6v6h-6z"/>
-                </svg>
-                Categorias
-            </button>
-
             <button class="menu-btn" data-section="whatsapp">
                 <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
@@ -869,7 +642,7 @@
                 <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <circle cx="12" cy="12" r="9"/><path d="M8 12h8"/><path d="M12 8v8"/>
                 </svg>
-                Aparência
+                Aparência & Layout
             </button>
 
             <button class="menu-btn" data-section="configuracoes">
@@ -882,7 +655,7 @@
         </nav>
 
         <div class="sidebar-footer">
-            Hub Brasil • Versão 2.0
+            Hub Brasil • Versão Multi-Layout
         </div>
     </aside>
 
@@ -894,7 +667,7 @@
             </div>
             <div class="status">
                 <span class="status-dot"></span>
-                Sistema funcionando
+                Painel Ativo
             </div>
         </div>
 
@@ -910,7 +683,7 @@
                     <strong id="totalCategorias">0</strong>
                 </div>
                 <div class="stat">
-                    <span>Produtos ativos</span>
+                    <span>Produtos Ativos</span>
                     <strong id="produtosAtivos">0</strong>
                 </div>
                 <div class="stat">
@@ -922,10 +695,10 @@
             <div class="card">
                 <div class="card-header">
                     <h3>Bem-vindo ao Hub Brasil</h3>
-                    <p>Centro de gerenciamento da sua loja digital.</p>
+                    <p>Gerenciador exclusivo para assinantes da plataforma.</p>
                 </div>
                 <div class="notice">
-                    ⚡ Esta demonstração salva os dados localmente no seu navegador. Os botões de WhatsApp geram links diretos prontos para envio.
+                    ⚡ <strong>Multi-Layout Ativo:</strong> Você pode alternar entre 3 visuais completos para a vitrine da sua loja na aba <strong>Aparência & Layout</strong>.
                 </div>
                 <p style="font-size:14px;color:#6b7280;">
                     Loja selecionada: <strong id="dashboardNomeLoja" style="color:#202124;">Carioca Ice Cream</strong>
@@ -937,18 +710,18 @@
         <section id="loja" class="section">
             <div class="card">
                 <div class="card-header">
-                    <h3>Minha Loja</h3>
-                    <p>Cadastre as informações que identificam seu estabelecimento.</p>
+                    <h3>Dados da Loja</h3>
+                    <p>Informações exibidas no cabeçalho e rodapé da sua vitrine.</p>
                 </div>
 
                 <div class="field full" style="margin-bottom:20px;">
                     <label>Logo da loja</label>
                     <div class="store-logo-box">
                         <div class="store-logo-row">
-                            <img id="lojaLogoPreview" class="store-logo-preview" alt="Pré-visualização da logo">
+                            <img id="lojaLogoPreview" class="store-logo-preview" alt="Prévia Logo">
                             <div class="store-logo-info">
                                 <input id="lojaLogoArquivo" type="file" accept="image/png,image/jpeg,image/webp" onchange="selecionarLogoLoja(event)">
-                                <small>Escolha o arquivo do logo. Ele será redimensionado e salvo no navegador.</small>
+                                <small>Escolha o arquivo do logotipo. Ele será otimizado automaticamente.</small>
                             </div>
                         </div>
                     </div>
@@ -956,23 +729,23 @@
 
                 <div class="form-grid">
                     <div class="field full">
-                        <label>Nome da loja</label>
-                        <input id="lojaNome" type="text" value="Carioca Ice Cream" placeholder="Nome do seu negócio">
+                        <label>Nome do Estabelecimento</label>
+                        <input id="lojaNome" type="text" value="Carioca Ice Cream">
                     </div>
 
                     <div class="field">
-                        <label>Telefone fixo</label>
-                        <input id="lojaTelefone" type="text" placeholder="(00) 0000-0000">
+                        <label>Telefone Fixo</label>
+                        <input id="lojaTelefone" type="text" placeholder="(21) 3333-3333">
                     </div>
 
                     <div class="field">
-                        <label>WhatsApp Comercial</label>
-                        <input id="lojaWhatsapp" type="text" placeholder="(00) 00000-0000">
+                        <label>WhatsApp de Contato</label>
+                        <input id="lojaWhatsapp" type="text" placeholder="(21) 99999-9999">
                     </div>
 
                     <div class="field full">
-                        <label>Endereço completo</label>
-                        <input id="lojaEndereco" type="text" placeholder="Rua, número e complemento">
+                        <label>Endereço Completo</label>
+                        <input id="lojaEndereco" type="text" placeholder="Rua, número e bairro">
                     </div>
 
                     <div class="field">
@@ -982,21 +755,16 @@
 
                     <div class="field">
                         <label>Cidade</label>
-                        <input id="lojaCidade" type="text" placeholder="Cidade">
-                    </div>
-
-                    <div class="field">
-                        <label>Estado (UF)</label>
-                        <input id="lojaEstado" type="text" maxlength="2" placeholder="RJ">
-                    </div>
-
-                    <div class="field">
-                        <label>CEP</label>
-                        <input id="lojaCep" type="text" placeholder="00000-000">
+                        <input id="lojaCidade" type="text" placeholder="Rio de Janeiro">
                     </div>
 
                     <div class="field full">
-                        <label>Horário de funcionamento semanal</label>
+                        <label>Link de Áudio / Música de Fundo (Para o Layout Hub Clássico)</label>
+                        <input id="lojaMusicaUrl" type="text" placeholder="Link de MP3 ou áudio direto da web (ex: https://...musica.mp3)">
+                    </div>
+
+                    <div class="field full">
+                        <label>Horário de Funcionamento Semanal</label>
                         <div class="horarios-semana">
                             <div class="horario-cabecalho"><span>Dia</span><span>Aberto</span><span>Abre</span><span>Fecha</span></div>
                             <div class="horario-linha"><strong>Segunda-feira</strong><input type="checkbox" id="diaSegunda" checked><input type="time" id="abreSegunda" value="13:00"><input type="time" id="fechaSegunda" value="21:00"></div>
@@ -1010,25 +778,14 @@
                     </div>
 
                     <div class="field full">
-                        <label>Descrição do estabelecimento</label>
+                        <label>Descrição Breve</label>
                         <textarea id="lojaDescricao">Sorvetes artesanais, açaí no copo, milk shakes e sobremesas deliciosas.</textarea>
                     </div>
                 </div>
 
                 <div class="actions">
-                    <button class="btn btn-primary" onclick="salvarLoja()">Salvar dados da loja</button>
-                    <button class="btn btn-secondary" onclick="carregarDadosLoja()">Desfazer alterações</button>
-                </div>
-
-                <div class="store-preview-card">
-                    <div class="store-preview-title">Resumo do Estabelecimento</div>
-                    <div class="store-preview-content">
-                        <img id="lojaPreviewLogoFinal" class="store-preview-logo" alt="Logo" style="display:none;">
-                        <div>
-                            <strong id="lojaPreviewNome">Carioca Ice Cream</strong>
-                            <span id="lojaPreviewEndereco" style="display:block; font-size:13px; color:#6b7280;">Endereço não informado</span>
-                        </div>
-                    </div>
+                    <button class="btn btn-primary" onclick="salvarLoja()">Salvar Dados da Loja</button>
+                    <button class="btn btn-secondary" onclick="carregarDadosLoja()">Desfazer Alterações</button>
                 </div>
             </div>
         </section>
@@ -1038,28 +795,17 @@
             <div class="card">
                 <div class="card-header">
                     <h3>Produtos do Cardápio</h3>
-                    <p>Cadastre, altere preços e compartilhe itens individualmente no WhatsApp.</p>
+                    <p>Itens disponíveis nas vitrines e opções de pedidos.</p>
                 </div>
 
                 <div class="products-toolbar">
                     <div class="search-box">
                         <input id="buscaProduto" type="text" placeholder="🔍 Buscar por nome ou categoria..." oninput="renderizarProdutos()">
                     </div>
-                    <button class="btn btn-primary" onclick="abrirNovoProduto()">+ Novo produto</button>
+                    <button class="btn btn-primary" onclick="abrirNovoProduto()">+ Novo Produto</button>
                 </div>
 
                 <div id="listaProdutos" class="product-list"></div>
-            </div>
-        </section>
-
-        <!-- CATEGORIAS -->
-        <section id="categorias" class="section">
-            <div class="card">
-                <div class="card-header">
-                    <h3>Categorias</h3>
-                    <p>Categorias ativas geradas pelos produtos cadastrados.</p>
-                </div>
-                <div id="listaCategorias" class="category-list"></div>
             </div>
         </section>
 
@@ -1068,31 +814,31 @@
             <div class="card">
                 <div class="card-header">
                     <h3>Central WhatsApp</h3>
-                    <p>Atalhos rápidos para divulgar seu cardápio e fechar pedidos no WhatsApp.</p>
+                    <p>Divulgue seu catálogo diretamente com clientes.</p>
                 </div>
 
                 <div class="settings-grid">
                     <div class="setting-card">
-                        <div class="setting-icon">📱</div>
+                        <div style="font-size: 24px;">📱</div>
                         <div>
                             <h4>Link Direto do Cardápio</h4>
-                            <p>Mensagem simpática com link direto para o cliente navegar no seu catálogo.</p>
+                            <p>Envia o link da vitrine configurada.</p>
                         </div>
-                        <div style="grid-column: 2; display: flex; gap: 8px; flex-wrap: wrap;">
-                            <button class="btn btn-whatsapp" type="button" onclick="dispararLinkWhatsApp()">Enviar no WhatsApp</button>
-                            <button class="btn btn-secondary" type="button" onclick="copiarMensagemWhatsApp()">Copiar Texto</button>
+                        <div style="grid-column: 2; display: flex; gap: 8px;">
+                            <button class="btn btn-whatsapp" onclick="dispararLinkWhatsApp()">Enviar no Whats</button>
+                            <button class="btn btn-secondary" onclick="copiarMensagemWhatsApp()">Copiar Texto</button>
                         </div>
                     </div>
 
                     <div class="setting-card">
-                        <div class="setting-icon">⭐</div>
+                        <div style="font-size: 24px;">⭐</div>
                         <div>
-                            <h4>Lista de Destaques em Texto</h4>
-                            <p>Organiza todos os itens marcados como destaque com preços e descrição formatada.</p>
+                            <h4>Lista de Destaques</h4>
+                            <p>Gera o resumo de produtos em destaque prontos para envio.</p>
                         </div>
-                        <div style="grid-column: 2; display: flex; gap: 8px; flex-wrap: wrap;">
-                            <button class="btn btn-whatsapp" type="button" onclick="dispararDestaquesWhatsApp()">Disparar Destaques</button>
-                            <button class="btn btn-secondary" type="button" onclick="copiarDestaquesWhatsApp()">Copiar Destaques</button>
+                        <div style="grid-column: 2; display: flex; gap: 8px;">
+                            <button class="btn btn-whatsapp" onclick="dispararDestaquesWhatsApp()">Disparar Destaques</button>
+                            <button class="btn btn-secondary" onclick="copiarDestaquesWhatsApp()">Copiar</button>
                         </div>
                     </div>
                 </div>
@@ -1104,21 +850,13 @@
             <div class="card">
                 <div class="card-header">
                     <h3>Redes Sociais & Links Externos</h3>
-                    <p>Configure os links oficiais da sua loja para sincronizar com o cardápio.</p>
+                    <p>Esses links aparecem como botões em todos os modelos de layout.</p>
                 </div>
 
                 <div class="form-grid">
                     <div class="field">
                         <label>Instagram</label>
                         <input id="instagram" type="text" placeholder="@sualoja ou link completo">
-                    </div>
-                    <div class="field">
-                        <label>Facebook</label>
-                        <input id="facebook" type="text" placeholder="facebook.com/sualoja">
-                    </div>
-                    <div class="field">
-                        <label>TikTok</label>
-                        <input id="tiktok" type="text" placeholder="@sualoja">
                     </div>
                     <div class="field">
                         <label>WhatsApp de Pedidos</label>
@@ -1135,33 +873,34 @@
                 </div>
 
                 <div class="actions">
-                    <button class="btn btn-primary" onclick="salvarRedes()">Salvar redes sociais</button>
+                    <button class="btn btn-primary" onclick="salvarRedes()">Salvar Redes & Links</button>
                 </div>
             </div>
         </section>
 
-        <!-- APARÊNCIA & LAYOUT -->
+        <!-- APARÊNCIA & LAYOUT (ESCOLHA EXCLUSIVA DO ADMINISTRADOR) -->
         <section id="aparencia" class="section">
             <div class="card">
                 <div class="card-header">
-                    <h3>Aparência e Modelo do Cardápio</h3>
-                    <p>Escolha o layout de visualização e as cores da vitrine do seu cliente.</p>
+                    <h3>Aparência & Modelo de Layout</h3>
+                    <p><strong>Exclusivo do Administrador:</strong> O visual selecionado aqui será o único que os visitantes da loja verão.</p>
                 </div>
 
                 <div class="appearance-grid">
-                    <div class="appearance-controls">
-                        <!-- SELETOR DE LAYOUT -->
+                    <div class="appearance-controls" style="display:grid; gap:16px;">
+                        
+                        <!-- SELETOR DOS 3 LAYOUTS -->
                         <div class="field full">
-                            <label>Modelo de Layout do Cardápio</label>
-                            <select id="aparenciaModeloLayout">
-                                <option value="hub">Hub Tradicional (Cartões com abas e detalhes)</option>
-                                <option value="app">Estilo Aplicativo (Lista corrida com chips)</option>
+                            <label style="font-size: 14px; color: #111827;">Escolha o Layout da Vitrine:</label>
+                            <select id="aparenciaModeloLayout" style="font-weight: bold; border-color: #facc15; padding: 12px;">
+                                <option value="hub_classico">Layout 1: Hub Clássico / Linktree (Centralizado, Botões & Música)</option>
+                                <option value="vitrine_abas">Layout 2: Vitrine com Abas (Cardápio, Info e Horários)</option>
+                                <option value="app_delivery">Layout 3: App Delivery / Catálogo (Busca rápida e Chips)</option>
                             </select>
-                            <small style="color: #6b7280; font-size: 12px;">Selecione como os clientes irão visualizar sua página pública.</small>
                         </div>
 
                         <div class="field full">
-                            <label>Cor principal</label>
+                            <label>Cor Principal (Destaque e Botões)</label>
                             <div class="color-control">
                                 <input id="aparenciaCorPrincipal" type="color" value="#FFD400">
                                 <input id="aparenciaCorPrincipalHex" type="text" value="#FFD400" maxlength="7">
@@ -1169,7 +908,7 @@
                         </div>
 
                         <div class="field full">
-                            <label>Cor secundária</label>
+                            <label>Cor Secundária (Fundo e Detalhes)</label>
                             <div class="color-control">
                                 <input id="aparenciaCorSecundaria" type="color" value="#7B2CBF">
                                 <input id="aparenciaCorSecundariaHex" type="text" value="#7B2CBF" maxlength="7">
@@ -1177,7 +916,7 @@
                         </div>
 
                         <div class="field full">
-                            <label>Tema</label>
+                            <label>Tema de Fundo</label>
                             <div class="theme-options">
                                 <label class="theme-option">
                                     <input type="radio" name="aparenciaTema" value="claro" checked>
@@ -1191,36 +930,23 @@
                         </div>
 
                         <div class="actions">
-                            <button class="btn btn-primary" type="button" onclick="salvarAparencia()">Salvar aparência e layout</button>
-                            <button class="btn btn-secondary" type="button" onclick="restaurarAparencia()">Padrão</button>
+                            <button class="btn btn-primary" type="button" onclick="salvarAparencia()">Salvar Layout e Cores</button>
                         </div>
                     </div>
 
                     <div>
-                        <div style="font-weight:bold; margin-bottom:10px;">Pré-visualização de Cores</div>
+                        <div style="font-weight:bold; margin-bottom:10px;">Pré-visualização do Estilo</div>
                         <div id="aparenciaPreview" class="appearance-preview">
-                            <div class="preview-store-header">
-                                <div class="preview-logo">HB</div>
-                                <div>
-                                    <strong id="aparenciaPreviewNome">Carioca Ice Cream</strong>
-                                    <small style="display:block;opacity:.65;">Cardápio Digital</small>
-                                </div>
+                            <div style="text-align:center; margin-bottom: 15px;">
+                                <div style="width:50px; height:50px; background:var(--preview-primary); border-radius:50%; margin:0 auto 10px; display:grid; place-items:center; font-weight:bold;">HB</div>
+                                <strong>Carioca Ice Cream</strong>
+                                <p style="font-size:12px; color:#6b7280;">Visual configurado no sistema</p>
                             </div>
-                            <div class="preview-banner">
-                                <span>Refrescante a cada colherada.</span>
+                            <div style="background:white; border-radius:10px; padding:12px; border:1px solid #e5e7eb; margin-bottom:10px; text-align:center; font-weight:bold;">
+                                🍨 Cardápio Online
                             </div>
-                            <div class="preview-category-row">
-                                <span class="preview-chip active">Açaí</span>
-                                <span class="preview-chip">Sorvetes</span>
-                                <span class="preview-chip">Lanches</span>
-                            </div>
-                            <div class="preview-product-card">
-                                <div class="preview-product-image"></div>
-                                <div style="display:flex; flex-direction:column; gap:4px; flex:1;">
-                                    <strong>Copo Açaí 500ml</strong>
-                                    <small style="opacity:.7">Açaí batido na hora com banana e granola.</small>
-                                    <b style="margin-top:auto;">R$ 22,00</b>
-                                </div>
+                            <div style="background:white; border-radius:10px; padding:12px; border:1px solid #e5e7eb; margin-bottom:10px; text-align:center; font-weight:bold;">
+                                📸 Instagram
                             </div>
                         </div>
                     </div>
@@ -1232,37 +958,27 @@
         <section id="configuracoes" class="section">
             <div class="card">
                 <div class="card-header">
-                    <h3>Configurações & Dados</h3>
-                    <p>Exporte, faça backup ou limpe os cadastros salvos.</p>
+                    <h3>Backup & Dados</h3>
+                    <p>Exporte ou restaure as configurações de todos os layouts.</p>
                 </div>
 
                 <div class="settings-grid">
                     <div class="setting-card">
-                        <div class="setting-icon">💾</div>
+                        <div style="font-size: 24px;">💾</div>
                         <div>
                             <h4>Baixar Backup</h4>
-                            <p>Salva um arquivo JSON com produtos, dados da loja e cores.</p>
+                            <p>Exporta os dados completos em formato JSON.</p>
                         </div>
-                        <button class="btn btn-primary" style="grid-column:2; justify-self:start;" type="button" onclick="exportarDados()">Baixar arquivo</button>
-                    </div>
-
-                    <div class="setting-card">
-                        <div class="setting-icon">📥</div>
-                        <div>
-                            <h4>Restaurar Backup</h4>
-                            <p>Carregue um arquivo JSON gerado anteriormente.</p>
-                        </div>
-                        <input id="arquivoBackup" type="file" accept=".json" hidden onchange="importarDados(this.files[0]); this.value='';">
-                        <button class="btn btn-secondary" style="grid-column:2; justify-self:start;" type="button" onclick="document.getElementById('arquivoBackup').click()">Restaurar arquivo</button>
+                        <button class="btn btn-primary" style="grid-column:2; justify-self:start;" onclick="exportarDados()">Baixar Arquivo</button>
                     </div>
 
                     <div class="setting-card setting-danger">
-                        <div class="setting-icon">⚠️</div>
+                        <div style="font-size: 24px;">⚠️</div>
                         <div>
-                            <h4>Apagar Todos os Dados</h4>
-                            <p>Limpa a memória do navegador resetando as configurações locais.</p>
+                            <h4>Restaurar Padrão</h4>
+                            <p>Limpa o navegador e restabelece os dados iniciais.</p>
                         </div>
-                        <button class="btn btn-danger" style="grid-column:2; justify-self:start;" type="button" onclick="limparDados()">Resetar painel</button>
+                        <button class="btn btn-danger" style="grid-column:2; justify-self:start;" onclick="limparDados()">Resetar Tudo</button>
                     </div>
                 </div>
             </div>
@@ -1274,19 +990,19 @@
 <div id="modalProduto" class="modal-overlay">
     <div class="modal">
         <div class="modal-header">
-            <h3 id="modalTitulo">Editar produto</h3>
+            <h3 id="modalTitulo">Editar Produto</h3>
             <button class="close-modal" onclick="fecharModal()">&times;</button>
         </div>
 
         <div class="form-grid">
             <div class="field full">
-                <label>Nome do produto</label>
+                <label>Nome do Produto</label>
                 <input id="produtoNome" type="text" placeholder="Ex: Açaí Turbinado 500ml">
             </div>
 
             <div class="field">
                 <label>Categoria</label>
-                <input id="produtoCategoria" type="text" placeholder="Ex: Açaí, Sorvetes, Bebidas">
+                <input id="produtoCategoria" type="text" placeholder="Ex: Açaí, Sorvetes">
             </div>
 
             <div class="field">
@@ -1295,50 +1011,49 @@
             </div>
 
             <div class="field full">
-                <label>Imagem do produto</label>
+                <label>Imagem do Produto</label>
                 <div class="image-upload-box">
                     <div class="image-upload-row">
                         <img id="produtoImagemPreview" class="image-preview" alt="Prévia">
                         <div style="flex:1;">
                             <input id="produtoImagemArquivo" type="file" accept="image/*" onchange="selecionarImagemProduto(event)">
-                            <small style="display:block; margin-top:5px; color:#6b7280;">Escolha uma imagem do seu dispositivo.</small>
+                            <small style="display:block; margin-top:5px; color:#6b7280;">Escolha uma imagem do seu computador/celular.</small>
                         </div>
                     </div>
-                    <input id="produtoImagem" class="image-url-input" type="text" placeholder="Ou cole o link direto da imagem na web">
+                    <input id="produtoImagem" class="image-url-input" type="text" placeholder="Ou cole a URL direta de uma imagem na web">
                 </div>
             </div>
 
             <div class="field full">
-                <label>Descrição detalhada</label>
-                <textarea id="produtoDescricao" placeholder="Descreva os ingredientes, adicionais ou opções inclusas."></textarea>
+                <label>Descrição do Produto</label>
+                <textarea id="produtoDescricao" placeholder="Ingredientes e detalhes."></textarea>
             </div>
 
             <div class="field">
                 <label>Disponibilidade</label>
                 <select id="produtoDisponivel">
-                    <option value="true">Disponível no cardápio</option>
-                    <option value="false">Indisponível (Pausado)</option>
+                    <option value="true">Disponível</option>
+                    <option value="false">Indisponível</option>
                 </select>
             </div>
 
             <div class="field">
-                <label>Destacar no topo?</label>
+                <label>Destacar no Topo?</label>
                 <select id="produtoDestaque">
                     <option value="false">Não</option>
-                    <option value="true">Sim (Destaque do Dia)</option>
+                    <option value="true">Sim (Destaque)</option>
                 </select>
             </div>
         </div>
 
         <div class="actions">
-            <button class="btn btn-primary" onclick="salvarProduto()">Salvar produto</button>
+            <button class="btn btn-primary" onclick="salvarProduto()">Salvar Produto</button>
             <button class="btn btn-secondary" onclick="fecharModal()">Cancelar</button>
         </div>
     </div>
 </div>
 
 <script>
-    /* DADOS E INICIALIZAÇÃO */
     const PRODUTOS_PADRAO = [
         { id: "p1", nome: "Copo de Açaí 500ml", categoria: "Açaí", preco: 20.00, descricao: "Açaí cremoso com 3 adicionais à sua escolha.", disponivel: true, destaque: true, imagem: "" },
         { id: "p2", nome: "Cascão Duplo Artesanal", categoria: "Sorvetes", preco: 15.00, descricao: "Duas bolas de sorvete premium com calda.", disponivel: true, destaque: true, imagem: "" }
@@ -1349,7 +1064,6 @@
     let produtoEditando = null;
     window.logoLojaAtual = "";
 
-    /* NAVEGAÇÃO ENTRE ABAS */
     const botoesMenu = document.querySelectorAll(".menu-btn");
     const secoes = document.querySelectorAll(".section");
     const tituloPagina = document.getElementById("pageTitle");
@@ -1362,11 +1076,9 @@
             secoes.forEach(s => s.classList.remove("active"));
             const targetId = btn.dataset.section;
             document.getElementById(targetId).classList.add("active");
-
             tituloPagina.textContent = btn.textContent.trim();
 
             if (targetId === "produtos") renderizarProdutos();
-            if (targetId === "categorias") renderizarCategorias();
             if (targetId === "dashboard") atualizarDashboard();
         });
     });
@@ -1375,7 +1087,6 @@
         return Number(val || 0).toFixed(2).replace(".", ",");
     }
 
-    /* GESTÃO DE PRODUTOS */
     function renderizarProdutos() {
         const lista = document.getElementById("listaProdutos");
         const busca = document.getElementById("buscaProduto").value.toLowerCase().trim();
@@ -1411,7 +1122,6 @@
                     </div>
                 </div>
                 <div class="product-actions">
-                    <button class="btn btn-whatsapp" onclick="enviarProdutoIndividual(${indexOriginal})" title="Enviar no WhatsApp">Whats</button>
                     <button class="btn btn-secondary" onclick="editarProduto(${indexOriginal})">Editar</button>
                     <button class="btn ${produto.disponivel ? 'btn-danger' : 'btn-success'}" onclick="alternarDisponibilidade(${indexOriginal})">
                         ${produto.disponivel ? 'Pausar' : 'Ativar'}
@@ -1485,19 +1195,15 @@
             };
         }
 
-        salvarProdutosLocal();
+        localStorage.setItem("hubProdutos", JSON.stringify(produtosPainel));
         fecharModal();
         renderizarProdutos();
         atualizarDashboard();
     }
 
-    function salvarProdutosLocal() {
-        localStorage.setItem("hubProdutos", JSON.stringify(produtosPainel));
-    }
-
     function alternarDisponibilidade(index) {
         produtosPainel[index].disponivel = !produtosPainel[index].disponivel;
-        salvarProdutosLocal();
+        localStorage.setItem("hubProdutos", JSON.stringify(produtosPainel));
         renderizarProdutos();
         atualizarDashboard();
     }
@@ -1505,7 +1211,7 @@
     function excluirProduto(index) {
         if (confirm(`Deseja excluir "${produtosPainel[index].nome}"?`)) {
             produtosPainel.splice(index, 1);
-            salvarProdutosLocal();
+            localStorage.setItem("hubProdutos", JSON.stringify(produtosPainel));
             renderizarProdutos();
             atualizarDashboard();
         }
@@ -1554,7 +1260,6 @@
         reader.readAsDataURL(file);
     }
 
-    /* GESTÃO DE LOGO */
     function selecionarLogoLoja(e) {
         const file = e.target.files[0];
         if (!file) return;
@@ -1584,69 +1289,6 @@
         reader.readAsDataURL(file);
     }
 
-    /* INTEGRAÇÕES COM O WHATSAPP */
-    function obterNomeLoja() {
-        const loja = JSON.parse(localStorage.getItem("hubLoja") || "{}");
-        return loja.nome || "Nossa Loja";
-    }
-
-    function gerarMensagemCardapio() {
-        const nomeLoja = obterNomeLoja();
-        const urlCardapio = window.location.origin; 
-        return `👋 Olá! Seja bem-vindo(a) à *${nomeLoja}*.\n\n` +
-               `🍨 Confira nosso cardápio digital completo e faça seu pedido:\n` +
-               `👉 ${urlCardapio}\n\n` +
-               `Ficamos à disposição para montar o seu pedido!`;
-    }
-
-    function dispararLinkWhatsApp() {
-        const msg = encodeURIComponent(gerarMensagemCardapio());
-        window.open(`https://api.whatsapp.com/send?text=${msg}`, '_blank');
-    }
-
-    function copiarMensagemWhatsApp() {
-        navigator.clipboard.writeText(gerarMensagemCardapio()).then(() => alert("Mensagem do cardápio copiada!"));
-    }
-
-    function gerarTextoDestaques() {
-        const nomeLoja = obterNomeLoja();
-        const destaques = produtosPainel.filter(p => p.destaque && p.disponivel !== false);
-
-        if (destaques.length === 0) return null;
-
-        let txt = `⭐ *Destaques de Hoje - ${nomeLoja}* ⭐\n\n`;
-        destaques.forEach(item => {
-            txt += `▪️ *${item.nome}* — R$ ${formatarPreco(item.preco)}\n`;
-            if (item.descricao) txt += `   _${item.descricao}_\n`;
-        });
-        txt += `\n💬 Responda com o item desejado para confirmar seu pedido!`;
-        return txt;
-    }
-
-    function dispararDestaquesWhatsApp() {
-        const txt = gerarTextoDestaques();
-        if (!txt) { alert("Nenhum item marcado como destaque no momento."); return; }
-        window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(txt)}`, '_blank');
-    }
-
-    function copiarDestaquesWhatsApp() {
-        const txt = gerarTextoDestaques();
-        if (!txt) { alert("Nenhum item marcado como destaque no momento."); return; }
-        navigator.clipboard.writeText(txt).then(() => alert("Destaques copiados para colar no WhatsApp!"));
-    }
-
-    function enviarProdutoIndividual(index) {
-        const p = produtosPainel[index];
-        const nomeLoja = obterNomeLoja();
-        let txt = `🍧 *${p.nome}* na *${nomeLoja}*\n\n`;
-        if (p.descricao) txt += `📝 ${p.descricao}\n`;
-        txt += `💰 *Valor:* R$ ${formatarPreco(p.preco)}\n\n`;
-        txt += `Deseja que eu separe esse pedido para você?`;
-
-        window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(txt)}`, '_blank');
-    }
-
-    /* LOJA & HORÁRIOS */
     const DIAS = ["Segunda", "Terca", "Quarta", "Quinta", "Sexta", "Sabado", "Domingo"];
 
     function salvarLoja() {
@@ -1666,18 +1308,16 @@
             endereco: document.getElementById("lojaEndereco").value.trim(),
             bairro: document.getElementById("lojaBairro").value.trim(),
             cidade: document.getElementById("lojaCidade").value.trim(),
-            estado: document.getElementById("lojaEstado").value.trim().toUpperCase(),
-            cep: document.getElementById("lojaCep").value.trim(),
             descricao: document.getElementById("lojaDescricao").value.trim(),
+            musicaUrl: document.getElementById("lojaMusicaUrl").value.trim(),
             logo: window.logoLojaAtual || "",
             horarios: horarios
         };
 
-        if (!dados.nome) { alert("Informe o nome do seu estabelecimento."); return; }
+        if (!dados.nome) { alert("Informe o nome do estabelecimento."); return; }
         localStorage.setItem("hubLoja", JSON.stringify(dados));
-        atualizarVisualizacaoLoja(dados);
         document.getElementById("dashboardNomeLoja").textContent = dados.nome;
-        alert("Dados da loja salvos com sucesso!");
+        alert("Dados salvos com sucesso!");
     }
 
     function carregarDadosLoja() {
@@ -1688,10 +1328,15 @@
         document.getElementById("lojaEndereco").value = salvo.endereco || "";
         document.getElementById("lojaBairro").value = salvo.bairro || "";
         document.getElementById("lojaCidade").value = salvo.cidade || "";
-        document.getElementById("lojaEstado").value = salvo.estado || "";
-        document.getElementById("lojaCep").value = salvo.cep || "";
         document.getElementById("lojaDescricao").value = salvo.descricao || "";
+        document.getElementById("lojaMusicaUrl").value = salvo.musicaUrl || "";
         window.logoLojaAtual = salvo.logo || "";
+
+        if (salvo.logo) {
+            const preview = document.getElementById("lojaLogoPreview");
+            preview.src = salvo.logo;
+            preview.style.display = "block";
+        }
 
         if (salvo.horarios) {
             DIAS.forEach(d => {
@@ -1702,76 +1347,28 @@
                 }
             });
         }
-
-        atualizarVisualizacaoLoja(salvo);
     }
 
-    function atualizarVisualizacaoLoja(dados) {
-        document.getElementById("lojaPreviewNome").textContent = dados.nome || "Carioca Ice Cream";
-        const enderecoPartes = [dados.endereco, dados.bairro, dados.cidade, dados.estado].filter(Boolean);
-        document.getElementById("lojaPreviewEndereco").textContent = enderecoPartes.length ? enderecoPartes.join(" • ") : "Endereço não informado";
-        if (dados.logo) {
-            const imgPreview = document.getElementById("lojaPreviewLogoFinal");
-            imgPreview.src = dados.logo;
-            imgPreview.style.display = "block";
-            const topPreview = document.getElementById("lojaLogoPreview");
-            topPreview.src = dados.logo;
-            topPreview.style.display = "block";
-        }
-    }
-
-    /* REDES SOCIAIS & LINKS EXTERNOS */
     function salvarRedes() {
         const redes = {
             instagram: document.getElementById("instagram").value.trim(),
-            facebook: document.getElementById("facebook").value.trim(),
-            tiktok: document.getElementById("tiktok").value.trim(),
             whatsapp: document.getElementById("whatsappRede").value.trim(),
             googleAvaliacoes: document.getElementById("googleAvaliacoes").value.trim(),
             mapa: document.getElementById("linkMapa").value.trim()
         };
         localStorage.setItem("hubRedes", JSON.stringify(redes));
-        alert("Redes sociais e links salvos com sucesso!");
+        alert("Redes sociais e links salvos!");
     }
 
     function carregarRedes() {
         const redes = JSON.parse(localStorage.getItem("hubRedes") || "{}");
         if (redes.instagram) document.getElementById("instagram").value = redes.instagram;
-        if (redes.facebook) document.getElementById("facebook").value = redes.facebook;
-        if (redes.tiktok) document.getElementById("tiktok").value = redes.tiktok;
         if (redes.whatsapp) document.getElementById("whatsappRede").value = redes.whatsapp;
         if (redes.googleAvaliacoes) document.getElementById("googleAvaliacoes").value = redes.googleAvaliacoes;
         if (redes.mapa) document.getElementById("linkMapa").value = redes.mapa;
     }
 
-    /* CATEGORIAS & DASHBOARD */
-    function renderizarCategorias() {
-        const container = document.getElementById("listaCategorias");
-        container.innerHTML = "";
-        const categorias = [...new Set(produtosPainel.map(p => p.categoria).filter(Boolean))];
-
-        if (categorias.length === 0) {
-            container.innerHTML = `<div class="notice">Nenhuma categoria encontrada.</div>`;
-            return;
-        }
-
-        categorias.forEach(cat => {
-            const count = produtosPainel.filter(p => p.categoria === cat).length;
-            const div = document.createElement("div");
-            div.className = "category";
-            div.innerHTML = `<strong>${cat}</strong><span>${count} produto(s)</span>`;
-            container.appendChild(div);
-        });
-    }
-
-    function atualizarDashboard() {
-        document.getElementById("totalProdutos").textContent = produtosPainel.length;
-        document.getElementById("totalCategorias").textContent = new Set(produtosPainel.map(p => p.categoria).filter(Boolean)).size;
-        document.getElementById("produtosAtivos").textContent = produtosPainel.filter(p => p.disponivel !== false).length;
-        document.getElementById("totalDestaques").textContent = produtosPainel.filter(p => p.destaque).length;
-    }
-
-    /* APARÊNCIA & LAYOUT */
+    /* SALVAR APARÊNCIA & O LAYOUT ESCOLHIDO PELO ADMIN */
     function salvarAparencia() {
         const dados = {
             modelo: document.getElementById("aparenciaModeloLayout").value,
@@ -1781,7 +1378,7 @@
         };
         localStorage.setItem("hubAparencia", JSON.stringify(dados));
         aplicarPreviewTema();
-        alert("Aparência e modelo de layout salvos com sucesso!");
+        alert("Layout e aparência definidos com sucesso! O cliente final visualizará este modelo.");
     }
 
     function carregarAparencia() {
@@ -1802,28 +1399,19 @@
         aplicarPreviewTema();
     }
 
-    function restaurarAparencia() {
-        document.getElementById("aparenciaModeloLayout").value = "hub";
-        document.getElementById("aparenciaCorPrincipal").value = "#FFD400";
-        document.getElementById("aparenciaCorPrincipalHex").value = "#FFD400";
-        document.getElementById("aparenciaCorSecundaria").value = "#7B2CBF";
-        document.getElementById("aparenciaCorSecundariaHex").value = "#7B2CBF";
-        document.querySelector('input[name="aparenciaTema"][value="claro"]').checked = true;
-        aplicarPreviewTema();
-    }
-
     function aplicarPreviewTema() {
         const box = document.getElementById("aparenciaPreview");
-        const cp = document.getElementById("aparenciaCorPrincipal").value;
-        const cs = document.getElementById("aparenciaCorSecundaria").value;
-        const tema = document.querySelector('input[name="aparenciaTema"]:checked').value;
-        
-        box.style.setProperty("--preview-primary", cp);
-        box.style.setProperty("--preview-secondary", cs);
-        box.classList.toggle("dark", tema === "escuro");
+        box.style.setProperty("--preview-primary", document.getElementById("aparenciaCorPrincipal").value);
+        box.style.setProperty("--preview-secondary", document.getElementById("aparenciaCorSecundaria").value);
     }
 
-    /* BACKUP / RESTAURAÇÃO */
+    function atualizarDashboard() {
+        document.getElementById("totalProdutos").textContent = produtosPainel.length;
+        document.getElementById("totalCategorias").textContent = new Set(produtosPainel.map(p => p.categoria).filter(Boolean)).size;
+        document.getElementById("produtosAtivos").textContent = produtosPainel.filter(p => p.disponivel !== false).length;
+        document.getElementById("totalDestaques").textContent = produtosPainel.filter(p => p.destaque).length;
+    }
+
     function exportarDados() {
         const backup = {
             produtos: produtosPainel,
@@ -1838,40 +1426,19 @@
         a.click();
     }
 
-    function importarDados(file) {
-        if (!file) return;
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            try {
-                const dados = JSON.parse(e.target.result);
-                if (dados.produtos) localStorage.setItem("hubProdutos", JSON.stringify(dados.produtos));
-                if (dados.loja) localStorage.setItem("hubLoja", JSON.stringify(dados.loja));
-                if (dados.redes) localStorage.setItem("hubRedes", JSON.stringify(dados.redes));
-                if (dados.aparencia) localStorage.setItem("hubAparencia", JSON.stringify(dados.aparencia));
-                alert("Dados restaurados com sucesso!");
-                location.reload();
-            } catch (err) {
-                alert("Arquivo de backup inválido.");
-            }
-        };
-        reader.readAsText(file);
-    }
-
     function limparDados() {
-        if (confirm("Atenção: todos os cadastros e imagens locais serão apagados. Deseja continuar?")) {
+        if (confirm("Resetar todos os dados locais?")) {
             localStorage.clear();
             location.reload();
         }
     }
 
-    /* EVENTOS INICIAIS */
     document.addEventListener("DOMContentLoaded", () => {
         carregarDadosLoja();
         carregarRedes();
         carregarAparencia();
         atualizarDashboard();
         renderizarProdutos();
-        renderizarCategorias();
 
         const cp = document.getElementById("aparenciaCorPrincipal");
         const cpHex = document.getElementById("aparenciaCorPrincipalHex");
@@ -1882,7 +1449,6 @@
         cpHex.addEventListener("input", () => { cp.value = cpHex.value; aplicarPreviewTema(); });
         cs.addEventListener("input", () => { csHex.value = cs.value.toUpperCase(); aplicarPreviewTema(); });
         csHex.addEventListener("input", () => { cs.value = csHex.value; aplicarPreviewTema(); });
-        document.querySelectorAll('input[name="aparenciaTema"]').forEach(r => r.addEventListener("change", aplicarPreviewTema));
     });
 </script>
 
