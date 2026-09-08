@@ -74,6 +74,12 @@
       color: var(--text-muted);
     }
 
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
     .status-badge {
       display: inline-flex;
       align-items: center;
@@ -93,14 +99,25 @@
       background: #22c55e;
     }
 
-    /* CONTAINER PRINCIPAL */
+    .btn-toggle-layout {
+      background: #f3f4f6;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      padding: 5px 9px;
+      font-size: 0.72rem;
+      font-weight: bold;
+      cursor: pointer;
+      color: #374151;
+    }
+
+    /* CONTAINER */
     .container {
       max-width: 680px;
       margin: 0 auto;
       padding: 16px;
     }
 
-    /* LINKS RÁPIDOS & CONTATO */
+    /* BOTÕES EXTERNOS */
     .quick-actions {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -133,9 +150,63 @@
       font-size: 1.3rem;
     }
 
-    /* BUSCA */
-    .search-container {
+    /* ========================================================
+       LAYOUT 1: HUB TRADICIONAL (Abas: Cardápio / Info / Horários)
+       ======================================================== */
+    .hub-tabs {
+      display: flex;
+      border-bottom: 2px solid var(--border-color);
+      margin-bottom: 18px;
+      background: var(--card-bg);
+      border-radius: 12px 12px 0 0;
+      overflow: hidden;
+    }
+
+    .hub-tab-btn {
+      flex: 1;
+      padding: 12px 8px;
+      border: none;
+      background: transparent;
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      transition: .2s;
+    }
+
+    .hub-tab-btn.active {
+      color: var(--secondary-color);
+      border-bottom-color: var(--secondary-color);
+      background: #faf5ff;
+    }
+
+    .hub-content-box {
+      background: var(--card-bg);
+      border-radius: 0 0 12px 12px;
+      padding: 18px;
+      border: 1px solid var(--border-color);
+      border-top: none;
       margin-bottom: 20px;
+    }
+
+    .info-line {
+      display: flex;
+      margin-bottom: 12px;
+      gap: 10px;
+      font-size: 0.9rem;
+    }
+
+    .info-line strong {
+      min-width: 85px;
+      color: var(--text-muted);
+    }
+
+    /* ========================================================
+       LAYOUT 2: APP ESTILO CARDÁPIO (Busca + Chips)
+       ======================================================== */
+    .search-container {
+      margin-bottom: 16px;
     }
 
     .search-input {
@@ -152,7 +223,6 @@
       border-color: var(--secondary-color);
     }
 
-    /* CATEGORIAS */
     .categories-bar {
       display: flex;
       gap: 8px;
@@ -280,15 +350,18 @@
         <div id="storeAddress" class="brand-subtitle">Carregando...</div>
       </div>
     </div>
-    <div class="status-badge">
-      <span class="status-dot"></span>
-      Aberto
+    <div class="header-actions">
+      <button class="btn-toggle-layout" onclick="alternarModeloLayout()" title="Alternar entre visual Hub e App">📱 Trocar Layout</button>
+      <div class="status-badge">
+        <span class="status-dot"></span>
+        Aberto
+      </div>
     </div>
   </header>
 
   <div class="container">
 
-    <!-- BOTÕES EXTERNOS COM FALLBACK SEGURO -->
+    <!-- BOTÕES EXTERNOS -->
     <div class="quick-actions">
       <a id="whatsappLink" href="https://api.whatsapp.com/send?phone=5521999999999" target="_blank" class="action-btn">
         <span class="icon">💬</span>
@@ -308,15 +381,34 @@
       </a>
     </div>
 
-    <!-- BUSCA -->
+    <!-- ÁREA 1: VISUAL HUB TRADICIONAL (Abas) -->
+    <div id="visaoHub" style="display: none;">
+      <div class="hub-tabs">
+        <button class="hub-tab-btn active" onclick="trocarAbaHub('cardapio')">🍽️ Cardápio</button>
+        <button class="hub-tab-btn" onclick="trocarAbaHub('info')">ℹ️ Informações</button>
+        <button class="hub-tab-btn" onclick="trocarAbaHub('horarios')">🕒 Horários</button>
+      </div>
+
+      <div id="hubAbaInfo" class="hub-content-box" style="display: none;">
+        <div class="info-line"><strong>Sobre:</strong> <span id="hubDescricao">Sorveteria artesanal e lanches.</span></div>
+        <div class="info-line"><strong>Endereço:</strong> <span id="hubEnderecoCompleto">Carregando...</span></div>
+        <div class="info-line"><strong>Telefone:</strong> <span id="hubTelefone">Não informado</span></div>
+        <div class="info-line"><strong>WhatsApp:</strong> <span id="hubWhatsapp">Não informado</span></div>
+      </div>
+
+      <div id="hubAbaHorarios" class="hub-content-box" style="display: none;">
+        <div id="hubListaHorarios" style="display:grid; gap:8px; font-size:0.88rem;"></div>
+      </div>
+    </div>
+
+    <!-- ÁREA 2: BUSCA E CATEGORIAS (Comum para ambos os layouts) -->
     <div class="search-container">
       <input type="text" id="searchInput" class="search-input" placeholder="Buscar no cardápio..." oninput="filtrarProdutos()" />
     </div>
 
-    <!-- CATEGORIAS -->
     <div id="categoriesBar" class="categories-bar"></div>
 
-    <!-- LISTAGEM -->
+    <!-- LISTAGEM DE PRODUTOS -->
     <div id="productsGrid" class="products-grid"></div>
 
   </div>
@@ -326,6 +418,7 @@
     let dadosRedes = {};
     let listaProdutos = [];
     let categoriaAtiva = "todos";
+    let layoutAtual = "hub";
 
     function carregarConfiguracoes() {
       // 1. DADOS DA LOJA
@@ -336,43 +429,40 @@
       if (dadosLoja.nome) document.getElementById("storeName").textContent = dadosLoja.nome;
       
       const enderecoPartes = [dadosLoja.endereco, dadosLoja.bairro, dadosLoja.cidade].filter(Boolean);
-      if (enderecoPartes.length) {
-        document.getElementById("storeAddress").textContent = enderecoPartes.join(" • ");
-      } else {
-        document.getElementById("storeAddress").textContent = "Rio de Janeiro - RJ";
-      }
+      const endFormatado = enderecoPartes.length ? enderecoPartes.join(" • ") : "Rio de Janeiro - RJ";
+      document.getElementById("storeAddress").textContent = endFormatado;
+      document.getElementById("hubEnderecoCompleto").textContent = endFormatado;
+      document.getElementById("hubDescricao").textContent = dadosLoja.descricao || "Sorvetes e sobremesas artesanais.";
+      document.getElementById("hubTelefone").textContent = dadosLoja.telefone || "Não informado";
+      document.getElementById("hubWhatsapp").textContent = dadosLoja.whatsapp || "Não informado";
 
       if (dadosLoja.logo) {
         document.getElementById("storeLogo").src = dadosLoja.logo;
       }
 
-      // 2. REDES SOCIAIS & LINKS EXTERNOS
+      // 2. REDES SOCIAIS & LINKS
       const redesSalvas = JSON.parse(localStorage.getItem("hubRedes") || "{}");
       const fallbackContatos = fallbackLoja.contatos || {};
       dadosRedes = { ...fallbackContatos, ...redesSalvas };
 
-      // WhatsApp
       const whats = (dadosLoja.whatsapp || dadosRedes.whatsapp || '5521999999999').replace(/\D/g, '');
       if (whats) {
         document.getElementById("whatsappLink").href = `https://api.whatsapp.com/send?phone=${whats}`;
       }
 
-      // Instagram
       let insta = dadosRedes.instagram || 'cariocaicecream';
       if (!insta.startsWith("http")) {
         insta = `https://instagram.com/${insta.replace("@", "")}`;
       }
       document.getElementById("instagramLink").href = insta;
 
-      // Google Avaliações
       const avaliacao = dadosLoja.googleAvaliacoes || dadosRedes.googleAvaliacoes || 'https://maps.google.com';
       document.getElementById("googleLink").href = avaliacao;
 
-      // Google Maps
       const mapa = dadosLoja.maps || dadosRedes.mapa || 'https://maps.google.com';
       document.getElementById("mapaLink").href = mapa;
 
-      // 3. APARÊNCIA & CORES
+      // 3. APARÊNCIA & MODELO DE LAYOUT
       const aparenciaSalva = JSON.parse(localStorage.getItem("hubAparencia") || "{}");
       if (aparenciaSalva.principal) {
         document.documentElement.style.setProperty("--primary-color", aparenciaSalva.principal);
@@ -380,6 +470,87 @@
       if (aparenciaSalva.secundaria) {
         document.documentElement.style.setProperty("--secondary-color", aparenciaSalva.secundaria);
       }
+
+      layoutAtual = aparenciaSalva.modelo || "hub";
+      aplicarVisualLayout(layoutAtual);
+      renderizarHorariosHub();
+    }
+
+    function aplicarVisualLayout(modelo) {
+      const boxHub = document.getElementById("visaoHub");
+      if (modelo === "hub") {
+        boxHub.style.display = "block";
+      } else {
+        boxHub.style.display = "none";
+        document.getElementById("productsGrid").style.display = "flex";
+        document.getElementById("categoriesBar").style.display = "flex";
+        document.querySelector(".search-container").style.display = "block";
+      }
+    }
+
+    function alternarModeloLayout() {
+      layoutAtual = (layoutAtual === "hub") ? "app" : "hub";
+      aplicarVisualLayout(layoutAtual);
+    }
+
+    function trocarAbaHub(aba) {
+      const botoes = document.querySelectorAll(".hub-tab-btn");
+      botoes.forEach(b => b.classList.remove("active"));
+
+      const grid = document.getElementById("productsGrid");
+      const cats = document.getElementById("categoriesBar");
+      const search = document.querySelector(".search-container");
+      const info = document.getElementById("hubAbaInfo");
+      const horarios = document.getElementById("hubAbaHorarios");
+
+      grid.style.display = "none";
+      cats.style.display = "none";
+      search.style.display = "none";
+      info.style.display = "none";
+      horarios.style.display = "none";
+
+      if (aba === "cardapio") {
+        botoes[0].classList.add("active");
+        grid.style.display = "flex";
+        cats.style.display = "flex";
+        search.style.display = "block";
+      } else if (aba === "info") {
+        botoes[1].classList.add("active");
+        info.style.display = "block";
+      } else if (aba === "horarios") {
+        botoes[2].classList.add("active");
+        horarios.style.display = "block";
+      }
+    }
+
+    function renderizarHorariosHub() {
+      const container = document.getElementById("hubListaHorarios");
+      container.innerHTML = "";
+      const dias = [
+        { id: "Segunda", nome: "Segunda-feira" },
+        { id: "Terca", nome: "Terça-feira" },
+        { id: "Quarta", nome: "Quarta-feira" },
+        { id: "Quinta", nome: "Quinta-feira" },
+        { id: "Sexta", nome: "Sexta-feira" },
+        { id: "Sabado", nome: "Sábado" },
+        { id: "Domingo", nome: "Domingo" }
+      ];
+
+      const hSalvo = dadosLoja.horarios || {};
+      dias.forEach(d => {
+        const h = hSalvo[d.id] || { aberto: true, abre: "13:00", fecha: "21:00" };
+        const linha = document.createElement("div");
+        linha.style.display = "flex";
+        linha.style.justifyContent = "space-between";
+        linha.style.borderBottom = "1px solid #f3f4f6";
+        linha.style.padding = "6px 0";
+
+        linha.innerHTML = `
+          <strong>${d.nome}</strong>
+          <span>${h.aberto ? `${h.abre} às ${h.fecha}` : '<span style="color:#ef4444;">Fechado</span>'}</span>
+        `;
+        container.appendChild(linha);
+      });
     }
 
     function carregarProdutos() {
@@ -476,3 +647,4 @@
 </body>
 
 </html>
+
