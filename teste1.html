@@ -127,7 +127,6 @@
       font-weight: 600;
       cursor: pointer;
       width: 100%;
-      transition: background 0.2s;
     }
 
     .btn:hover {
@@ -136,10 +135,6 @@
 
     .btn-secondary {
       background-color: var(--secondary);
-    }
-
-    .btn-secondary:hover {
-      background-color: #14213d;
     }
 
     .btn-danger {
@@ -188,13 +183,13 @@
     <header>
       <div>
         <h1>Painel de Controle Delivery</h1>
-        <p style="color: var(--muted); font-size: 0.9rem;">Configuração de Bairros, Taxas, WhatsApp e PIX</p>
+        <p style="color: var(--muted); font-size: 0.9rem;">Configuração de Bairros, Taxas e PIX</p>
       </div>
       <span class="badge-status">● Painel Ativo</span>
     </header>
 
     <div class="grid">
-      <!-- Coluna 1: Dados do Negócio e Cardápio -->
+      <!-- Configurações Gerais -->
       <div>
         <div class="card">
           <h2>Configurações do WhatsApp & PIX</h2>
@@ -207,7 +202,6 @@
             <div class="form-group">
               <label for="whatsapp">WhatsApp para Receber Pedidos (com DDD):</label>
               <input type="text" id="whatsapp" placeholder="Ex: 21999998888 (somente números)" required>
-              <small style="color: var(--muted); font-size: 0.8rem;">Os pedidos dos clientes serão encaminhados diretamente para cá.</small>
             </div>
 
             <div class="form-group">
@@ -223,7 +217,7 @@
 
             <div class="form-group">
               <label for="chavePix">Chave PIX (Copia e Cola):</label>
-              <input type="text" id="chavePix" placeholder="Digite sua chave PIX completa" required>
+              <input type="text" id="chavePix" placeholder="Digite sua chave PIX" required>
             </div>
 
             <div class="form-group">
@@ -235,7 +229,7 @@
           </form>
         </div>
 
-        <!-- Gerenciar Itens do Cardápio -->
+        <!-- Produtos / Cardápio -->
         <div class="card">
           <h2>Cadastrar Itens no Cardápio</h2>
           <form id="form-produto">
@@ -245,7 +239,7 @@
             </div>
             <div class="form-group">
               <label for="descProd">Descrição:</label>
-              <input type="text" id="descProd" placeholder="Ex: Pão brioche, 2x smash 90g, cheddar cremoso" required>
+              <input type="text" id="descProd" placeholder="Ex: Pão brioche, 2x smash 90g, queijo cheddar" required>
             </div>
             <div class="form-group">
               <label for="precoProd">Preço (R$):</label>
@@ -267,12 +261,12 @@
         </div>
       </div>
 
-      <!-- Coluna 2: Bairros Atendidos e Taxas -->
+      <!-- Gerenciamento de Bairros -->
       <div>
         <div class="card">
           <h2>Bairros Atendidos (Rio de Janeiro)</h2>
           <p style="color: var(--muted); font-size: 0.85rem; margin-bottom: 14px;">
-            Cadastre os bairros do Rio que você atende e a taxa de frete. O cliente selecionará o bairro dele diretamente na finalização.
+            Cadastre os bairros atendidos e a taxa de entrega correspondente.
           </p>
 
           <form id="form-bairro">
