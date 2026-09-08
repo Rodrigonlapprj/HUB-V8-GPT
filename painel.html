@@ -147,7 +147,7 @@
 
 
         /* =====================================
-           CONTEÚDO
+           CONTE�DO
         ===================================== */
 
         .content {
@@ -206,7 +206,7 @@
 
 
         /* =====================================
-           SEÇÕES
+           SE��ES
         ===================================== */
 
         .section {
@@ -524,7 +524,7 @@
 
 
         /* =====================================
-           BOTÕES
+           BOT�ES
         ===================================== */
 
         .btn {
@@ -576,7 +576,7 @@
 
 
         /* =====================================
-           FORMULÁRIOS
+           FORMUL�RIOS
         ===================================== */
 
         /* =====================================
@@ -741,6 +741,16 @@
             gap: 10px;
         }
 
+
+        .horarios-semana{border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;background:#fff}
+        .horario-cabecalho,.horario-linha{display:grid;grid-template-columns:minmax(150px,1.5fr) 80px 1fr 1fr;align-items:center;gap:12px;padding:12px 15px}
+        .horario-cabecalho{background:#f9fafb;color:#6b7280;font-size:12px;font-weight:bold;border-bottom:1px solid #e5e7eb}
+        .horario-linha{border-bottom:1px solid #f0f0f0}
+        .horario-linha:last-child{border-bottom:0}
+        .horario-linha strong{font-size:14px}
+        .horario-linha input[type="time"]{width:100%;min-width:0}
+        .horario-linha input[type="checkbox"]{width:18px;height:18px;cursor:pointer}
+        .horario-ajuda{display:block;margin-top:8px;color:#6b7280;font-size:12px}
 
         /* =====================================
            CATEGORIAS
@@ -1205,7 +1215,7 @@
 
                 </svg>
 
-                Aparência
+                Apar�ncia
 
             </button>
 
@@ -1228,7 +1238,7 @@
 
                 </svg>
 
-                Configurações
+                Configura��es
 
             </button>
 
@@ -1238,7 +1248,7 @@
 
         <div class="sidebar-footer">
 
-            Hub Brasil • V2
+            Hub Brasil � V2
 
         </div>
 
@@ -1247,7 +1257,7 @@
 
 
     <!-- =====================================
-         CONTEÚDO
+         CONTE�DO
     ====================================== -->
 
     <main class="content">
@@ -1359,14 +1369,14 @@
 
                 <div class="notice">
 
-                    ?? Esta versão já está conectada
+                    ?? Esta vers�o j� est� conectada
                     aos produtos reais cadastrados no
                     sistema.
 
                     <br><br>
 
-                    As alterações feitas nesta demonstração
-                    são armazenadas localmente neste navegador.
+                    As altera��es feitas nesta demonstra��o
+                    s�o armazenadas localmente neste navegador.
 
                 </div>
 
@@ -1395,17 +1405,17 @@
             <div class="card">
                 <div class="card-header">
                     <h3>Minha Loja</h3>
-                    <p>Cadastre as informações que identificam a loja no Hub Brasil.</p>
+                    <p>Cadastre as informa��es que identificam a loja no Hub Brasil.</p>
                 </div>
 
                 <div class="field full" style="margin-bottom:20px;">
                     <label>Logo da loja</label>
                     <div class="store-logo-box">
                         <div class="store-logo-row">
-                            <img id="lojaLogoPreview" class="store-logo-preview" alt="Pré-visualização da logo">
+                            <img id="lojaLogoPreview" class="store-logo-preview" alt="Pr�-visualiza��o da logo">
                             <div class="store-logo-info">
                                 <input id="lojaLogoArquivo" type="file" accept="image/png,image/jpeg,image/webp">
-                                <small>Escolha a logo da loja. Nesta versão de demonstração, a imagem é redimensionada e salva localmente.</small>
+                                <small>Escolha a logo da loja. Nesta vers�o de demonstra��o, a imagem � redimensionada e salva localmente.</small>
                             </div>
                         </div>
                     </div>
@@ -1428,8 +1438,8 @@
                     </div>
 
                     <div class="field full">
-                        <label>Endereço</label>
-                        <input id="lojaEndereco" type="text" placeholder="Rua, número e complemento">
+                        <label>Endere�o</label>
+                        <input id="lojaEndereco" type="text" placeholder="Rua, n�mero e complemento">
                     </div>
 
                     <div class="field">
@@ -1452,14 +1462,19 @@
                         <input id="lojaCep" type="text" placeholder="00000-000">
                     </div>
 
-                    <div class="field">
-                        <label>Dias de funcionamento</label>
-                        <input id="lojaDias" type="text" value="Todos os dias" placeholder="Ex.: Segunda a sexta">
-                    </div>
-
-                    <div class="field">
+                    <div class="field full">
                         <label>Horário de funcionamento</label>
-                        <input id="lojaHorario" type="text" value="13h às 21h" placeholder="Ex.: 13h às 21h">
+                        <div class="horarios-semana">
+                            <div class="horario-cabecalho"><span>Dia</span><span>Aberto</span><span>Abre</span><span>Fecha</span></div>
+                            <div class="horario-linha"><strong>Segunda-feira</strong><input type="checkbox" id="diaSegunda" checked><input type="time" id="abreSegunda" value="13:00"><input type="time" id="fechaSegunda" value="21:00"></div>
+                            <div class="horario-linha"><strong>Terça-feira</strong><input type="checkbox" id="diaTerca" checked><input type="time" id="abreTerca" value="13:00"><input type="time" id="fechaTerca" value="21:00"></div>
+                            <div class="horario-linha"><strong>Quarta-feira</strong><input type="checkbox" id="diaQuarta" checked><input type="time" id="abreQuarta" value="13:00"><input type="time" id="fechaQuarta" value="21:00"></div>
+                            <div class="horario-linha"><strong>Quinta-feira</strong><input type="checkbox" id="diaQuinta" checked><input type="time" id="abreQuinta" value="13:00"><input type="time" id="fechaQuinta" value="21:00"></div>
+                            <div class="horario-linha"><strong>Sexta-feira</strong><input type="checkbox" id="diaSexta" checked><input type="time" id="abreSexta" value="13:00"><input type="time" id="fechaSexta" value="21:00"></div>
+                            <div class="horario-linha"><strong>Sábado</strong><input type="checkbox" id="diaSabado" checked><input type="time" id="abreSabado" value="13:00"><input type="time" id="fechaSabado" value="21:00"></div>
+                            <div class="horario-linha"><strong>Domingo</strong><input type="checkbox" id="diaDomingo" checked><input type="time" id="abreDomingo" value="13:00"><input type="time" id="fechaDomingo" value="21:00"></div>
+                        </div>
+                        <small class="horario-ajuda">Marque os dias em que a loja funciona e informe o horário de abertura e fechamento de cada dia.</small>
                     </div>
 
                     <div class="field">
@@ -1468,25 +1483,25 @@
                     </div>
 
                     <div class="field full">
-                        <label>Descrição da loja</label>
-                        <textarea id="lojaDescricao">Sorvetes, açaí, milk shakes e muito mais.</textarea>
+                        <label>Descri��o da loja</label>
+                        <textarea id="lojaDescricao">Sorvetes, a�a�, milk shakes e muito mais.</textarea>
                     </div>
                 </div>
 
                 <div class="actions">
-                    <button class="btn btn-primary" onclick="salvarLoja()">Salvar informações</button>
-                    <button class="btn btn-secondary" onclick="carregarDadosLoja()">Desfazer alterações</button>
+                    <button class="btn btn-primary" onclick="salvarLoja()">Salvar informa��es</button>
+                    <button class="btn btn-secondary" onclick="carregarDadosLoja()">Desfazer altera��es</button>
                 </div>
 
                 <div class="store-preview-card">
-                    <div class="store-preview-title">Pré-visualização das informações</div>
+                    <div class="store-preview-title">Pr�-visualiza��o das informa��es</div>
                     <div class="store-preview-content">
                         <img id="lojaPreviewLogoFinal" class="store-preview-logo" alt="Logo da loja" style="display:none;">
                         <div>
                             <strong id="lojaPreviewNome">Carioca Ice Cream</strong>
-                            <span id="lojaPreviewEndereco">Endereço ainda não informado</span>
+                            <span id="lojaPreviewEndereco">Endere�o ainda n�o informado</span>
                             <span id="lojaPreviewDias">Todos os dias</span>
-                            <span id="lojaPreviewHorario">13h às 21h</span>
+                            <span id="lojaPreviewHorario">13h �s 21h</span>
                         </div>
                     </div>
                 </div>
@@ -1513,7 +1528,7 @@
                     </h3>
 
                     <p>
-                        Produtos cadastrados no seu cardápio.
+                        Produtos cadastrados no seu card�pio.
                     </p>
 
                 </div>
@@ -1577,7 +1592,7 @@
                     </h3>
 
                     <p>
-                        Categorias utilizadas no cardápio.
+                        Categorias utilizadas no card�pio.
                     </p>
 
                 </div>
@@ -1703,7 +1718,7 @@
 
 
         <!-- =====================================
-             APARÊNCIA
+             APAR�NCIA
         ====================================== -->
 
         <section
@@ -1717,7 +1732,7 @@
                 <div class="card-header">
 
                     <h3>
-                        Aparência
+                        Apar�ncia
                     </h3>
 
                     <p>
@@ -1747,7 +1762,7 @@
                     <div class="field">
 
                         <label>
-                            Cor secundária
+                            Cor secund�ria
                         </label>
 
                         <input
@@ -1767,7 +1782,7 @@
                         class="btn btn-primary"
                         onclick="salvarAparencia()">
 
-                        Salvar aparência
+                        Salvar apar�ncia
 
                     </button>
 
@@ -1781,7 +1796,7 @@
 
 
         <!-- =====================================
-             CONFIGURAÇÕES
+             CONFIGURA��ES
         ====================================== -->
 
         <section
@@ -1795,11 +1810,11 @@
                 <div class="card-header">
 
                     <h3>
-                        Configurações
+                        Configura��es
                     </h3>
 
                     <p>
-                        Configurações gerais da plataforma.
+                        Configura��es gerais da plataforma.
                     </p>
 
                 </div>
@@ -1807,9 +1822,9 @@
 
                 <div class="notice">
 
-                    ?? O login, usuários, banco de dados
-                    e controle de permissões serão
-                    adicionados nas próximas etapas.
+                    ?? O login, usu�rios, banco de dados
+                    e controle de permiss�es ser�o
+                    adicionados nas pr�ximas etapas.
 
                 </div>
 
@@ -1857,7 +1872,7 @@
                 class="close-modal"
                 onclick="fecharModal()">
 
-                ×
+                �
 
             </button>
 
@@ -1896,7 +1911,7 @@
             <div class="field">
 
                 <label>
-                    Preço
+                    Pre�o
                 </label>
 
                 <input
@@ -1920,7 +1935,7 @@
                         <img
                             id="produtoImagemPreview"
                             class="image-preview"
-                            alt="Pré-visualização do produto">
+                            alt="Pr�-visualiza��o do produto">
 
                         <div class="image-upload-info">
 
@@ -1932,7 +1947,7 @@
 
                             <small>
                                 Escolha uma foto do computador ou celular.
-                                A imagem será preparada automaticamente para a demonstração.
+                                A imagem ser� preparada automaticamente para a demonstra��o.
                             </small>
 
                         </div>
@@ -1943,7 +1958,7 @@
                         id="produtoImagem"
                         class="image-url-input"
                         type="text"
-                        placeholder="Ou cole aqui o endereço da imagem (opcional)">
+                        placeholder="Ou cole aqui o endere�o da imagem (opcional)">
 
                 </div>
 
@@ -1953,7 +1968,7 @@
             <div class="field full">
 
                 <label>
-                    Descrição
+                    Descri��o
                 </label>
 
                 <textarea
@@ -1965,7 +1980,7 @@
             <div class="field">
 
                 <label>
-                    Disponível
+                    Dispon�vel
                 </label>
 
                 <select id="produtoDisponivel">
@@ -1975,7 +1990,7 @@
                     </option>
 
                     <option value="false">
-                        Não
+                        N�o
                     </option>
 
                 </select>
@@ -1992,7 +2007,7 @@
                 <select id="produtoDestaque">
 
                     <option value="false">
-                        Não
+                        N�o
                     </option>
 
                     <option value="true">
@@ -2047,7 +2062,7 @@
 
 
     /* =====================================
-       CONFIGURAÇÃO
+       CONFIGURA��O
     ====================================== */
 
 
@@ -2078,7 +2093,7 @@
 
 
     /* =====================================
-       NAVEGAÇÃO
+       NAVEGA��O
     ====================================== */
 
 
@@ -2162,7 +2177,7 @@
 
 
     /* =====================================
-       FORMATAÇÃO DE PREÇO
+       FORMATA��O DE PRE�O
     ====================================== */
 
 
@@ -2306,14 +2321,14 @@
                                     ? `
                                         <span
                                             class="badge badge-active">
-                                            Disponível
+                                            Dispon�vel
                                         </span>
                                       `
 
                                     : `
                                         <span
                                             class="badge badge-inactive">
-                                            Indisponível
+                                            Indispon�vel
                                         </span>
                                       `
                                 }
@@ -2371,7 +2386,7 @@
                             class="btn btn-danger"
                             onclick="excluirProduto(${indice})">
 
-                            🗑️ Excluir
+                            ??? Excluir
 
                         </button>
 
@@ -2448,7 +2463,7 @@
 
         if (!arquivo.type.startsWith("image/")) {
 
-            alert("Selecione um arquivo de imagem válido.");
+            alert("Selecione um arquivo de imagem v�lido.");
 
             evento.target.value = "";
             return;
@@ -2499,7 +2514,7 @@
                     novaImagemProduto
                 );
 
-                // O campo de URL deixa de ser necessário quando
+                // O campo de URL deixa de ser necess�rio quando
                 // uma imagem local foi escolhida.
                 document.getElementById(
                     "produtoImagem"
@@ -2749,7 +2764,7 @@
         ) {
 
             alert(
-                "Digite um preço válido."
+                "Digite um pre�o v�lido."
             );
 
             return;
@@ -2851,7 +2866,7 @@
 
         alert(
             imagem
-                ? "Produto salvo com sucesso! A imagem também foi salva nesta demonstração."
+                ? "Produto salvo com sucesso! A imagem tamb�m foi salva nesta demonstra��o."
                 : "Produto salvo com sucesso!"
         );
 
@@ -2929,7 +2944,7 @@
         const confirmar = confirm(
             "Deseja realmente excluir o produto \"" +
             produto.nome +
-            "\"?\n\nEssa ação não poderá ser desfeita."
+            "\"?\n\nEssa a��o n�o poder� ser desfeita."
         );
 
         if (!confirmar) {
@@ -2943,7 +2958,7 @@
         atualizarDashboard();
         renderizarCategorias();
 
-        alert("Produto excluído com sucesso!");
+        alert("Produto exclu�do com sucesso!");
     }
 
 
@@ -3140,137 +3155,103 @@
     ====================================== */
 
 
-    function salvarLoja() {
+    const DIAS_SEMANA=[
+        {chave:"segunda",nome:"Segunda-feira"},{chave:"terca",nome:"Terça-feira"},
+        {chave:"quarta",nome:"Quarta-feira"},{chave:"quinta",nome:"Quinta-feira"},
+        {chave:"sexta",nome:"Sexta-feira"},{chave:"sabado",nome:"Sábado"},
+        {chave:"domingo",nome:"Domingo"}
+    ];
 
-        const dados = {
-            nome: document.getElementById("lojaNome").value.trim(),
-            telefone: document.getElementById("lojaTelefone").value.trim(),
-            whatsapp: document.getElementById("lojaWhatsapp").value.trim(),
-            endereco: document.getElementById("lojaEndereco").value.trim(),
-            bairro: document.getElementById("lojaBairro").value.trim(),
-            cidade: document.getElementById("lojaCidade").value.trim(),
-            estado: document.getElementById("lojaEstado").value.trim().toUpperCase(),
-            cep: document.getElementById("lojaCep").value.trim(),
-            dias: document.getElementById("lojaDias").value.trim(),
-            horario: document.getElementById("lojaHorario").value.trim(),
-            maps: document.getElementById("lojaMaps").value.trim(),
-            descricao: document.getElementById("lojaDescricao").value.trim(),
-            logo: window.logoLojaAtual || ""
+    function capitalizar(t){return t.charAt(0).toUpperCase()+t.slice(1)}
+
+    function horariosPadrao(){
+        return DIAS_SEMANA.map(d=>({dia:d.nome,chave:d.chave,aberto:true,abertura:"13:00",fechamento:"21:00"}));
+    }
+
+    function coletarHorarios(){
+        return DIAS_SEMANA.map(d=>{
+            const k=capitalizar(d.chave);
+            return {dia:d.nome,chave:d.chave,aberto:document.getElementById("dia"+k).checked,
+                abertura:document.getElementById("abre"+k).value,fechamento:document.getElementById("fecha"+k).value};
+        });
+    }
+
+    function salvarLoja(){
+        const horarios=coletarHorarios();
+        const dados={
+            nome:document.getElementById("lojaNome").value.trim(),
+            telefone:document.getElementById("lojaTelefone").value.trim(),
+            whatsapp:document.getElementById("lojaWhatsapp").value.trim(),
+            endereco:document.getElementById("lojaEndereco").value.trim(),
+            bairro:document.getElementById("lojaBairro").value.trim(),
+            cidade:document.getElementById("lojaCidade").value.trim(),
+            estado:document.getElementById("lojaEstado").value.trim().toUpperCase(),
+            cep:document.getElementById("lojaCep").value.trim(),
+            horarios:horarios,
+            dias:horarios.filter(h=>h.aberto).map(h=>h.dia).join(", "),
+            horario:horarios.filter(h=>h.aberto).map(h=>h.abertura+" às "+h.fechamento).join(" • "),
+            maps:document.getElementById("lojaMaps").value.trim(),
+            descricao:document.getElementById("lojaDescricao").value.trim(),
+            logo:window.logoLojaAtual||""
         };
-
-        if (!dados.nome) {
-            alert("Digite o nome da loja.");
-            return;
-        }
-
-        localStorage.setItem("hubLoja", JSON.stringify(dados));
+        if(!dados.nome){alert("Digite o nome da loja.");return}
+        localStorage.setItem("hubLoja",JSON.stringify(dados));
         atualizarPreviewLoja(dados);
         alert("Informações da loja salvas!");
     }
 
-
-    function carregarDadosLoja() {
-
-        const padrao = {
-            nome: "Carioca Ice Cream",
-            telefone: "",
-            whatsapp: "",
-            endereco: "",
-            bairro: "",
-            cidade: "",
-            estado: "",
-            cep: "",
-            dias: "Todos os dias",
-            horario: "13h às 21h",
-            maps: "",
-            descricao: "Sorvetes, açaí, milk shakes e muito mais.",
-            logo: ""
-        };
-
-        let dados = padrao;
-        try {
-            const salvo = JSON.parse(localStorage.getItem("hubLoja"));
-            if (salvo) dados = { ...padrao, ...salvo };
-        } catch (e) {}
-
-        document.getElementById("lojaNome").value = dados.nome || "";
-        document.getElementById("lojaTelefone").value = dados.telefone || "";
-        document.getElementById("lojaWhatsapp").value = dados.whatsapp || "";
-        document.getElementById("lojaEndereco").value = dados.endereco || "";
-        document.getElementById("lojaBairro").value = dados.bairro || "";
-        document.getElementById("lojaCidade").value = dados.cidade || "";
-        document.getElementById("lojaEstado").value = dados.estado || "";
-        document.getElementById("lojaCep").value = dados.cep || "";
-        document.getElementById("lojaDias").value = dados.dias || "Todos os dias";
-        document.getElementById("lojaHorario").value = dados.horario || "";
-        document.getElementById("lojaMaps").value = dados.maps || "";
-        document.getElementById("lojaDescricao").value = dados.descricao || "";
-
-        window.logoLojaAtual = dados.logo || "";
+    function carregarDadosLoja(){
+        const padrao={nome:"Carioca Ice Cream",telefone:"",whatsapp:"",endereco:"",bairro:"",cidade:"",estado:"",cep:"",
+            horarios:horariosPadrao(),dias:"Todos os dias",horario:"13h às 21h",maps:"",
+            descricao:"Sorvetes, açaí, milk shakes e muito mais.",logo:""};
+        let dados=padrao;
+        try{const salvo=JSON.parse(localStorage.getItem("hubLoja"));if(salvo)dados={...padrao,...salvo}}catch(e){}
+        ["lojaNome","lojaTelefone","lojaWhatsapp","lojaEndereco","lojaBairro","lojaCidade","lojaEstado","lojaCep","lojaMaps","lojaDescricao"].forEach(id=>{
+            document.getElementById(id).value=dados[id]||"";
+        });
+        const horarios=Array.isArray(dados.horarios)?dados.horarios:horariosPadrao();
+        DIAS_SEMANA.forEach(d=>{
+            const k=capitalizar(d.chave),h=horarios.find(x=>x.chave===d.chave)||{aberto:true,abertura:"13:00",fechamento:"21:00"};
+            document.getElementById("dia"+k).checked=h.aberto!==false;
+            document.getElementById("abre"+k).value=h.abertura||"13:00";
+            document.getElementById("fecha"+k).value=h.fechamento||"21:00";
+        });
+        window.logoLojaAtual=dados.logo||"";
         atualizarPreviewLogoLoja(window.logoLojaAtual);
-        atualizarPreviewLoja(dados);
+        atualizarPreviewLoja({...dados,horarios});
     }
 
-
-    function atualizarPreviewLogoLoja(src) {
-        const preview = document.getElementById("lojaLogoPreview");
-        const final = document.getElementById("lojaPreviewLogoFinal");
-
-        if (src) {
-            preview.src = src;
-            preview.style.display = "block";
-            final.src = src;
-            final.style.display = "block";
-        } else {
-            preview.removeAttribute("src");
-            preview.style.display = "none";
-            final.removeAttribute("src");
-            final.style.display = "none";
-        }
+    function atualizarPreviewLogoLoja(src){
+        const preview=document.getElementById("lojaLogoPreview"),final=document.getElementById("lojaPreviewLogoFinal");
+        if(src){preview.src=src;preview.style.display="block";final.src=src;final.style.display="block"}
+        else{preview.removeAttribute("src");preview.style.display="none";final.removeAttribute("src");final.style.display="none"}
     }
 
-
-    function atualizarPreviewLoja(dados) {
-        const nome = dados.nome || "Nome da loja";
-        const partes = [dados.endereco, dados.bairro, dados.cidade, dados.estado].filter(Boolean);
-        const endereco = partes.length ? partes.join(" • ") : "Endereço ainda não informado";
-
-        document.getElementById("lojaPreviewNome").textContent = nome;
-        document.getElementById("lojaPreviewEndereco").textContent = endereco;
-        document.getElementById("lojaPreviewDias").textContent = dados.dias || "Dias não informados";
-        document.getElementById("lojaPreviewHorario").textContent = dados.horario || "Horário não informado";
+    function atualizarPreviewLoja(dados){
+        document.getElementById("lojaPreviewNome").textContent=dados.nome||"Nome da loja";
+        const partes=[dados.endereco,dados.bairro,dados.cidade,dados.estado].filter(Boolean);
+        document.getElementById("lojaPreviewEndereco").textContent=partes.length?partes.join(" • "):"Endereço ainda não informado";
+        const h=Array.isArray(dados.horarios)?dados.horarios:horariosPadrao(),abertos=h.filter(x=>x.aberto);
+        document.getElementById("lojaPreviewDias").textContent=abertos.map(x=>x.dia).join(", ")||"Nenhum dia";
+        document.getElementById("lojaPreviewHorario").textContent=abertos.map(x=>x.abertura+" às "+x.fechamento).join(" • ")||"Fechado";
     }
 
-
-    function prepararLogoLoja(arquivo) {
-        if (!arquivo) return;
-
-        if (!arquivo.type.startsWith("image/")) {
-            alert("Selecione um arquivo de imagem válido.");
-            return;
-        }
-
-        const leitor = new FileReader();
-        leitor.onload = function(evento) {
-            const img = new Image();
-            img.onload = function() {
-                const tamanhoMaximo = 500;
-                const escala = Math.min(1, tamanhoMaximo / Math.max(img.width, img.height));
-                const largura = Math.max(1, Math.round(img.width * escala));
-                const altura = Math.max(1, Math.round(img.height * escala));
-                const canvas = document.createElement("canvas");
-                canvas.width = largura;
-                canvas.height = altura;
-                const ctx = canvas.getContext("2d");
-                ctx.drawImage(img, 0, 0, largura, altura);
-                window.logoLojaAtual = canvas.toDataURL("image/webp", 0.82);
-                atualizarPreviewLogoLoja(window.logoLojaAtual);
+    function prepararLogoLoja(arquivo){
+        if(!arquivo)return;
+        if(!arquivo.type.startsWith("image/")){alert("Selecione um arquivo de imagem válido.");return}
+        const leitor=new FileReader();
+        leitor.onload=function(e){
+            const img=new Image();
+            img.onload=function(){
+                const max=500,esc=Math.min(1,max/Math.max(img.width,img.height)),canvas=document.createElement("canvas");
+                canvas.width=Math.max(1,Math.round(img.width*esc));canvas.height=Math.max(1,Math.round(img.height*esc));
+                canvas.getContext("2d").drawImage(img,0,0,canvas.width,canvas.height);
+                window.logoLojaAtual=canvas.toDataURL("image/webp",.82);atualizarPreviewLogoLoja(window.logoLojaAtual);
             };
-            img.src = evento.target.result;
+            img.src=e.target.result;
         };
         leitor.readAsDataURL(arquivo);
     }
-
 
     /* =====================================
        REDES
@@ -3324,7 +3305,7 @@
 
 
     /* =====================================
-       APARÊNCIA
+       APAR�NCIA
     ====================================== */
 
 
@@ -3358,7 +3339,7 @@
 
 
         alert(
-            "Aparência salva!"
+            "Apar�ncia salva!"
         );
 
     }
@@ -3414,7 +3395,7 @@
 
 
     /* =====================================
-       INICIALIZAÇÃO
+       INICIALIZA��O
     ====================================== */
 
 
@@ -3428,7 +3409,7 @@
 
 
     /* =====================================
-       INICIALIZAÇÃO DA LOJA
+       INICIALIZA��O DA LOJA
     ====================================== */
 
     const campoLogoLoja = document.getElementById("lojaLogoArquivo");
@@ -3438,22 +3419,29 @@
         });
     }
 
-    ["lojaNome", "lojaEndereco", "lojaBairro", "lojaCidade", "lojaEstado", "lojaDias", "lojaHorario"].forEach(id => {
-        const campo = document.getElementById(id);
-        if (campo) {
-            campo.addEventListener("input", function() {
-                atualizarPreviewLoja({
-                    nome: document.getElementById("lojaNome").value,
-                    endereco: document.getElementById("lojaEndereco").value,
-                    bairro: document.getElementById("lojaBairro").value,
-                    cidade: document.getElementById("lojaCidade").value,
-                    estado: document.getElementById("lojaEstado").value.toUpperCase(),
-                    dias: document.getElementById("lojaDias").value,
-                    horario: document.getElementById("lojaHorario").value
-                });
-            });
-        }
+    ["lojaNome","lojaEndereco","lojaBairro","lojaCidade","lojaEstado"].forEach(id=>{
+        const campo=document.getElementById(id);
+        if(campo)campo.addEventListener("input",()=>atualizarPreviewLoja({
+            nome:document.getElementById("lojaNome").value,
+            endereco:document.getElementById("lojaEndereco").value,
+            bairro:document.getElementById("lojaBairro").value,
+            cidade:document.getElementById("lojaCidade").value,
+            estado:document.getElementById("lojaEstado").value.toUpperCase(),
+            horarios:coletarHorarios()
+        }));
     });
+
+    DIAS_SEMANA.forEach(d=>["dia","abre","fecha"].forEach(prefix=>{
+        const campo=document.getElementById(prefix+capitalizar(d.chave));
+        if(campo)campo.addEventListener("change",()=>atualizarPreviewLoja({
+            nome:document.getElementById("lojaNome").value,
+            endereco:document.getElementById("lojaEndereco").value,
+            bairro:document.getElementById("lojaBairro").value,
+            cidade:document.getElementById("lojaCidade").value,
+            estado:document.getElementById("lojaEstado").value.toUpperCase(),
+            horarios:coletarHorarios()
+        }));
+    }));
 
     carregarDadosLoja();
 </script>
