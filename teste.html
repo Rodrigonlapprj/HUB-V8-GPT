@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cardápio Digital | Hub Brasil</title>
+  <title>Cardápio & Vitrine Digital</title>
 
   <!-- Fallbacks dos arquivos locais existentes -->
   <script src="loja.js"></script>
@@ -15,7 +15,7 @@
     :root {
       --primary-color: #FFD400;
       --secondary-color: #7B2CBF;
-      --background-color: #f8fafc;
+      --bg-color: #f8fafc;
       --card-bg: #ffffff;
       --text-color: #1f2937;
       --text-muted: #6b7280;
@@ -31,231 +31,287 @@
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background-color: var(--background-color);
+      background-color: var(--bg-color);
       color: var(--text-color);
-      padding-bottom: 90px;
-    }
-
-    /* HEADER */
-    header {
-      background: var(--card-bg);
-      padding: 16px 20px;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      box-shadow: 0 1px 10px rgba(0,0,0,0.05);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .brand img {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      object-fit: cover;
-      background: #eee;
-    }
-
-    .brand-title {
-      font-size: 1.1rem;
-      font-weight: 700;
-      line-height: 1.2;
-    }
-
-    .brand-subtitle {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-    }
-
-    .header-actions {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .status-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 4px 10px;
-      border-radius: 20px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      background: #dcfce7;
-      color: #15803d;
-    }
-
-    .status-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: #22c55e;
-    }
-
-    .btn-toggle-layout {
-      background: #f3f4f6;
-      border: 1px solid #d1d5db;
-      border-radius: 8px;
-      padding: 5px 9px;
-      font-size: 0.72rem;
-      font-weight: bold;
-      cursor: pointer;
-      color: #374151;
-    }
-
-    /* CONTAINER */
-    .container {
-      max-width: 680px;
-      margin: 0 auto;
-      padding: 16px;
-    }
-
-    /* BOTÕES EXTERNOS */
-    .quick-actions {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 8px;
-      margin-bottom: 20px;
-    }
-
-    .action-btn {
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      gap: 6px;
-      padding: 12px 6px;
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      color: var(--text-color);
-      text-decoration: none;
-      font-size: 0.72rem;
-      font-weight: 600;
-      transition: background .15s;
     }
 
-    .action-btn:hover {
-      background: #f1f5f9;
-    }
-
-    .action-btn span.icon {
-      font-size: 1.3rem;
+    .main-wrapper {
+      width: 100%;
+      max-width: 580px;
+      padding: 20px 16px 80px;
     }
 
     /* ========================================================
-       LAYOUT 1: HUB TRADICIONAL (Abas: Cardápio / Info / Horários)
+       MODELO 1: HUB CLÁSSICO / LINKTREE (Centralizado com botões)
        ======================================================== */
-    .hub-tabs {
-      display: flex;
-      border-bottom: 2px solid var(--border-color);
-      margin-bottom: 18px;
-      background: var(--card-bg);
-      border-radius: 12px 12px 0 0;
-      overflow: hidden;
+    .layout-hub-classico {
+      text-align: center;
     }
 
-    .hub-tab-btn {
-      flex: 1;
-      padding: 12px 8px;
-      border: none;
-      background: transparent;
-      font-weight: 700;
-      font-size: 0.85rem;
+    .hub-header {
+      margin-bottom: 24px;
+    }
+
+    .hub-logo {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: 0 auto 12px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+      border: 3px solid var(--primary-color);
+      background: white;
+    }
+
+    .hub-title {
+      font-size: 1.4rem;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .hub-desc {
+      font-size: 0.9rem;
       color: var(--text-muted);
-      cursor: pointer;
-      border-bottom: 3px solid transparent;
-      transition: .2s;
+      line-height: 1.4;
+      margin-bottom: 16px;
     }
 
-    .hub-tab-btn.active {
+    /* PLAYER DE MÚSICA */
+    .music-player-box {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 30px;
+      padding: 8px 16px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 22px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+
+    .music-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: none;
+      background: var(--primary-color);
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      font-size: 14px;
+    }
+
+    .hub-buttons-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 25px;
+    }
+
+    .hub-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      background: var(--card-bg);
+      border: 2px solid var(--primary-color);
+      color: var(--text-color);
+      text-decoration: none;
+      padding: 16px 20px;
+      border-radius: 14px;
+      font-weight: 700;
+      font-size: 1rem;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.04);
+      transition: transform .15s, background .15s;
+    }
+
+    .hub-btn:hover, .hub-btn:active {
+      transform: translateY(-2px);
+      background: #fafafa;
+    }
+
+    .hub-btn.highlight {
+      background: var(--primary-color);
+      color: #111827;
+    }
+
+    /* MODAL DO CARDÁPIO QUANDO ESTIVER NO MODELO 1 */
+    .modal-hub-cardapio {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 999;
+      padding: 20px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-hub-cardapio.active {
+      display: flex;
+    }
+
+    .modal-hub-body {
+      background: white;
+      width: 100%;
+      max-width: 540px;
+      max-height: 85vh;
+      border-radius: 20px;
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    /* ========================================================
+       MODELO 2: VITRINE COM ABAS (Cardápio / Info / Horários)
+       ======================================================== */
+    .layout-vitrine-abas .topo-bar {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 20px;
+      background: var(--card-bg);
+      padding: 16px;
+      border-radius: 16px;
+      border: 1px solid var(--border-color);
+    }
+
+    .layout-vitrine-abas .topo-logo {
+      width: 60px;
+      height: 60px;
+      border-radius: 12px;
+      object-fit: cover;
+    }
+
+    .abas-nav {
+      display: flex;
+      background: var(--card-bg);
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+
+    .aba-btn {
+      flex: 1;
+      border: 0;
+      background: transparent;
+      padding: 12px;
+      font-weight: bold;
+      font-size: 0.85rem;
+      cursor: pointer;
+      color: var(--text-muted);
+      border-bottom: 3px solid transparent;
+    }
+
+    .aba-btn.active {
       color: var(--secondary-color);
       border-bottom-color: var(--secondary-color);
       background: #faf5ff;
     }
 
-    .hub-content-box {
+    .box-aba-conteudo {
       background: var(--card-bg);
-      border-radius: 0 0 12px 12px;
-      padding: 18px;
       border: 1px solid var(--border-color);
-      border-top: none;
+      border-radius: 14px;
+      padding: 20px;
       margin-bottom: 20px;
-    }
-
-    .info-line {
-      display: flex;
-      margin-bottom: 12px;
-      gap: 10px;
-      font-size: 0.9rem;
-    }
-
-    .info-line strong {
-      min-width: 85px;
-      color: var(--text-muted);
     }
 
     /* ========================================================
-       LAYOUT 2: APP ESTILO CARDÁPIO (Busca + Chips)
+       MODELO 3: APP DELIVERY / CATÁLOGO RÁPIDO
        ======================================================== */
-    .search-container {
+    .layout-app-delivery .app-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+    }
+
+    .app-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .app-brand img {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .app-quick-actions {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    .app-action-chip {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      padding: 10px 4px;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      text-decoration: none;
+      color: var(--text-color);
+      font-size: 0.72rem;
+      font-weight: bold;
+    }
+
+    /* COMPONENTES COMPARTILHADOS: LISTAGEM DE PRODUTOS */
+    .search-box {
+      width: 100%;
       margin-bottom: 16px;
     }
 
-    .search-input {
+    .search-box input {
       width: 100%;
-      padding: 14px 16px;
+      padding: 12px 16px;
       border-radius: 12px;
       border: 1px solid var(--border-color);
-      background: var(--card-bg);
       font-size: 0.95rem;
       outline: none;
+      background: var(--card-bg);
     }
 
-    .search-input:focus {
-      border-color: var(--secondary-color);
-    }
-
-    .categories-bar {
+    .chips-bar {
       display: flex;
       gap: 8px;
       overflow-x: auto;
-      padding-bottom: 8px;
-      margin-bottom: 20px;
+      padding-bottom: 10px;
+      margin-bottom: 16px;
       scrollbar-width: none;
     }
 
-    .categories-bar::-webkit-scrollbar {
-      display: none;
-    }
+    .chips-bar::-webkit-scrollbar { display: none; }
 
-    .cat-chip {
+    .chip-item {
       white-space: nowrap;
-      padding: 8px 16px;
+      padding: 7px 14px;
       border-radius: 20px;
       background: var(--card-bg);
       border: 1px solid var(--border-color);
-      font-size: 0.85rem;
-      font-weight: 600;
+      font-size: 0.8rem;
+      font-weight: bold;
       cursor: pointer;
-      color: var(--text-color);
     }
 
-    .cat-chip.active {
+    .chip-item.active {
       background: var(--secondary-color);
-      color: #fff;
+      color: white;
       border-color: var(--secondary-color);
     }
 
-    /* LISTA DE PRODUTOS */
-    .products-grid {
+    .products-list {
       display: flex;
       flex-direction: column;
       gap: 12px;
@@ -267,64 +323,22 @@
       border-radius: 14px;
       border: 1px solid var(--border-color);
       padding: 12px;
-      gap: 14px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+      gap: 12px;
     }
 
-    .product-card-img {
-      width: 90px;
-      height: 90px;
+    .product-card img {
+      width: 85px;
+      height: 85px;
       border-radius: 10px;
       object-fit: cover;
-      background: #f1f5f9;
-      flex-shrink: 0;
+      background: #eee;
     }
 
-    .product-card-details {
+    .product-card-body {
       flex: 1;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-    }
-
-    .product-name {
-      font-size: 0.95rem;
-      font-weight: 700;
-      margin-bottom: 4px;
-    }
-
-    .product-desc {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      line-height: 1.3;
-      margin-bottom: 8px;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-
-    .product-bottom {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .product-price {
-      font-weight: 700;
-      font-size: 1rem;
-      color: var(--text-color);
-    }
-
-    .btn-add {
-      background: var(--primary-color);
-      color: #000;
-      border: none;
-      padding: 6px 14px;
-      border-radius: 8px;
-      font-weight: 700;
-      font-size: 0.8rem;
-      cursor: pointer;
     }
 
     .badge-destaque {
@@ -333,199 +347,295 @@
       color: #854d0e;
       padding: 2px 6px;
       border-radius: 4px;
-      font-weight: 700;
+      font-weight: bold;
+      width: fit-content;
       margin-bottom: 4px;
-      display: inline-block;
+    }
+
+    .btn-pedir {
+      background: var(--primary-color);
+      border: none;
+      border-radius: 8px;
+      padding: 6px 14px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 0.82rem;
     }
   </style>
 </head>
 
 <body>
 
-  <header>
-    <div class="brand">
-      <img id="storeLogo" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'><circle cx='20' cy='20' r='20' fill='%23FFD400'/><text x='50%25' y='55%25' font-size='16' font-family='Arial' font-weight='bold' text-anchor='middle' fill='%23000' dy='.3em'>HB</text></svg>" alt="Logo" />
-      <div>
-        <div id="storeName" class="brand-title">Carioca Ice Cream</div>
-        <div id="storeAddress" class="brand-subtitle">Carregando...</div>
-      </div>
-    </div>
-    <div class="header-actions">
-      <button class="btn-toggle-layout" onclick="alternarModeloLayout()" title="Alternar entre visual Hub e App">📱 Trocar Layout</button>
-      <div class="status-badge">
-        <span class="status-dot"></span>
-        Aberto
-      </div>
-    </div>
-  </header>
+  <div class="main-wrapper">
 
-  <div class="container">
+    <!-- ========================================================
+         1. LAYOUT 1: HUB CLÁSSICO / LINKTREE
+         ======================================================== -->
+    <div id="layoutHubClassico" class="layout-hub-classico" style="display:none;">
+      <div class="hub-header">
+        <img id="hubLogoImg" class="hub-logo" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100'><circle cx='50' cy='50' r='50' fill='%23FFD400'/><text x='50%25' y='55%25' font-size='26' font-family='Arial' font-weight='bold' text-anchor='middle' fill='%23000' dy='.3em'>HB</text></svg>" alt="Logo">
+        <h1 id="hubNomeLoja" class="hub-title">Carioca Ice Cream</h1>
+        <p id="hubDescricaoLoja" class="hub-desc">Sorvetes artesanais, açaí no copo e sobremesas.</p>
 
-    <!-- BOTÕES EXTERNOS -->
-    <div class="quick-actions">
-      <a id="whatsappLink" href="https://api.whatsapp.com/send?phone=5521999999999" target="_blank" class="action-btn">
-        <span class="icon">💬</span>
-        <span>WhatsApp</span>
-      </a>
-      <a id="instagramLink" href="https://instagram.com/cariocaicecream" target="_blank" class="action-btn">
-        <span class="icon">📸</span>
-        <span>Instagram</span>
-      </a>
-      <a id="googleLink" href="https://maps.google.com" target="_blank" class="action-btn">
-        <span class="icon">⭐</span>
-        <span>Avaliações</span>
-      </a>
-      <a id="mapaLink" href="https://maps.google.com" target="_blank" class="action-btn">
-        <span class="icon">📍</span>
-        <span>Como Chegar</span>
-      </a>
-    </div>
-
-    <!-- ÁREA 1: VISUAL HUB TRADICIONAL (Abas) -->
-    <div id="visaoHub" style="display: none;">
-      <div class="hub-tabs">
-        <button class="hub-tab-btn active" onclick="trocarAbaHub('cardapio')">🍽️ Cardápio</button>
-        <button class="hub-tab-btn" onclick="trocarAbaHub('info')">ℹ️ Informações</button>
-        <button class="hub-tab-btn" onclick="trocarAbaHub('horarios')">🕒 Horários</button>
+        <!-- Player de Áudio Opcional -->
+        <div id="hubMusicBox" class="music-player-box" style="display:none;">
+          <button class="music-btn" onclick="alternarAudio()">🎵</button>
+          <span style="font-size: 0.8rem; font-weight: bold;">Música de Fundo</span>
+          <audio id="audioFundo" loop></audio>
+        </div>
       </div>
 
-      <div id="hubAbaInfo" class="hub-content-box" style="display: none;">
-        <div class="info-line"><strong>Sobre:</strong> <span id="hubDescricao">Sorveteria artesanal e lanches.</span></div>
-        <div class="info-line"><strong>Endereço:</strong> <span id="hubEnderecoCompleto">Carregando...</span></div>
-        <div class="info-line"><strong>Telefone:</strong> <span id="hubTelefone">Não informado</span></div>
-        <div class="info-line"><strong>WhatsApp:</strong> <span id="hubWhatsapp">Não informado</span></div>
-      </div>
-
-      <div id="hubAbaHorarios" class="hub-content-box" style="display: none;">
-        <div id="hubListaHorarios" style="display:grid; gap:8px; font-size:0.88rem;"></div>
+      <div class="hub-buttons-list">
+        <button class="hub-btn highlight" onclick="abrirModalCardapioHub()">
+          <span>🍨</span> Ver Cardápio Completo
+        </button>
+        <a id="btnHubWhats" href="#" target="_blank" class="hub-btn">
+          <span>💬</span> Fazer Pedido no WhatsApp
+        </a>
+        <a id="btnHubInsta" href="#" target="_blank" class="hub-btn">
+          <span>📸</span> Siga no Instagram
+        </a>
+        <a id="btnHubGoogle" href="#" target="_blank" class="hub-btn">
+          <span>⭐</span> Avaliações no Google
+        </a>
+        <a id="btnHubMaps" href="#" target="_blank" class="hub-btn">
+          <span>📍</span> Como Chegar (Localização)
+        </a>
       </div>
     </div>
 
-    <!-- ÁREA 2: BUSCA E CATEGORIAS (Comum para ambos os layouts) -->
-    <div class="search-container">
-      <input type="text" id="searchInput" class="search-input" placeholder="Buscar no cardápio..." oninput="filtrarProdutos()" />
+    <!-- ========================================================
+         2. LAYOUT 2: VITRINE COM ABAS
+         ======================================================== -->
+    <div id="layoutVitrineAbas" class="layout-vitrine-abas" style="display:none;">
+      <div class="topo-bar">
+        <img id="abasLogoImg" class="topo-logo" src="" alt="Logo">
+        <div>
+          <h2 id="abasNomeLoja" style="font-size:1.15rem;">Carioca Ice Cream</h2>
+          <small id="abasEnderecoLoja" style="color:var(--text-muted);">Rio de Janeiro - RJ</small>
+        </div>
+      </div>
+
+      <div class="abas-nav">
+        <button class="aba-btn active" onclick="trocarAba(0)">🍽️ Cardápio</button>
+        <button class="aba-btn" onclick="trocarAba(1)">ℹ️ Informações</button>
+        <button class="aba-btn" onclick="trocarAba(2)">🕒 Horários</button>
+      </div>
+
+      <div id="abaConteudoInfo" class="box-aba-conteudo" style="display:none;">
+        <p style="margin-bottom:12px;"><strong id="infoSobre">Sorvetes e sobremesas finas.</strong></p>
+        <p style="margin-bottom:8px;">📍 <strong>Endereço:</strong> <span id="infoEndereco">Endereço não informado</span></p>
+        <p style="margin-bottom:8px;">📞 <strong>Telefone:</strong> <span id="infoTelefone">Não informado</span></p>
+        <p style="margin-bottom:8px;">💬 <strong>WhatsApp:</strong> <span id="infoWhatsapp">Não informado</span></p>
+      </div>
+
+      <div id="abaConteudoHorarios" class="box-aba-conteudo" style="display:none;">
+        <h4 style="margin-bottom:12px;">Horários Semanais</h4>
+        <div id="listaHorariosAbas" style="display:grid; gap:8px; font-size:0.9rem;"></div>
+      </div>
     </div>
 
-    <div id="categoriesBar" class="categories-bar"></div>
+    <!-- ========================================================
+         3. LAYOUT 3: APP DELIVERY / CATÁLOGO
+         ======================================================== -->
+    <div id="layoutAppDelivery" class="layout-app-delivery" style="display:none;">
+      <div class="app-header">
+        <div class="app-brand">
+          <img id="appLogoImg" src="" alt="Logo">
+          <div>
+            <h2 id="appNomeLoja" style="font-size:1.1rem;">Carioca Ice Cream</h2>
+            <small style="color:#16a34a; font-weight:bold;">● Aberto agora</small>
+          </div>
+        </div>
+      </div>
 
-    <!-- LISTAGEM DE PRODUTOS -->
-    <div id="productsGrid" class="products-grid"></div>
+      <div class="app-quick-actions">
+        <a id="btnAppWhats" href="#" target="_blank" class="app-action-chip">
+          <span>💬</span> Whats
+        </a>
+        <a id="btnAppInsta" href="#" target="_blank" class="app-action-chip">
+          <span>📸</span> Insta
+        </a>
+        <a id="btnAppGoogle" href="#" target="_blank" class="app-action-chip">
+          <span>⭐</span> Avaliar
+        </a>
+        <a id="btnAppMaps" href="#" target="_blank" class="app-action-chip">
+          <span>📍</span> Mapa
+        </a>
+      </div>
+    </div>
 
+    <!-- CONTAINER COMPARTILHADO DE PRODUTOS (Para os layouts 2, 3 e modal do layout 1) -->
+    <div id="catalogoProdutosContainer">
+      <div class="search-box">
+        <input type="text" id="campoBusca" placeholder="🔍 Buscar no cardápio..." oninput="filtrarProdutos()">
+      </div>
+      <div id="listaCategoriasChips" class="chips-bar"></div>
+      <div id="gridProdutos" class="products-list"></div>
+    </div>
+
+  </div>
+
+  <!-- MODAL PARA EXIBIR O CARDÁPIO NO LAYOUT 1 -->
+  <div id="modalHub" class="modal-hub-cardapio">
+    <div class="modal-hub-body">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+        <h3 style="font-size:1.2rem;">Nosso Cardápio</h3>
+        <button onclick="fecharModalCardapioHub()" style="border:0; background:#eee; width:32px; height:32px; border-radius:50%; cursor:pointer; font-weight:bold;">&times;</button>
+      </div>
+      <div id="modalCardapioInjetado"></div>
+    </div>
   </div>
 
   <script>
     let dadosLoja = {};
     let dadosRedes = {};
-    let listaProdutos = [];
-    let categoriaAtiva = "todos";
-    let layoutAtual = "hub";
+    let dadosAparencia = {};
+    let produtosLoja = [];
+    let categoriaSelecionada = "todos";
 
-    function carregarConfiguracoes() {
-      // 1. DADOS DA LOJA
+    function carregarDados() {
+      // 1. LOJA
       const lojaSalva = JSON.parse(localStorage.getItem("hubLoja") || "{}");
       const fallbackLoja = (typeof loja !== 'undefined') ? loja : {};
       dadosLoja = { ...fallbackLoja, ...lojaSalva };
 
-      if (dadosLoja.nome) document.getElementById("storeName").textContent = dadosLoja.nome;
-      
-      const enderecoPartes = [dadosLoja.endereco, dadosLoja.bairro, dadosLoja.cidade].filter(Boolean);
-      const endFormatado = enderecoPartes.length ? enderecoPartes.join(" • ") : "Rio de Janeiro - RJ";
-      document.getElementById("storeAddress").textContent = endFormatado;
-      document.getElementById("hubEnderecoCompleto").textContent = endFormatado;
-      document.getElementById("hubDescricao").textContent = dadosLoja.descricao || "Sorvetes e sobremesas artesanais.";
-      document.getElementById("hubTelefone").textContent = dadosLoja.telefone || "Não informado";
-      document.getElementById("hubWhatsapp").textContent = dadosLoja.whatsapp || "Não informado";
-
-      if (dadosLoja.logo) {
-        document.getElementById("storeLogo").src = dadosLoja.logo;
-      }
-
-      // 2. REDES SOCIAIS & LINKS
+      // 2. REDES
       const redesSalvas = JSON.parse(localStorage.getItem("hubRedes") || "{}");
       const fallbackContatos = fallbackLoja.contatos || {};
       dadosRedes = { ...fallbackContatos, ...redesSalvas };
 
-      const whats = (dadosLoja.whatsapp || dadosRedes.whatsapp || '5521999999999').replace(/\D/g, '');
-      if (whats) {
-        document.getElementById("whatsappLink").href = `https://api.whatsapp.com/send?phone=${whats}`;
+      // 3. APARÊNCIA & LAYOUT DO ADMINISTRADOR
+      dadosAparencia = JSON.parse(localStorage.getItem("hubAparencia") || "{}");
+
+      if (dadosAparencia.principal) {
+        document.documentElement.style.setProperty("--primary-color", dadosAparencia.principal);
       }
+      if (dadosAparencia.secundaria) {
+        document.documentElement.style.setProperty("--secondary-color", dadosAparencia.secundaria);
+      }
+
+      // 4. PRODUTOS
+      const prodsSalvos = localStorage.getItem("hubProdutos");
+      if (prodsSalvos) {
+        produtosLoja = JSON.parse(prodsSalvos);
+      } else if (typeof produtos !== 'undefined' && Array.isArray(produtos)) {
+        produtosLoja = produtos;
+      } else {
+        produtosLoja = [
+          { id: "p1", nome: "Copo de Açaí 500ml", categoria: "Açaí", preco: 20.00, descricao: "Açaí batido na hora com banana e granola.", disponivel: true, destaque: true },
+          { id: "p2", nome: "Cascão Duplo", categoria: "Sorvetes", preco: 15.00, descricao: "Duas bolas de sorvete cremoso.", disponivel: true, destaque: true }
+        ];
+      }
+
+      popularTextosELinks();
+      aplicarLayoutDefinidoPeloAdmin();
+      renderizarCategorias();
+      filtrarProdutos();
+    }
+
+    function popularTextosELinks() {
+      const nome = dadosLoja.nome || "Carioca Ice Cream";
+      const desc = dadosLoja.descricao || "Sorvetes artesanais e sobremesas deliciosas.";
+      const enderecoPartes = [dadosLoja.endereco, dadosLoja.bairro, dadosLoja.cidade].filter(Boolean);
+      const enderecoCompleto = enderecoPartes.length ? enderecoPartes.join(" • ") : "Rio de Janeiro - RJ";
+
+      // Links com fallback
+      const whatsNum = (dadosLoja.whatsapp || dadosRedes.whatsapp || '5521999999999').replace(/\D/g, '');
+      const whatsLink = `https://api.whatsapp.com/send?phone=${whatsNum}`;
 
       let insta = dadosRedes.instagram || 'cariocaicecream';
-      if (!insta.startsWith("http")) {
-        insta = `https://instagram.com/${insta.replace("@", "")}`;
+      if (!insta.startsWith("http")) insta = `https://instagram.com/${insta.replace("@", "")}`;
+
+      const googleLink = dadosLoja.googleAvaliacoes || dadosRedes.googleAvaliacoes || 'https://maps.google.com';
+      const mapaLink = dadosLoja.maps || dadosRedes.mapa || 'https://maps.google.com';
+
+      // Layout 1
+      document.getElementById("hubNomeLoja").textContent = nome;
+      document.getElementById("hubDescricaoLoja").textContent = desc;
+      document.getElementById("btnHubWhats").href = whatsLink;
+      document.getElementById("btnHubInsta").href = insta;
+      document.getElementById("btnHubGoogle").href = googleLink;
+      document.getElementById("btnHubMaps").href = mapaLink;
+
+      // Layout 2
+      document.getElementById("abasNomeLoja").textContent = nome;
+      document.getElementById("abasEnderecoLoja").textContent = enderecoCompleto;
+      document.getElementById("infoSobre").textContent = desc;
+      document.getElementById("infoEndereco").textContent = enderecoCompleto;
+      document.getElementById("infoTelefone").textContent = dadosLoja.telefone || "Não informado";
+      document.getElementById("infoWhatsapp").textContent = dadosLoja.whatsapp || "Não informado";
+
+      // Layout 3
+      document.getElementById("appNomeLoja").textContent = nome;
+      document.getElementById("btnAppWhats").href = whatsLink;
+      document.getElementById("btnAppInsta").href = insta;
+      document.getElementById("btnAppGoogle").href = googleLink;
+      document.getElementById("btnAppMaps").href = mapaLink;
+
+      // Logos
+      if (dadosLoja.logo) {
+        document.getElementById("hubLogoImg").src = dadosLoja.logo;
+        document.getElementById("abasLogoImg").src = dadosLoja.logo;
+        document.getElementById("appLogoImg").src = dadosLoja.logo;
       }
-      document.getElementById("instagramLink").href = insta;
 
-      const avaliacao = dadosLoja.googleAvaliacoes || dadosRedes.googleAvaliacoes || 'https://maps.google.com';
-      document.getElementById("googleLink").href = avaliacao;
-
-      const mapa = dadosLoja.maps || dadosRedes.mapa || 'https://maps.google.com';
-      document.getElementById("mapaLink").href = mapa;
-
-      // 3. APARÊNCIA & MODELO DE LAYOUT
-      const aparenciaSalva = JSON.parse(localStorage.getItem("hubAparencia") || "{}");
-      if (aparenciaSalva.principal) {
-        document.documentElement.style.setProperty("--primary-color", aparenciaSalva.principal);
-      }
-      if (aparenciaSalva.secundaria) {
-        document.documentElement.style.setProperty("--secondary-color", aparenciaSalva.secundaria);
+      // Música
+      if (dadosLoja.musicaUrl) {
+        const audio = document.getElementById("audioFundo");
+        audio.src = dadosLoja.musicaUrl;
+        document.getElementById("hubMusicBox").style.display = "inline-flex";
       }
 
-      layoutAtual = aparenciaSalva.modelo || "hub";
-      aplicarVisualLayout(layoutAtual);
-      renderizarHorariosHub();
+      montarHorariosSemana();
     }
 
-    function aplicarVisualLayout(modelo) {
-      const boxHub = document.getElementById("visaoHub");
-      if (modelo === "hub") {
-        boxHub.style.display = "block";
-      } else {
-        boxHub.style.display = "none";
-        document.getElementById("productsGrid").style.display = "flex";
-        document.getElementById("categoriesBar").style.display = "flex";
-        document.querySelector(".search-container").style.display = "block";
+    /* CONTROLE TOTAL PELO ADMINISTRADOR */
+    function aplicarLayoutDefinidoPeloAdmin() {
+      const modelo = dadosAparencia.modelo || "hub_classico";
+
+      const l1 = document.getElementById("layoutHubClassico");
+      const l2 = document.getElementById("layoutVitrineAbas");
+      const l3 = document.getElementById("layoutAppDelivery");
+      const catalogo = document.getElementById("catalogoProdutosContainer");
+
+      l1.style.display = "none";
+      l2.style.display = "none";
+      l3.style.display = "none";
+
+      if (modelo === "hub_classico") {
+        l1.style.display = "block";
+        catalogo.style.display = "none"; // Fica dentro do modal quando o cliente clicar
+      } else if (modelo === "vitrine_abas") {
+        l2.style.display = "block";
+        catalogo.style.display = "block";
+      } else if (modelo === "app_delivery") {
+        l3.style.display = "block";
+        catalogo.style.display = "block";
       }
     }
 
-    function alternarModeloLayout() {
-      layoutAtual = (layoutAtual === "hub") ? "app" : "hub";
-      aplicarVisualLayout(layoutAtual);
-    }
-
-    function trocarAbaHub(aba) {
-      const botoes = document.querySelectorAll(".hub-tab-btn");
+    function trocarAba(index) {
+      const botoes = document.querySelectorAll(".aba-btn");
       botoes.forEach(b => b.classList.remove("active"));
+      botoes[index].classList.add("active");
 
-      const grid = document.getElementById("productsGrid");
-      const cats = document.getElementById("categoriesBar");
-      const search = document.querySelector(".search-container");
-      const info = document.getElementById("hubAbaInfo");
-      const horarios = document.getElementById("hubAbaHorarios");
+      const catalogo = document.getElementById("catalogoProdutosContainer");
+      const info = document.getElementById("abaConteudoInfo");
+      const horarios = document.getElementById("abaConteudoHorarios");
 
-      grid.style.display = "none";
-      cats.style.display = "none";
-      search.style.display = "none";
+      catalogo.style.display = "none";
       info.style.display = "none";
       horarios.style.display = "none";
 
-      if (aba === "cardapio") {
-        botoes[0].classList.add("active");
-        grid.style.display = "flex";
-        cats.style.display = "flex";
-        search.style.display = "block";
-      } else if (aba === "info") {
-        botoes[1].classList.add("active");
-        info.style.display = "block";
-      } else if (aba === "horarios") {
-        botoes[2].classList.add("active");
-        horarios.style.display = "block";
-      }
+      if (index === 0) catalogo.style.display = "block";
+      if (index === 1) info.style.display = "block";
+      if (index === 2) horarios.style.display = "block";
     }
 
-    function renderizarHorariosHub() {
-      const container = document.getElementById("hubListaHorarios");
-      container.innerHTML = "";
+    function montarHorariosSemana() {
+      const lista = document.getElementById("listaHorariosAbas");
+      lista.innerHTML = "";
       const dias = [
         { id: "Segunda", nome: "Segunda-feira" },
         { id: "Terca", nome: "Terça-feira" },
@@ -544,66 +654,66 @@
         linha.style.justifyContent = "space-between";
         linha.style.borderBottom = "1px solid #f3f4f6";
         linha.style.padding = "6px 0";
-
-        linha.innerHTML = `
-          <strong>${d.nome}</strong>
-          <span>${h.aberto ? `${h.abre} às ${h.fecha}` : '<span style="color:#ef4444;">Fechado</span>'}</span>
-        `;
-        container.appendChild(linha);
+        linha.innerHTML = `<strong>${d.nome}</strong><span>${h.aberto ? `${h.abre} às ${h.fecha}` : '<span style="color:#ef4444;">Fechado</span>'}</span>`;
+        lista.appendChild(linha);
       });
     }
 
-    function carregarProdutos() {
-      const produtosSalvos = localStorage.getItem("hubProdutos");
-      if (produtosSalvos) {
-        listaProdutos = JSON.parse(produtosSalvos);
-      } else if (typeof produtos !== 'undefined' && Array.isArray(produtos)) {
-        listaProdutos = produtos;
+    function alternarAudio() {
+      const audio = document.getElementById("audioFundo");
+      if (audio.paused) {
+        audio.play();
       } else {
-        listaProdutos = [
-          { id: "p1", nome: "Copo de Açaí 500ml", categoria: "Açaí", preco: 20.00, descricao: "Açaí batido na hora com banana e granola.", disponivel: true, destaque: true },
-          { id: "p2", nome: "Cascão Duplo Artesanal", categoria: "Sorvetes", preco: 15.00, descricao: "Duas bolas de sorvete premium com cobertura.", disponivel: true, destaque: true }
-        ];
+        audio.pause();
       }
+    }
 
-      renderizarCategorias();
-      filtrarProdutos();
+    function abrirModalCardapioHub() {
+      const catalogo = document.getElementById("catalogoProdutosContainer");
+      const destino = document.getElementById("modalCardapioInjetado");
+      destino.appendChild(catalogo);
+      catalogo.style.display = "block";
+      document.getElementById("modalHub").classList.add("active");
+    }
+
+    function fecharModalCardapioHub() {
+      document.getElementById("modalHub").classList.remove("active");
     }
 
     function renderizarCategorias() {
-      const bar = document.getElementById("categoriesBar");
-      bar.innerHTML = "";
+      const container = document.getElementById("listaCategoriasChips");
+      container.innerHTML = "";
 
-      const categorias = ["todos", ...new Set(listaProdutos.map(p => p.categoria).filter(Boolean))];
+      const categorias = ["todos", ...new Set(produtosLoja.map(p => p.categoria).filter(Boolean))];
 
       categorias.forEach(cat => {
         const btn = document.createElement("button");
-        btn.className = `cat-chip ${cat === categoriaAtiva ? "active" : ""}`;
+        btn.className = `chip-item ${cat === categoriaSelecionada ? "active" : ""}`;
         btn.textContent = cat === "todos" ? "Todos os Itens" : cat;
         btn.onclick = () => {
-          categoriaAtiva = cat;
-          document.querySelectorAll(".cat-chip").forEach(c => c.classList.remove("active"));
+          categoriaSelecionada = cat;
+          document.querySelectorAll(".chip-item").forEach(c => c.classList.remove("active"));
           btn.classList.add("active");
           filtrarProdutos();
         };
-        bar.appendChild(btn);
+        container.appendChild(btn);
       });
     }
 
     function filtrarProdutos() {
-      const busca = document.getElementById("searchInput").value.toLowerCase().trim();
-      const grid = document.getElementById("productsGrid");
+      const busca = document.getElementById("campoBusca").value.toLowerCase().trim();
+      const grid = document.getElementById("gridProdutos");
       grid.innerHTML = "";
 
-      const filtrados = listaProdutos.filter(p => {
+      const filtrados = produtosLoja.filter(p => {
         const condicaoAtivo = p.disponivel !== false;
-        const condicaoCat = (categoriaAtiva === "todos" || p.categoria === categoriaAtiva);
+        const condicaoCat = (categoriaSelecionada === "todos" || p.categoria === categoriaSelecionada);
         const condicaoBusca = (p.nome + " " + (p.descricao || "")).toLowerCase().includes(busca);
         return condicaoAtivo && condicaoCat && condicaoBusca;
       });
 
       if (filtrados.length === 0) {
-        grid.innerHTML = `<div style="text-align:center; padding:30px; color:#6b7280; font-size:14px;">Nenhum produto disponível nesta categoria.</div>`;
+        grid.innerHTML = `<div style="text-align:center; padding:20px; color:#6b7280; font-size:14px;">Nenhum produto encontrado.</div>`;
         return;
       }
 
@@ -612,20 +722,20 @@
         card.className = "product-card";
 
         const imgTag = p.imagem 
-          ? `<img class="product-card-img" src="${p.imagem}" alt="${p.nome}">`
-          : `<div class="product-card-img" style="display:grid;place-items:center;font-size:26px;">🍨</div>`;
+          ? `<img src="${p.imagem}" alt="${p.nome}">`
+          : `<div style="width:85px;height:85px;border-radius:10px;background:#f3f4f6;display:grid;place-items:center;font-size:26px;">🍨</div>`;
 
         card.innerHTML = `
           ${imgTag}
-          <div class="product-card-details">
+          <div class="product-card-body">
             <div>
-              ${p.destaque ? '<span class="badge-destaque">⭐ Destaque</span>' : ''}
-              <div class="product-name">${p.nome}</div>
-              <div class="product-desc">${p.descricao || ""}</div>
+              ${p.destaque ? '<div class="badge-destaque">⭐ Destaque</div>' : ''}
+              <strong style="font-size:0.95rem; display:block; margin-bottom:3px;">${p.nome}</strong>
+              <small style="color:var(--text-muted); line-height:1.2; display:block;">${p.descricao || ""}</small>
             </div>
-            <div class="product-bottom">
-              <span class="product-price">R$ ${Number(p.preco || 0).toFixed(2).replace(".", ",")}</span>
-              <button class="btn-add" onclick="pedirNoWhatsApp('${p.nome}', ${p.preco})">Pedir</button>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
+              <strong style="font-size:1rem;">R$ ${Number(p.preco || 0).toFixed(2).replace(".", ",")}</strong>
+              <button class="btn-pedir" onclick="pedirWhatsApp('${p.nome}', ${p.preco})">Pedir</button>
             </div>
           </div>
         `;
@@ -633,18 +743,14 @@
       });
     }
 
-    function pedirNoWhatsApp(nome, preco) {
+    function pedirWhatsApp(nome, preco) {
       const whats = (dadosLoja.whatsapp || dadosRedes.whatsapp || '5521999999999').replace(/\D/g, '');
       const msg = encodeURIComponent(`Olá! Gostaria de pedir: *${nome}* (R$ ${Number(preco).toFixed(2).replace(".", ",")}).`);
       window.open(`https://api.whatsapp.com/send?phone=${whats}&text=${msg}`, '_blank');
     }
 
-    document.addEventListener("DOMContentLoaded", () => {
-      carregarConfiguracoes();
-      carregarProdutos();
-    });
+    document.addEventListener("DOMContentLoaded", carregarDados);
   </script>
 </body>
 
 </html>
-
