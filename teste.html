@@ -191,7 +191,7 @@
     .form-row-2 { display: flex; gap: 10px; }
     .form-row-2 > div { flex: 1; }
 
-    /* Opções de Pagamento Integradas */
+    /* Opções de Pagamento */
     .payment-radios-grid {
       display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 4px;
     }
@@ -507,13 +507,13 @@
     let taxaAtualEntrega = 0;
 
     const BAIRROS_FALLBACK = [
-      { id: 1, nome: "TomásCoelho", taxa: 4.00 },
-      { id: 2, nome: "Cavalcanti", taxa: 6.00 },
-      { id: 3, nome: "Pilares", taxa: 6,00 },
-      { id: 4, nome: "Cascadura", taxa: 9.00 },
-      { id: 5, nome: "Abolição", taxa: 8.00 },
-      { id: 6, nome: "Madureira", taxa: 12.00 },
-      { id: 7, nome: "Cachambi", taxa: 12.00 }
+      { id: 1, nome: "Tijuca", taxa: 6.00 },
+      { id: 2, nome: "Maracanã", taxa: 7.00 },
+      { id: 3, nome: "Vila Isabel", taxa: 7.50 },
+      { id: 4, nome: "Grajaú", taxa: 8.00 },
+      { id: 5, nome: "Centro (RJ)", taxa: 10.00 },
+      { id: 6, nome: "Botafogo", taxa: 12.00 },
+      { id: 7, nome: "Copacabana", taxa: 14.00 }
     ];
 
     function carregarDados() {
@@ -553,8 +553,11 @@
       const enderecoPartes = [dadosLoja.endereco, dadosLoja.bairro, dadosLoja.cidade].filter(Boolean);
       const enderecoCompleto = enderecoPartes.length ? enderecoPartes.join(" • ") : "Rio de Janeiro - RJ";
 
-      const whatsNum = (dadosLoja.whatsapp || dadosRedes.whatsapp || '5521999999999').replace(/\D/g, '');
-      const whatsLink = `https://api.whatsapp.com/send?phone=${whatsNum}`;
+      let rawWhats = (dadosLoja.whatsapp || dadosRedes.whatsapp || '21977138992').replace(/\D/g, '');
+      if (rawWhats.length === 10 || rawWhats.length === 11) {
+        rawWhats = '55' + rawWhats;
+      }
+      const whatsLink = `https://wa.me/${rawWhats}`;
 
       let insta = dadosRedes.instagram || 'cariocaicecream';
       if (!insta.startsWith("http")) insta = `https://instagram.com/${insta.replace("@", "")}`;
@@ -838,7 +841,7 @@
       });
     }
 
-        /* FINALIZAÇÃO E ENVIO VIA WHATSAPP (CORRIGIDO) */
+    /* FINALIZAÇÃO E ENVIO VIA WHATSAPP (CORREÇÃO WA.ME + DDI 55) */
     function finalizarPedidoWhatsApp() {
       const chaves = Object.keys(carrinho);
       if (chaves.length === 0) {
@@ -917,18 +920,15 @@
       msg += `----------------------------------------\n`;
       msg += `_Pedido gerado pelo Cardápio Online_`;
 
-      // Trata o número do WhatsApp para evitar erro de redirecionamento
+      // Formatação à prova de falhas: limpa caracteres e garante o prefixo 55
       let whats = (dadosLoja.whatsapp || dadosRedes.whatsapp || '21977138992').replace(/\D/g, '');
-
-      // Adiciona o código 55 (Brasil) automaticamente se não estiver presente
       if (whats.length === 10 || whats.length === 11) {
         whats = '55' + whats;
       }
 
-      // Usa o link direto wa.me compatível com WhatsApp e WhatsApp Business
+      // Abre a API oficial sem causar o erro no WhatsApp Web ou App
       window.open(`https://wa.me/${whats}?text=${encodeURIComponent(msg)}`, '_blank');
     }
-
 
     /* COMPARTILHAMENTO & QR CODE */
     function gerarQrCodeCliente() {
