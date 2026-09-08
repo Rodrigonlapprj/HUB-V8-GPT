@@ -1,0 +1,1263 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categorias | HUB BRASIL</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f5f7;
+            color: #202124;
+        }
+
+        .app {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* =========================
+           SIDEBAR
+        ========================= */
+
+        .sidebar {
+            width: 230px;
+            background: #101828;
+            color: white;
+            padding: 22px 14px;
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+        }
+
+        .logo-area {
+            padding: 5px 10px 25px;
+        }
+
+        .logo-area h2 {
+            font-size: 20px;
+        }
+
+        .logo-area span {
+            display: block;
+            font-size: 11px;
+            color: #98a2b3;
+            margin-top: 4px;
+        }
+
+        .menu {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .menu a {
+            text-decoration: none;
+            color: #d0d5dd;
+            padding: 12px 13px;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: .2s;
+        }
+
+        .menu a:hover {
+            background: #1d2939;
+            color: white;
+        }
+
+        .menu a.active {
+            background: #f4c400;
+            color: #111827;
+            font-weight: bold;
+        }
+
+        /* =========================
+           MAIN
+        ========================= */
+
+        .main {
+            margin-left: 230px;
+            width: calc(100% - 230px);
+            padding: 28px;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .title h1 {
+            font-size: 25px;
+            margin-bottom: 5px;
+        }
+
+        .title p {
+            color: #667085;
+            font-size: 14px;
+        }
+
+        .status {
+            background: #ecfdf3;
+            color: #027a48;
+            border: 1px solid #abefc6;
+            padding: 8px 13px;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+
+        /* =========================
+           STATS
+        ========================= */
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 22px;
+        }
+
+        .stat {
+            background: white;
+            border: 1px solid #eaecf0;
+            border-radius: 12px;
+            padding: 18px;
+            box-shadow: 0 2px 5px rgba(16,24,40,.04);
+        }
+
+        .stat span {
+            display: block;
+            font-size: 12px;
+            color: #667085;
+            margin-bottom: 8px;
+        }
+
+        .stat strong {
+            font-size: 25px;
+        }
+
+        /* =========================
+           PANEL
+        ========================= */
+
+        .panel {
+            background: white;
+            border: 1px solid #eaecf0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(16,24,40,.04);
+        }
+
+        .toolbar {
+            padding: 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 1px solid #eaecf0;
+            flex-wrap: wrap;
+        }
+
+        .left-tools {
+            display: flex;
+            gap: 10px;
+        }
+
+        .search {
+            width: 300px;
+            border: 1px solid #d0d5dd;
+            border-radius: 8px;
+            padding: 10px 12px;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .search:focus {
+            border-color: #f4c400;
+        }
+
+        button {
+            border: 0;
+            cursor: pointer;
+            border-radius: 8px;
+            padding: 10px 15px;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .btn-primary {
+            background: #f4c400;
+            color: #111827;
+        }
+
+        .btn-primary:hover {
+            background: #ddb300;
+        }
+
+        /* =========================
+           TABLE
+        ========================= */
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 700px;
+        }
+
+        th {
+            text-align: left;
+            background: #f9fafb;
+            color: #667085;
+            font-size: 11px;
+            text-transform: uppercase;
+            padding: 13px 16px;
+            border-bottom: 1px solid #eaecf0;
+        }
+
+        td {
+            padding: 15px 16px;
+            border-bottom: 1px solid #f2f4f7;
+            font-size: 13px;
+            vertical-align: middle;
+        }
+
+        tr:hover td {
+            background: #fcfcfd;
+        }
+
+        .categoria-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .categoria-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            background: #f2f4f7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 21px;
+        }
+
+        .categoria-info strong {
+            display: block;
+            margin-bottom: 3px;
+        }
+
+        .categoria-info small {
+            color: #98a2b3;
+            font-size: 11px;
+        }
+
+        .quantidade {
+            font-weight: bold;
+        }
+
+        .badge {
+            padding: 5px 9px;
+            border-radius: 15px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .badge.ativo {
+            background: #ecfdf3;
+            color: #027a48;
+        }
+
+        .badge.inativo {
+            background: #fef3f2;
+            color: #b42318;
+        }
+
+        .acoes {
+            display: flex;
+            gap: 6px;
+        }
+
+        .btn-edit {
+            background: #eef4ff;
+            color: #175cd3;
+        }
+
+        .btn-toggle {
+            background: #f2f4f7;
+            color: #344054;
+        }
+
+        .btn-delete {
+            background: #fef3f2;
+            color: #b42318;
+        }
+
+        /* =========================
+           MODAL
+        ========================= */
+
+        .modal-bg {
+            position: fixed;
+            inset: 0;
+            background: rgba(16,24,40,.55);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            z-index: 100;
+        }
+
+        .modal-bg.show {
+            display: flex;
+        }
+
+        .modal {
+            width: 100%;
+            max-width: 500px;
+            background: white;
+            border-radius: 14px;
+            padding: 24px;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-header h2 {
+            font-size: 20px;
+        }
+
+        .close {
+            background: #f2f4f7;
+            width: 35px;
+            height: 35px;
+            padding: 0;
+            font-size: 18px;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 15px;
+        }
+
+        .field label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #344054;
+        }
+
+        .field input,
+        .field textarea {
+            width: 100%;
+            border: 1px solid #d0d5dd;
+            border-radius: 8px;
+            padding: 10px;
+            font-family: inherit;
+            font-size: 13px;
+            outline: none;
+        }
+
+        .field textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
+            padding-top: 18px;
+            border-top: 1px solid #eaecf0;
+        }
+
+        .btn-cancel {
+            background: #f2f4f7;
+            color: #344054;
+        }
+
+        /* =========================
+           RESPONSIVO
+        ========================= */
+
+        @media(max-width: 700px) {
+
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+            }
+
+            .app {
+                display: block;
+            }
+
+            .main {
+                margin-left: 0;
+                width: 100%;
+                padding: 15px;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .search {
+                width: 100%;
+            }
+
+            .left-tools {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- =========================
+         MENU
+    ========================== -->
+
+    <aside class="sidebar">
+
+        <div class="logo-area">
+            <h2>HUB BRASIL</h2>
+            <span>Painel administrativo</span>
+        </div>
+
+        <nav class="menu">
+
+            <a href="painel.html">
+                ? Dashboard
+            </a>
+
+            <a href="#">
+                ? Minha Loja
+            </a>
+
+            <a href="produtos.html">
+                ? Produtos
+            </a>
+
+            <a href="categorias.html" class="active">
+                ? Categorias
+            </a>
+
+            <a href="#">
+                ? Redes Sociais
+            </a>
+
+            <a href="#">
+                ? Aparência
+            </a>
+
+            <a href="#">
+                ? Configurações
+            </a>
+
+        </nav>
+
+    </aside>
+
+
+    <!-- =========================
+         CONTEÚDO
+    ========================== -->
+
+    <main class="main">
+
+        <div class="topbar">
+
+            <div class="title">
+                <h1>Categorias</h1>
+                <p>Organize os produtos do seu cardápio digital.</p>
+            </div>
+
+            <div class="status">
+                ? Sistema funcionando
+            </div>
+
+        </div>
+
+
+        <!-- ESTATÍSTICAS -->
+
+        <section class="stats">
+
+            <div class="stat">
+                <span>Total de categorias</span>
+                <strong id="totalCategorias">0</strong>
+            </div>
+
+            <div class="stat">
+                <span>Categorias ativas</span>
+                <strong id="categoriasAtivas">0</strong>
+            </div>
+
+            <div class="stat">
+                <span>Produtos cadastrados</span>
+                <strong id="totalProdutos">0</strong>
+            </div>
+
+        </section>
+
+
+        <!-- PAINEL -->
+
+        <section class="panel">
+
+            <div class="toolbar">
+
+                <div class="left-tools">
+
+                    <input
+                        type="text"
+                        id="pesquisa"
+                        class="search"
+                        placeholder="?? Pesquisar categoria..."
+                    >
+
+                </div>
+
+                <button
+                    class="btn-primary"
+                    onclick="abrirNovaCategoria()">
+                    + Nova categoria
+                </button>
+
+            </div>
+
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+                            <th>Categoria</th>
+                            <th>Produtos</th>
+                            <th>Status</th>
+                            <th>Ações</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="listaCategorias"></tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- =========================
+     MODAL
+========================== -->
+
+<div class="modal-bg" id="modalCategoria">
+
+    <div class="modal">
+
+        <div class="modal-header">
+
+            <h2 id="tituloModal">
+                Nova categoria
+            </h2>
+
+            <button
+                class="close"
+                onclick="fecharModal()">
+                ×
+            </button>
+
+        </div>
+
+
+        <form id="formCategoria">
+
+            <input
+                type="hidden"
+                id="categoriaId"
+            >
+
+
+            <div class="field">
+
+                <label>
+                    Nome da categoria
+                </label>
+
+                <input
+                    type="text"
+                    id="nomeCategoria"
+                    placeholder="Ex.: Açaí"
+                    required
+                >
+
+            </div>
+
+
+            <div class="field">
+
+                <label>
+                    Ícone / Emoji
+                </label>
+
+                <input
+                    type="text"
+                    id="iconeCategoria"
+                    placeholder="Ex.: ??"
+                    maxlength="4"
+                >
+
+            </div>
+
+
+            <div class="field">
+
+                <label>
+                    Descrição
+                </label>
+
+                <textarea
+                    id="descricaoCategoria"
+                    placeholder="Descrição da categoria..."
+                ></textarea>
+
+            </div>
+
+
+            <div class="modal-footer">
+
+                <button
+                    type="button"
+                    class="btn-cancel"
+                    onclick="fecharModal()">
+                    Cancelar
+                </button>
+
+                <button
+                    type="submit"
+                    class="btn-primary">
+                    Salvar categoria
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   CATEGORIAS INICIAIS
+========================================================= */
+
+const categoriasIniciais = [
+
+    {
+        id: "acai",
+        nome: "Açaí",
+        icone: "??",
+        descricao: "Açaís e combinações",
+        disponivel: true
+    },
+
+    {
+        id: "sorvete",
+        nome: "Sorvete",
+        icone: "??",
+        descricao: "Sorvetes e tamanhos",
+        disponivel: true
+    },
+
+    {
+        id: "casquinha",
+        nome: "Casquinha",
+        icone: "??",
+        descricao: "Casquinhas e cascões",
+        disponivel: true
+    },
+
+    {
+        id: "sundae",
+        nome: "Sundae",
+        icone: "??",
+        descricao: "Sundaes tradicionais e Prime",
+        disponivel: true
+    },
+
+    {
+        id: "milkshake",
+        nome: "Milk Shake",
+        icone: "??",
+        descricao: "Milk Shakes tradicionais e Prime",
+        disponivel: true
+    },
+
+    {
+        id: "potes",
+        nome: "Potes",
+        icone: "??",
+        descricao: "Produtos para levar",
+        disponivel: true
+    }
+
+];
+
+
+/* =========================================================
+   CARREGAMENTO
+========================================================= */
+
+let categorias =
+    JSON.parse(
+        localStorage.getItem("hubBrasilCategorias")
+    ) ||
+    categoriasIniciais;
+
+
+/* =========================================================
+   PRODUTOS
+========================================================= */
+
+function obterProdutos() {
+
+    return JSON.parse(
+        localStorage.getItem("hubBrasilProdutos")
+    ) || [];
+
+}
+
+
+/* =========================================================
+   SALVAR
+========================================================= */
+
+function salvarCategorias() {
+
+    localStorage.setItem(
+        "hubBrasilCategorias",
+        JSON.stringify(categorias)
+    );
+
+}
+
+
+/* =========================================================
+   RENDERIZAR
+========================================================= */
+
+function renderizarCategorias() {
+
+    const lista =
+        document.getElementById("listaCategorias");
+
+    const pesquisa =
+        document.getElementById("pesquisa")
+        .value
+        .toLowerCase();
+
+
+    const produtos =
+        obterProdutos();
+
+
+    const filtradas =
+        categorias.filter(categoria =>
+            categoria.nome
+            .toLowerCase()
+            .includes(pesquisa)
+        );
+
+
+    lista.innerHTML = "";
+
+
+    if (filtradas.length === 0) {
+
+        lista.innerHTML = `
+            <tr>
+                <td colspan="4"
+                    style="text-align:center;padding:40px;color:#98a2b3;">
+                    Nenhuma categoria encontrada.
+                </td>
+            </tr>
+        `;
+
+        atualizarEstatisticas();
+
+        return;
+    }
+
+
+    filtradas.forEach(categoria => {
+
+        const quantidade =
+            produtos.filter(
+                produto =>
+                    produto.categoria === categoria.id
+            ).length;
+
+
+        const tr =
+            document.createElement("tr");
+
+
+        tr.innerHTML = `
+
+            <td>
+
+                <div class="categoria-info">
+
+                    <div class="categoria-icon">
+                        ${categoria.icone || "??"}
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            ${categoria.nome}
+                        </strong>
+
+                        <small>
+                            ${categoria.descricao || "Sem descrição"}
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </td>
+
+
+            <td>
+
+                <span class="quantidade">
+                    ${quantidade}
+                </span>
+
+                produto${quantidade !== 1 ? "s" : ""}
+
+            </td>
+
+
+            <td>
+
+                <span class="badge ${
+                    categoria.disponivel
+                    ? "ativo"
+                    : "inativo"
+                }">
+
+                    ${
+                        categoria.disponivel
+                        ? "Ativa"
+                        : "Inativa"
+                    }
+
+                </span>
+
+            </td>
+
+
+            <td>
+
+                <div class="acoes">
+
+                    <button
+                        class="btn-edit"
+                        onclick="editarCategoria('${categoria.id}')">
+
+                        Editar
+
+                    </button>
+
+
+                    <button
+                        class="btn-toggle"
+                        onclick="alternarCategoria('${categoria.id}')">
+
+                        ${
+                            categoria.disponivel
+                            ? "Desativar"
+                            : "Ativar"
+                        }
+
+                    </button>
+
+
+                    <button
+                        class="btn-delete"
+                        onclick="excluirCategoria('${categoria.id}')">
+
+                        Excluir
+
+                    </button>
+
+                </div>
+
+            </td>
+
+        `;
+
+
+        lista.appendChild(tr);
+
+    });
+
+
+    atualizarEstatisticas();
+
+}
+
+
+/* =========================================================
+   ESTATÍSTICAS
+========================================================= */
+
+function atualizarEstatisticas() {
+
+    const produtos =
+        obterProdutos();
+
+
+    document.getElementById("totalCategorias")
+        .textContent = categorias.length;
+
+
+    document.getElementById("categoriasAtivas")
+        .textContent =
+        categorias.filter(
+            categoria => categoria.disponivel
+        ).length;
+
+
+    document.getElementById("totalProdutos")
+        .textContent = produtos.length;
+
+}
+
+
+/* =========================================================
+   NOVA CATEGORIA
+========================================================= */
+
+function abrirNovaCategoria() {
+
+    document.getElementById("formCategoria")
+        .reset();
+
+
+    document.getElementById("categoriaId")
+        .value = "";
+
+
+    document.getElementById("tituloModal")
+        .textContent = "Nova categoria";
+
+
+    document.getElementById("modalCategoria")
+        .classList.add("show");
+
+}
+
+
+/* =========================================================
+   EDITAR CATEGORIA
+========================================================= */
+
+function editarCategoria(id) {
+
+    const categoria =
+        categorias.find(
+            c => c.id === id
+        );
+
+
+    if (!categoria) return;
+
+
+    document.getElementById("categoriaId")
+        .value = categoria.id;
+
+
+    document.getElementById("nomeCategoria")
+        .value = categoria.nome;
+
+
+    document.getElementById("iconeCategoria")
+        .value = categoria.icone || "";
+
+
+    document.getElementById("descricaoCategoria")
+        .value = categoria.descricao || "";
+
+
+    document.getElementById("tituloModal")
+        .textContent = "Editar categoria";
+
+
+    document.getElementById("modalCategoria")
+        .classList.add("show");
+
+}
+
+
+/* =========================================================
+   SALVAR CATEGORIA
+========================================================= */
+
+document.getElementById("formCategoria")
+.addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+
+    const id =
+        document.getElementById("categoriaId")
+        .value;
+
+
+    const nome =
+        document.getElementById("nomeCategoria")
+        .value
+        .trim();
+
+
+    const icone =
+        document.getElementById("iconeCategoria")
+        .value
+        .trim();
+
+
+    const descricao =
+        document.getElementById("descricaoCategoria")
+        .value
+        .trim();
+
+
+    if (!nome) return;
+
+
+    /* EDIÇÃO */
+
+    if (id) {
+
+        const categoria =
+            categorias.find(
+                c => c.id === id
+            );
+
+
+        if (categoria) {
+
+            categoria.nome = nome;
+
+            categoria.icone =
+                icone || "??";
+
+            categoria.descricao =
+                descricao;
+
+        }
+
+    }
+
+
+    /* NOVA */
+
+    else {
+
+        const novoId =
+            nome
+            .toLowerCase()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .replace(/[^a-z0-9]+/g, "-")
+            .replace(/^-|-$/g, "")
+            +
+            "-" +
+            Date.now();
+
+
+        categorias.push({
+
+            id: novoId,
+
+            nome: nome,
+
+            icone:
+                icone || "??",
+
+            descricao:
+                descricao,
+
+            disponivel: true
+
+        });
+
+    }
+
+
+    salvarCategorias();
+
+    fecharModal();
+
+    renderizarCategorias();
+
+});
+
+
+/* =========================================================
+   ATIVAR / DESATIVAR
+========================================================= */
+
+function alternarCategoria(id) {
+
+    const categoria =
+        categorias.find(
+            c => c.id === id
+        );
+
+
+    if (!categoria) return;
+
+
+    categoria.disponivel =
+        !categoria.disponivel;
+
+
+    salvarCategorias();
+
+    renderizarCategorias();
+
+}
+
+
+/* =========================================================
+   EXCLUIR
+========================================================= */
+
+function excluirCategoria(id) {
+
+    const categoria =
+        categorias.find(
+            c => c.id === id
+        );
+
+
+    if (!categoria) return;
+
+
+    const produtos =
+        obterProdutos();
+
+
+    const quantidade =
+        produtos.filter(
+            produto =>
+                produto.categoria === categoria.id
+        ).length;
+
+
+    if (quantidade > 0) {
+
+        alert(
+            `Não é possível excluir "${categoria.nome}" porque existem ${quantidade} produto(s) vinculados a esta categoria.`
+        );
+
+        return;
+
+    }
+
+
+    const confirmar =
+        confirm(
+            `Deseja realmente excluir a categoria "${categoria.nome}"?`
+        );
+
+
+    if (!confirmar) return;
+
+
+    categorias =
+        categorias.filter(
+            c => c.id !== id
+        );
+
+
+    salvarCategorias();
+
+    renderizarCategorias();
+
+}
+
+
+/* =========================================================
+   FECHAR MODAL
+========================================================= */
+
+function fecharModal() {
+
+    document.getElementById("modalCategoria")
+        .classList.remove("show");
+
+}
+
+
+/* =========================================================
+   PESQUISA
+========================================================= */
+
+document.getElementById("pesquisa")
+.addEventListener(
+    "input",
+    renderizarCategorias
+);
+
+
+/* =========================================================
+   INICIALIZAÇÃO
+========================================================= */
+
+salvarCategorias();
+
+renderizarCategorias();
+
+</script>
+
+</body>
+</html>
