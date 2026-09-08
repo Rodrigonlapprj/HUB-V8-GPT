@@ -401,6 +401,52 @@
         }
 
 
+        .image-upload-box {
+            border: 1px dashed #d1d5db;
+            border-radius: 12px;
+            padding: 15px;
+            background: #f9fafb;
+        }
+
+
+        .image-upload-row {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+
+        .image-preview {
+            width: 100px;
+            height: 100px;
+            border-radius: 12px;
+            object-fit: cover;
+            background: #e5e7eb;
+            border: 1px solid #e5e7eb;
+            display: none;
+        }
+
+
+        .image-upload-info {
+            flex: 1;
+            min-width: 220px;
+        }
+
+
+        .image-upload-info small {
+            display: block;
+            margin-top: 7px;
+            color: #6b7280;
+            line-height: 1.4;
+        }
+
+
+        .image-url-input {
+            margin-top: 12px;
+        }
+
+
         .product-info h4 {
             margin-bottom: 5px;
 
@@ -1806,12 +1852,42 @@
             <div class="field full">
 
                 <label>
-                    Imagem
+                    Imagem do produto
                 </label>
 
-                <input
-                    id="produtoImagem"
-                    type="text">
+                <div class="image-upload-box">
+
+                    <div class="image-upload-row">
+
+                        <img
+                            id="produtoImagemPreview"
+                            class="image-preview"
+                            alt="Pré-visualização do produto">
+
+                        <div class="image-upload-info">
+
+                            <input
+                                id="produtoImagemArquivo"
+                                type="file"
+                                accept="image/*"
+                                onchange="selecionarImagemProduto(event)">
+
+                            <small>
+                                Escolha uma foto do computador ou celular.
+                                A imagem será preparada automaticamente para a demonstração.
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                    <input
+                        id="produtoImagem"
+                        class="image-url-input"
+                        type="text"
+                        placeholder="Ou cole aqui o endereço da imagem (opcional)">
+
+                </div>
 
             </div>
 
@@ -1933,6 +2009,11 @@
                 PRODUTOS_ORIGINAIS
             )
         );
+
+
+    // Imagem selecionada no computador/celular
+    // antes de clicar em "Salvar produto".
+    let novaImagemProduto = "";
 
 
     let produtoEditando = null;
@@ -2250,6 +2331,134 @@
 
 
     /* =====================================
+       IMAGEM DO PRODUTO
+    ====================================== */
+
+
+    function limparPreVisualizacaoImagem() {
+
+        novaImagemProduto = "";
+
+        const preview =
+            document.getElementById(
+                "produtoImagemPreview"
+            );
+
+        const arquivo =
+            document.getElementById(
+                "produtoImagemArquivo"
+            );
+
+        if (preview) {
+            preview.src = "";
+            preview.style.display = "none";
+        }
+
+        if (arquivo) {
+            arquivo.value = "";
+        }
+
+    }
+
+
+    function mostrarPreVisualizacaoImagem(src) {
+
+        const preview =
+            document.getElementById(
+                "produtoImagemPreview"
+            );
+
+        if (!preview || !src) {
+            return;
+        }
+
+        preview.src = src;
+        preview.style.display = "block";
+
+    }
+
+
+    function selecionarImagemProduto(evento) {
+
+        const arquivo =
+            evento.target.files &&
+            evento.target.files[0];
+
+        if (!arquivo) {
+            return;
+        }
+
+        if (!arquivo.type.startsWith("image/")) {
+
+            alert("Selecione um arquivo de imagem válido.");
+
+            evento.target.value = "";
+            return;
+        }
+
+        const leitor = new FileReader();
+
+        leitor.onload = function(e) {
+
+            const imagemOriginal = new Image();
+
+            imagemOriginal.onload = function() {
+
+                const limite = 900;
+                let largura = imagemOriginal.width;
+                let altura = imagemOriginal.height;
+
+                if (largura > limite || altura > limite) {
+
+                    const proporcao =
+                        Math.min(
+                            limite / largura,
+                            limite / altura
+                        );
+
+                    largura = Math.round(largura * proporcao);
+                    altura = Math.round(altura * proporcao);
+                }
+
+                const canvas = document.createElement("canvas");
+                canvas.width = largura;
+                canvas.height = altura;
+
+                const contexto = canvas.getContext("2d");
+                contexto.drawImage(
+                    imagemOriginal,
+                    0,
+                    0,
+                    largura,
+                    altura
+                );
+
+                // JPEG comprimido para reduzir o uso do localStorage.
+                novaImagemProduto =
+                    canvas.toDataURL("image/jpeg", 0.82);
+
+                mostrarPreVisualizacaoImagem(
+                    novaImagemProduto
+                );
+
+                // O campo de URL deixa de ser necessário quando
+                // uma imagem local foi escolhida.
+                document.getElementById(
+                    "produtoImagem"
+                ).value = "";
+
+            };
+
+            imagemOriginal.src = e.target.result;
+
+        };
+
+        leitor.readAsDataURL(arquivo);
+
+    }
+
+
+    /* =====================================
        EDITAR PRODUTO
     ====================================== */
 
@@ -2293,10 +2502,21 @@
             produto.preco || 0;
 
 
+        limparPreVisualizacaoImagem();
+
         document.getElementById(
             "produtoImagem"
         ).value =
-            produto.imagem || "";
+            produto.imagem &&
+            !produto.imagem.startsWith("data:image/")
+                ? produto.imagem
+                : "";
+
+        if (produto.imagem) {
+            mostrarPreVisualizacaoImagem(
+                produto.imagem
+            );
+        }
 
 
         document.getElementById(
@@ -2368,6 +2588,8 @@
             "produtoImagem"
         ).value = "";
 
+        limparPreVisualizacaoImagem();
+
 
         document.getElementById(
             "produtoDescricao"
@@ -2423,10 +2645,15 @@
             );
 
 
-        const imagem =
+        const imagemDigitada =
             document.getElementById(
                 "produtoImagem"
             ).value.trim();
+
+
+        const imagem =
+            novaImagemProduto ||
+            imagemDigitada;
 
 
         const descricao =
@@ -2565,7 +2792,9 @@
 
 
         alert(
-            "Produto salvo com sucesso!"
+            imagem
+                ? "Produto salvo com sucesso! A imagem também foi salva nesta demonstração."
+                : "Produto salvo com sucesso!"
         );
 
     }
@@ -2678,6 +2907,8 @@
 
 
         produtoEditando = null;
+
+        limparPreVisualizacaoImagem();
 
     }
 
