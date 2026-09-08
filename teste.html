@@ -21,6 +21,7 @@
       --text-muted: #6b7280;
       --border-color: #e5e7eb;
       --whatsapp-green: #25D366;
+      --success-color: #16a34a;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
@@ -130,7 +131,7 @@
     .qty-counter button { width: 26px; height: 26px; border: none; border-radius: 6px; background: white; font-weight: bold; cursor: pointer; }
     .qty-counter span { font-weight: bold; font-size: 0.9rem; min-width: 16px; text-align: center; }
 
-    /* BOTÃO FLUTUANTE REDONDO DE QR CODE (FAB) */
+    /* BOTÃO FLUTUANTE DE QR CODE */
     .qr-fab-btn {
       position: fixed;
       bottom: 85px;
@@ -149,19 +150,10 @@
       z-index: 1100;
       transition: transform .2s, box-shadow .2s;
     }
+    .qr-fab-btn:hover { transform: scale(1.08); box-shadow: 0 10px 24px rgba(0,0,0,0.35); }
+    .qr-fab-btn svg { width: 26px; height: 26px; fill: currentColor; }
 
-    .qr-fab-btn:hover {
-      transform: scale(1.08);
-      box-shadow: 0 10px 24px rgba(0,0,0,0.35);
-    }
-
-    .qr-fab-btn svg {
-      width: 26px;
-      height: 26px;
-      fill: currentColor;
-    }
-
-    /* BARRA FLUTUANTE DO CARRINHO (Z-INDEX 1200 PARA FICAR À FRENTE DE TUDO) */
+    /* BARRA FLUTUANTE DO CARRINHO */
     .cart-floating-bar {
       display: none; position: fixed; bottom: 16px; left: 50%;
       transform: translateX(-50%); width: calc(100% - 32px); max-width: 580px;
@@ -181,7 +173,7 @@
     }
     .modal-overlay.active { display: flex; }
     .modal-content {
-      background: white; width: 100%; max-width: 540px; max-height: 88vh;
+      background: white; width: 100%; max-width: 540px; max-height: 90vh;
       border-radius: 20px 20px 14px 14px; padding: 20px; overflow-y: auto;
       display: flex; flex-direction: column;
     }
@@ -189,11 +181,55 @@
     .close-btn { width: 32px; height: 32px; border-radius: 50%; border: none; background: #f3f4f6; font-weight: bold; cursor: pointer; }
 
     .cart-item-row { display: flex; justify-content: space-between; align-items: center; padding-bottom: 10px; border-bottom: 1px solid #f3f4f6; margin-bottom: 10px; }
+    
     .cart-form-field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
-    .cart-form-field label { font-size: 0.8rem; font-weight: 700; color: var(--text-muted); }
+    .cart-form-field label { font-size: 0.82rem; font-weight: 700; color: var(--text-muted); }
     .cart-form-field input, .cart-form-field select, .cart-form-field textarea {
-      width: 100%; border: 1px solid var(--border-color); border-radius: 10px; padding: 10px 12px; outline: none;
+      width: 100%; border: 1px solid var(--border-color); border-radius: 10px; padding: 10px 12px; outline: none; font-size: 0.92rem;
     }
+
+    .form-row-2 { display: flex; gap: 10px; }
+    .form-row-2 > div { flex: 1; }
+
+    /* Opções de Pagamento Integradas */
+    .payment-radios-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 4px;
+    }
+    .payment-radio-label {
+      border: 1px solid var(--border-color); border-radius: 10px; padding: 10px 8px;
+      font-size: 0.8rem; font-weight: 600; display: flex; align-items: center; gap: 6px;
+      cursor: pointer; background: #fff;
+    }
+    .payment-radio-label input { accent-color: var(--secondary-color); }
+
+    .pix-box-area {
+      background: #f0fdf4; border: 1px dashed var(--success-color);
+      padding: 12px; border-radius: 10px; margin-top: 8px; margin-bottom: 12px;
+    }
+    .pix-box-row {
+      display: flex; align-items: center; justify-content: space-between;
+      background: white; border: 1px solid var(--border-color); padding: 8px 10px; border-radius: 8px; margin-top: 6px;
+    }
+    .pix-btn-copiar {
+      background: var(--success-color); color: white; border: none; padding: 6px 12px; border-radius: 6px; font-weight: bold; font-size: 0.78rem; cursor: pointer;
+    }
+
+    .troco-box-area {
+      background: #fffbeb; border: 1px solid #fef3c7; padding: 10px 12px; border-radius: 10px; margin-top: 8px; margin-bottom: 12px; display: none;
+    }
+
+    .totals-summary {
+      background: #f8fafc; border: 1px solid var(--border-color); border-radius: 12px;
+      padding: 12px; margin-bottom: 14px;
+    }
+    .totals-summary-row {
+      display: flex; justify-content: space-between; font-size: 0.88rem; color: var(--text-muted); margin-bottom: 4px;
+    }
+    .totals-summary-row.total-destaque {
+      font-size: 1.15rem; font-weight: 800; color: var(--secondary-color);
+      border-top: 1px dashed var(--border-color); padding-top: 6px; margin-top: 6px;
+    }
+
     .btn-send-whatsapp {
       background: var(--whatsapp-green); color: white; border: none; border-radius: 12px;
       padding: 15px; font-size: 1rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px;
@@ -291,7 +327,7 @@
 
   </div>
 
-  <!-- BOTÃO FLUTUANTE REDONDO DE QR CODE (MODERNO E NA LATERAL) -->
+  <!-- BOTÃO FLUTUANTE REDONDO DE QR CODE (FAB) -->
   <button class="qr-fab-btn" onclick="abrirModalCompartilhar()" title="Compartilhar / QR Code">
     <svg viewBox="0 0 24 24">
       <path d="M3 3h8v8H3V3zm2 2v4h4V5H5zm8-2h8v8h-8V3zm2 2v4h4V5h-4zM3 13h8v8H3v-8zm2 2v4h4v-4H5zm13-2h3v2h-3v-2zm-5 0h2v3h-2v-3zm2 3h3v2h-3v-2zm3 2h3v3h-3v-3zm-3 1h-2v2h2v-2zm5-1v2h1v-2h-1z"/>
@@ -312,51 +348,120 @@
     </div>
   </div>
 
-  <!-- MODAL DO CARRINHO & CHECKOUT WHATSAPP -->
+  <!-- MODAL DO CARRINHO & CHECKOUT ATUALIZADO -->
   <div id="modalCarrinho" class="modal-overlay" style="z-index: 1300;">
     <div class="modal-content">
       <div class="modal-header">
-        <h3>🛍️ Sacola de Pedidos</h3>
+        <h3>🛍️ Sacola & Checkout</h3>
         <button class="close-btn" onclick="fecharModalCarrinho()">&times;</button>
       </div>
 
+      <!-- Lista de Itens -->
       <div id="cartItemsList"></div>
 
-      <div style="display:flex; justify-content:space-between; align-items:center; padding:12px 0; border-top:2px dashed var(--border-color); margin-bottom:14px;">
-        <strong>Total a Pagar:</strong>
-        <strong id="cartModalTotal" style="font-size:1.2rem; color:var(--secondary-color);">R$ 0,00</strong>
+      <!-- Resumo Financeiro Dinâmico -->
+      <div class="totals-summary">
+        <div class="totals-summary-row">
+          <span>Subtotal itens:</span>
+          <span id="resumoSubtotal">R$ 0,00</span>
+        </div>
+        <div class="totals-summary-row">
+          <span>Taxa de Entrega:</span>
+          <span id="resumoTaxa">R$ 0,00</span>
+        </div>
+        <div class="totals-summary-row total-destaque">
+          <span>Total:</span>
+          <span id="resumoTotal">R$ 0,00</span>
+        </div>
       </div>
 
+      <!-- Dados do Cliente -->
       <div class="cart-form-field">
         <label>Seu Nome *</label>
-        <input type="text" id="pedidoNomeCliente" placeholder="Informe seu nome">
+        <input type="text" id="pedidoNomeCliente" placeholder="Como podemos te chamar?">
       </div>
 
       <div class="cart-form-field">
-        <label>Tipo de Entrega</label>
+        <label>Tipo de Pedido</label>
         <select id="pedidoTipo" onchange="alternarCampoEndereco()">
           <option value="Entrega (Delivery)">Entrega (Delivery)</option>
           <option value="Retirar no Balcão">Retirar no Balcão</option>
         </select>
       </div>
 
-      <div id="campoEnderecoBox" class="cart-form-field">
-        <label>Endereço Completo *</label>
-        <input type="text" id="pedidoEndereco" placeholder="Rua, número, complemento e bairro">
+      <!-- Bloco de Entrega Simplificado RJ (sem CEP) -->
+      <div id="campoEnderecoBox">
+        <div class="form-row-2">
+          <div class="cart-form-field" style="flex: 2.5;">
+            <label>Rua / Logradouro *</label>
+            <input type="text" id="pedidoRua" placeholder="Ex: Rua Conde de Bonfim">
+          </div>
+          <div class="cart-form-field" style="flex: 1;">
+            <label>Número *</label>
+            <input type="text" id="pedidoNumero" placeholder="Ex: 123">
+          </div>
+        </div>
+
+        <div class="form-row-2">
+          <div class="cart-form-field">
+            <label>Bairro (Rio de Janeiro) *</label>
+            <select id="pedidoBairro" onchange="aoMudarBairro()">
+              <option value="">Selecione seu bairro...</option>
+            </select>
+          </div>
+          <div class="cart-form-field">
+            <label>Complemento</label>
+            <input type="text" id="pedidoComplemento" placeholder="Apto, Bloco, etc.">
+          </div>
+        </div>
+      </div>
+
+      <!-- Formas de Pagamento -->
+      <div class="cart-form-field">
+        <label>Forma de Pagamento *</label>
+        <div class="payment-radios-grid">
+          <label class="payment-radio-label">
+            <input type="radio" name="formaPagamentoOpcao" value="PIX Online" checked onchange="aoMudarPagamento()">
+            <span>⚡ PIX Online</span>
+          </label>
+          <label class="payment-radio-label">
+            <input type="radio" name="formaPagamentoOpcao" value="PIX na Máquina" onchange="aoMudarPagamento()">
+            <span>💳 PIX na Máquina</span>
+          </label>
+          <label class="payment-radio-label">
+            <input type="radio" name="formaPagamentoOpcao" value="Cartão de Crédito/Débito" onchange="aoMudarPagamento()">
+            <span>💳 Cartão (Entrega)</span>
+          </label>
+          <label class="payment-radio-label">
+            <input type="radio" name="formaPagamentoOpcao" value="Dinheiro" onchange="aoMudarPagamento()">
+            <span>💵 Dinheiro</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Bloco PIX Online (Copia e Cola) -->
+      <div id="blocoPixOnline" class="pix-box-area">
+        <small style="color:#166534; font-weight:bold; display:block;">Chave PIX da Loja:</small>
+        <div class="pix-box-row">
+          <span id="textoChavePixExibida" style="font-size:0.85rem; font-weight:bold; color:#14532d; word-break:break-all;">Carregando chave...</span>
+          <button type="button" class="pix-btn-copiar" onclick="copiarChavePixCheckout()">Copiar</button>
+        </div>
+        <small id="beneficiarioPixExibido" style="color:#15803d; font-size:0.75rem; display:block; margin-top:4px;"></small>
+      </div>
+
+      <!-- Bloco Troco Dinheiro -->
+      <div id="blocoTrocoDinheiro" class="troco-box-area">
+        <label style="font-size:0.8rem; font-weight:700; color:#92400e; display:block; margin-bottom:4px;">Troco para quanto?</label>
+        <input type="text" id="pedidoTroco" placeholder="Ex: R$ 50,00 (deixe em branco se não precisar)">
       </div>
 
       <div class="cart-form-field">
-        <label>Forma de Pagamento</label>
-        <select id="pedidoPagamento">
-          <option value="PIX">PIX</option>
-          <option value="Cartão de Crédito">Cartão de Crédito</option>
-          <option value="Cartão de Débito">Cartão de Débito</option>
-          <option value="Dinheiro">Dinheiro</option>
-        </select>
+        <label>Observações do Pedido (opcional)</label>
+        <textarea id="pedidoObservacao" rows="2" placeholder="Ex: Sem cebola, caprichar na calda, interfone quebrado..."></textarea>
       </div>
 
       <button class="btn-send-whatsapp" onclick="finalizarPedidoWhatsApp()">
-        <span>💬</span> Enviar Pedido no WhatsApp
+        <span>💬</span> Finalizar Pedido no WhatsApp
       </button>
     </div>
   </div>
@@ -394,9 +499,22 @@
     let dadosLoja = {};
     let dadosRedes = {};
     let dadosAparencia = {};
+    let dadosPix = {};
+    let bairrosEntrega = [];
     let produtosLoja = [];
     let categoriaSelecionada = "todos";
     let carrinho = {};
+    let taxaAtualEntrega = 0;
+
+    const BAIRROS_FALLBACK = [
+      { id: 1, nome: "Tijuca", taxa: 6.00 },
+      { id: 2, nome: "Maracanã", taxa: 7.00 },
+      { id: 3, nome: "Vila Isabel", taxa: 7.50 },
+      { id: 4, nome: "Grajaú", taxa: 8.00 },
+      { id: 5, nome: "Centro (RJ)", taxa: 10.00 },
+      { id: 6, nome: "Botafogo", taxa: 12.00 },
+      { id: 7, nome: "Copacabana", taxa: 14.00 }
+    ];
 
     function carregarDados() {
       const lojaSalva = JSON.parse(localStorage.getItem("hubLoja") || "{}");
@@ -409,6 +527,9 @@
       if (dadosAparencia.principal) document.documentElement.style.setProperty("--primary-color", dadosAparencia.principal);
       if (dadosAparencia.secundaria) document.documentElement.style.setProperty("--secondary-color", dadosAparencia.secundaria);
 
+      dadosPix = JSON.parse(localStorage.getItem("hubPix") || "{}");
+      bairrosEntrega = JSON.parse(localStorage.getItem("hubBairros")) || BAIRROS_FALLBACK;
+
       const prodsSalvos = localStorage.getItem("hubProdutos");
       if (prodsSalvos) produtosLoja = JSON.parse(prodsSalvos);
       else if (typeof produtos !== 'undefined' && Array.isArray(produtos)) produtosLoja = produtos;
@@ -418,6 +539,7 @@
       ];
 
       popularTextosELinks();
+      popularConfiguracoesCheckout();
       aplicarLayoutDefinidoPeloAdmin();
       renderizarCategorias();
       filtrarProdutos();
@@ -471,6 +593,27 @@
       if (dadosLoja.musicaUrl) {
         document.getElementById("audioFundo").src = dadosLoja.musicaUrl;
         document.getElementById("hubMusicBox").style.display = "inline-flex";
+      }
+    }
+
+    function popularConfiguracoesCheckout() {
+      // Popula Bairros
+      const selectBairro = document.getElementById("pedidoBairro");
+      selectBairro.innerHTML = '<option value="">Selecione seu bairro...</option>';
+      bairrosEntrega.forEach(b => {
+        const opt = document.createElement("option");
+        opt.value = b.nome;
+        opt.dataset.taxa = b.taxa;
+        opt.textContent = `${b.nome} (Taxa: R$ ${formatarMoeda(b.taxa)})`;
+        selectBairro.appendChild(opt);
+      });
+
+      // Popula PIX
+      const chave = dadosPix.chave || dadosLoja.chavePix || "Não configurada";
+      const tipo = dadosPix.tipo || "PIX";
+      document.getElementById("textoChavePixExibida").textContent = `${chave} (${tipo})`;
+      if (dadosPix.favorecido) {
+        document.getElementById("beneficiarioPixExibido").textContent = `Favorecido: ${dadosPix.favorecido}`;
       }
     }
 
@@ -581,7 +724,7 @@
       });
     }
 
-    /* CARRINHO */
+    /* CARRINHO & CÁLCULOS */
     function adicionarAoCarrinho(id) {
       const prod = produtosLoja.find(p => p.id === id);
       if (!prod) return;
@@ -599,27 +742,34 @@
       renderizarItensCarrinho();
     }
 
+    function calcularSubtotal() {
+      return Object.values(carrinho).reduce((acc, i) => acc + (i.qtd * i.produto.preco), 0);
+    }
+
     function atualizarCarrinhoVisual() {
-      let totalQtd = 0, totalValor = 0;
-      Object.values(carrinho).forEach(i => {
-        totalQtd += i.qtd;
-        totalValor += i.qtd * i.produto.preco;
-      });
+      let totalQtd = 0;
+      Object.values(carrinho).forEach(i => totalQtd += i.qtd);
+      const subtotal = calcularSubtotal();
+      const totalComFrete = subtotal > 0 ? (subtotal + taxaAtualEntrega) : 0;
 
       const barra = document.getElementById("cartFloatingBar");
       if (totalQtd > 0) {
         barra.style.display = "flex";
         document.getElementById("cartTotalItems").textContent = totalQtd;
-        document.getElementById("cartTotalPrice").textContent = `R$ ${formatarMoeda(totalValor)}`;
-        document.getElementById("cartModalTotal").textContent = `R$ ${formatarMoeda(totalValor)}`;
+        document.getElementById("cartTotalPrice").textContent = `R$ ${formatarMoeda(totalComFrete)}`;
       } else {
         barra.style.display = "none";
         fecharModalCarrinho();
       }
+
+      document.getElementById("resumoSubtotal").textContent = `R$ ${formatarMoeda(subtotal)}`;
+      document.getElementById("resumoTaxa").textContent = `R$ ${formatarMoeda(taxaAtualEntrega)}`;
+      document.getElementById("resumoTotal").textContent = `R$ ${formatarMoeda(totalComFrete)}`;
     }
 
     function abrirModalCarrinho() {
       renderizarItensCarrinho();
+      atualizarCarrinhoVisual();
       document.getElementById("modalCarrinho").classList.add("active");
     }
 
@@ -637,7 +787,7 @@
         row.innerHTML = `
           <div>
             <strong>${item.produto.nome}</strong><br>
-            <small>R$ ${formatarMoeda(item.produto.preco)} cada</small>
+            <small style="color:var(--text-muted);">R$ ${formatarMoeda(item.produto.preco)} cada</small>
           </div>
           <div class="qty-counter">
             <button onclick="alterarQtd('${id}', -1)">-</button>
@@ -651,35 +801,121 @@
 
     function alternarCampoEndereco() {
       const tipo = document.getElementById("pedidoTipo").value;
-      document.getElementById("campoEnderecoBox").style.display = tipo.includes("Entrega") ? "flex" : "none";
+      const isEntrega = tipo.includes("Entrega");
+      document.getElementById("campoEnderecoBox").style.display = isEntrega ? "block" : "none";
+      if (!isEntrega) {
+        taxaAtualEntrega = 0;
+      } else {
+        aoMudarBairro();
+      }
+      atualizarCarrinhoVisual();
     }
 
+    function aoMudarBairro() {
+      const select = document.getElementById("pedidoBairro");
+      const opt = select.options[select.selectedIndex];
+      if (opt && opt.dataset.taxa && document.getElementById("pedidoTipo").value.includes("Entrega")) {
+        taxaAtualEntrega = parseFloat(opt.dataset.taxa);
+      } else {
+        taxaAtualEntrega = 0;
+      }
+      atualizarCarrinhoVisual();
+    }
+
+    function aoMudarPagamento() {
+      const metodo = document.querySelector('input[name="formaPagamentoOpcao"]:checked').value;
+      document.getElementById("blocoPixOnline").style.display = (metodo === "PIX Online") ? "block" : "none";
+      document.getElementById("blocoTrocoDinheiro").style.display = (metodo === "Dinheiro") ? "block" : "none";
+    }
+
+    function copiarChavePixCheckout() {
+      const chave = dadosPix.chave || dadosLoja.chavePix;
+      if (!chave) { alert("Nenhuma chave PIX cadastrada!"); return; }
+      navigator.clipboard.writeText(chave).then(() => {
+        alert("Chave PIX copiada com sucesso!");
+      }).catch(() => {
+        prompt("Copie a chave PIX:", chave);
+      });
+    }
+
+    /* FINALIZAÇÃO E ENVIO VIA WHATSAPP */
     function finalizarPedidoWhatsApp() {
       const chaves = Object.keys(carrinho);
-      if (chaves.length === 0) return;
+      if (chaves.length === 0) {
+        alert("Adicione itens à sacola antes de finalizar.");
+        return;
+      }
 
       const nome = document.getElementById("pedidoNomeCliente").value.trim();
-      if (!nome) { alert("Informe seu nome."); return; }
+      if (!nome) { alert("Por favor, informe seu nome."); return; }
 
       const tipo = document.getElementById("pedidoTipo").value;
-      const end = document.getElementById("pedidoEndereco").value.trim();
-      if (tipo.includes("Entrega") && !end) { alert("Informe o endereço de entrega."); return; }
+      const isEntrega = tipo.includes("Entrega");
 
-      let total = 0, txtItens = "";
+      let rua = "", numero = "", bairro = "", comp = "";
+      if (isEntrega) {
+        rua = document.getElementById("pedidoRua").value.trim();
+        numero = document.getElementById("pedidoNumero").value.trim();
+        bairro = document.getElementById("pedidoBairro").value.trim();
+        comp = document.getElementById("pedidoComplemento").value.trim() || "Não informado";
+
+        if (!rua || !numero || !bairro) {
+          alert("Por favor, preencha Rua, Número e selecione o Bairro de entrega.");
+          return;
+        }
+      }
+
+      const formaPagamento = document.querySelector('input[name="formaPagamentoOpcao"]:checked').value;
+      let detalhePagto = formaPagamento;
+      if (formaPagamento === "Dinheiro") {
+        const troco = document.getElementById("pedidoTroco").value.trim();
+        detalhePagto += troco ? ` (Troco para: ${troco})` : " (Não precisa de troco)";
+      } else if (formaPagamento === "PIX Online") {
+        detalhePagto += " (Comprovante será anexado em seguida)";
+      }
+
+      const obs = document.getElementById("pedidoObservacao").value.trim();
+
+      const subtotal = calcularSubtotal();
+      const total = subtotal + taxaAtualEntrega;
+
+      let txtItens = "";
       chaves.forEach(id => {
         const i = carrinho[id];
         const sub = i.qtd * i.produto.preco;
-        total += sub;
-        txtItens += `▪️ *${i.qtd}x* ${i.produto.nome} — R$ ${formatarMoeda(sub)}\n`;
+        txtItens += `• ${i.qtd}x ${i.produto.nome} - R$ ${formatarMoeda(sub)}\n`;
       });
 
-      let msg = `🍧 *NOVO PEDIDO - ${dadosLoja.nome || "LOJA"}*\n\n`;
-      msg += `👤 *Cliente:* ${nome}\n`;
-      msg += `🛵 *Tipo:* ${tipo}\n`;
-      if (tipo.includes("Entrega")) msg += `📍 *Endereço:* ${end}\n`;
-      msg += `💳 *Pagamento:* ${document.getElementById("pedidoPagamento").value}\n\n`;
-      msg += `🛒 *ITENS:*\n${txtItens}\n`;
-      msg += `💰 *TOTAL:* R$ ${formatarMoeda(total)}`;
+      let msg = `*NOVO PEDIDO - ${dadosLoja.nome || "DELIVERY"}*\n`;
+      msg += `----------------------------------------\n`;
+      msg += `*Cliente:* ${nome}\n`;
+      msg += `*Tipo:* ${tipo}\n\n`;
+
+      msg += `*ITENS DO PEDIDO:*\n`;
+      msg += txtItens;
+      msg += `\n*Subtotal:* R$ ${formatarMoeda(subtotal)}\n`;
+      if (isEntrega) {
+        msg += `*Taxa de Entrega:* R$ ${formatarMoeda(taxaAtualEntrega)} (${bairro})\n`;
+      }
+      msg += `*TOTAL A PAGAR: R$ ${formatarMoeda(total)}*\n`;
+      msg += `----------------------------------------\n`;
+
+      if (isEntrega) {
+        msg += `*ENDEREÇO DE ENTREGA (RJ):*\n`;
+        msg += `Rua: ${rua}, Nº ${numero}\n`;
+        msg += `Bairro: ${bairro} - Rio de Janeiro\n`;
+        msg += `Complemento: ${comp}\n\n`;
+      }
+
+      msg += `*FORMA DE PAGAMENTO:*\n`;
+      msg += `${detalhePagto}\n`;
+
+      if (obs) {
+        msg += `\n*Observações:*\n${obs}\n`;
+      }
+
+      msg += `----------------------------------------\n`;
+      msg += `_Pedido gerado pelo Cardápio Online_`;
 
       const whats = (dadosLoja.whatsapp || dadosRedes.whatsapp || '5521999999999').replace(/\D/g, '');
       window.open(`https://api.whatsapp.com/send?phone=${whats}&text=${encodeURIComponent(msg)}`, '_blank');
