@@ -1099,7 +1099,7 @@
             </div>
         </section>
 
-        <!-- REDES SOCIAIS & LOCALIZAÇÃO -->
+        <!-- REDES SOCIAIS & LINKS EXTERNOS -->
         <section id="redes" class="section">
             <div class="card">
                 <div class="card-header">
@@ -1140,16 +1140,26 @@
             </div>
         </section>
 
-        <!-- APARÊNCIA -->
+        <!-- APARÊNCIA & LAYOUT -->
         <section id="aparencia" class="section">
             <div class="card">
                 <div class="card-header">
-                    <h3>Aparência do Cardápio</h3>
-                    <p>Personalize as cores e o tema da vitrine do seu cliente.</p>
+                    <h3>Aparência e Modelo do Cardápio</h3>
+                    <p>Escolha o layout de visualização e as cores da vitrine do seu cliente.</p>
                 </div>
 
                 <div class="appearance-grid">
                     <div class="appearance-controls">
+                        <!-- SELETOR DE LAYOUT -->
+                        <div class="field full">
+                            <label>Modelo de Layout do Cardápio</label>
+                            <select id="aparenciaModeloLayout">
+                                <option value="hub">Hub Tradicional (Cartões com abas e detalhes)</option>
+                                <option value="app">Estilo Aplicativo (Lista corrida com chips)</option>
+                            </select>
+                            <small style="color: #6b7280; font-size: 12px;">Selecione como os clientes irão visualizar sua página pública.</small>
+                        </div>
+
                         <div class="field full">
                             <label>Cor principal</label>
                             <div class="color-control">
@@ -1180,23 +1190,14 @@
                             </div>
                         </div>
 
-                        <div class="field full">
-                            <label>Estilo visual</label>
-                            <select id="aparenciaEstilo">
-                                <option value="moderno">Moderno</option>
-                                <option value="elegante">Elegante</option>
-                                <option value="divertido">Divertido</option>
-                            </select>
-                        </div>
-
                         <div class="actions">
-                            <button class="btn btn-primary" type="button" onclick="salvarAparencia()">Salvar cores</button>
+                            <button class="btn btn-primary" type="button" onclick="salvarAparencia()">Salvar aparência e layout</button>
                             <button class="btn btn-secondary" type="button" onclick="restaurarAparencia()">Padrão</button>
                         </div>
                     </div>
 
                     <div>
-                        <div style="font-weight:bold; margin-bottom:10px;">Pré-visualização do Tema</div>
+                        <div style="font-weight:bold; margin-bottom:10px;">Pré-visualização de Cores</div>
                         <div id="aparenciaPreview" class="appearance-preview">
                             <div class="preview-store-header">
                                 <div class="preview-logo">HB</div>
@@ -1719,7 +1720,7 @@
         }
     }
 
-    /* REDES SOCIAIS & LOCALIZAÇÃO */
+    /* REDES SOCIAIS & LINKS EXTERNOS */
     function salvarRedes() {
         const redes = {
             instagram: document.getElementById("instagram").value.trim(),
@@ -1770,26 +1771,44 @@
         document.getElementById("totalDestaques").textContent = produtosPainel.filter(p => p.destaque).length;
     }
 
-    /* APARÊNCIA */
+    /* APARÊNCIA & LAYOUT */
     function salvarAparencia() {
         const dados = {
+            modelo: document.getElementById("aparenciaModeloLayout").value,
             principal: document.getElementById("aparenciaCorPrincipalHex").value,
             secundaria: document.getElementById("aparenciaCorSecundariaHex").value,
-            tema: document.querySelector('input[name="aparenciaTema"]:checked').value,
-            estilo: document.getElementById("aparenciaEstilo").value
+            tema: document.querySelector('input[name="aparenciaTema"]:checked').value
         };
         localStorage.setItem("hubAparencia", JSON.stringify(dados));
         aplicarPreviewTema();
-        alert("Aparência do cardápio salva!");
+        alert("Aparência e modelo de layout salvos com sucesso!");
+    }
+
+    function carregarAparencia() {
+        const dados = JSON.parse(localStorage.getItem("hubAparencia") || "{}");
+        if (dados.modelo) document.getElementById("aparenciaModeloLayout").value = dados.modelo;
+        if (dados.principal) {
+            document.getElementById("aparenciaCorPrincipal").value = dados.principal;
+            document.getElementById("aparenciaCorPrincipalHex").value = dados.principal;
+        }
+        if (dados.secundaria) {
+            document.getElementById("aparenciaCorSecundaria").value = dados.secundaria;
+            document.getElementById("aparenciaCorSecundariaHex").value = dados.secundaria;
+        }
+        if (dados.tema) {
+            const radio = document.querySelector(`input[name="aparenciaTema"][value="${dados.tema}"]`);
+            if (radio) radio.checked = true;
+        }
+        aplicarPreviewTema();
     }
 
     function restaurarAparencia() {
+        document.getElementById("aparenciaModeloLayout").value = "hub";
         document.getElementById("aparenciaCorPrincipal").value = "#FFD400";
         document.getElementById("aparenciaCorPrincipalHex").value = "#FFD400";
         document.getElementById("aparenciaCorSecundaria").value = "#7B2CBF";
         document.getElementById("aparenciaCorSecundariaHex").value = "#7B2CBF";
         document.querySelector('input[name="aparenciaTema"][value="claro"]').checked = true;
-        document.getElementById("aparenciaEstilo").value = "moderno";
         aplicarPreviewTema();
     }
 
@@ -1849,6 +1868,7 @@
     document.addEventListener("DOMContentLoaded", () => {
         carregarDadosLoja();
         carregarRedes();
+        carregarAparencia();
         atualizarDashboard();
         renderizarProdutos();
         renderizarCategorias();
