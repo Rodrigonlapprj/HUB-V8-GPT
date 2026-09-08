@@ -1,707 +1,450 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hub Brasil | Painel Administrativo</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel Administrativo - Delivery RJ</title>
+  <style>
+    :root {
+      --primary: #e63946;
+      --primary-hover: #d62828;
+      --secondary: #1d3557;
+      --bg: #f8f9fa;
+      --card-bg: #ffffff;
+      --text: #2b2d42;
+      --muted: #6c757d;
+      --border: #e2e8f0;
+      --success: #2a9d8f;
+      --radius: 10px;
+      --shadow: 0 4px 12px rgba(0,0,0,0.06);
+    }
 
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: Arial, Helvetica, sans-serif; background: #f5f6f8; color: #202124; }
-        button, input, textarea, select { font-family: inherit; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
 
-        .app { display: flex; min-height: 100vh; }
-        .sidebar {
-            width: 250px; background: #111827; color: white; padding: 25px 15px;
-            position: fixed; left: 0; top: 0; bottom: 0; overflow-y: auto;
-        }
-        .brand { padding: 5px 10px 30px; }
-        .brand h1 { font-size: 23px; letter-spacing: .5px; margin-bottom: 5px; }
-        .brand p { font-size: 13px; color: #9ca3af; }
-        .menu { display: flex; flex-direction: column; gap: 5px; }
-        .menu button {
-            width: 100%; border: 0; background: transparent; color: #d1d5db;
-            text-align: left; padding: 13px 14px; border-radius: 9px; cursor: pointer;
-            font-size: 14px; display: flex; align-items: center; gap: 11px; transition: .2s;
-        }
-        .menu button:hover { background: #1f2937; color: white; }
-        .menu button.active { background: #facc15; color: #111827; font-weight: bold; }
-        .menu-icon { width: 19px; height: 19px; flex-shrink: 0; }
-        .sidebar-footer { position: absolute; bottom: 20px; left: 25px; right: 25px; font-size: 12px; color: #6b7280; }
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      padding: 24px;
+      line-height: 1.5;
+    }
 
-        .content { margin-left: 250px; width: calc(100% - 250px); padding: 30px; }
-        .topbar {
-            background: white; border-radius: 14px; padding: 20px 25px; margin-bottom: 25px;
-            display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,.05);
-        }
-        .topbar h2 { font-size: 23px; }
-        .status { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #16a34a; }
-        .status-dot { width: 9px; height: 9px; background: #22c55e; border-radius: 50%; }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
 
-        .section { display: none; }
-        .section.active { display: block; }
-        .card { background: white; border-radius: 14px; padding: 25px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,.05); }
-        .card-header { margin-bottom: 20px; }
-        .card-header h3 { font-size: 19px; margin-bottom: 5px; }
-        .card-header p { font-size: 14px; color: #6b7280; }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 28px;
+      padding-bottom: 16px;
+      border-bottom: 2px solid var(--border);
+    }
 
-        .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-bottom: 20px; }
-        .stat { background: white; padding: 22px; border-radius: 14px; box-shadow: 0 2px 10px rgba(0,0,0,.05); }
-        .stat span { font-size: 13px; color: #6b7280; }
-        .stat strong { display: block; margin-top: 8px; font-size: 28px; }
+    header h1 {
+      color: var(--secondary);
+      font-size: 1.8rem;
+    }
 
-        .products-toolbar { display: flex; justify-content: space-between; align-items: center; gap: 15px; margin-bottom: 20px; }
-        .search-box { flex: 1; }
-        .search-box input { width: 100%; border: 1px solid #d1d5db; border-radius: 9px; padding: 12px 14px; font-size: 14px; outline: none; }
-        .search-box input:focus { border-color: #facc15; }
+    .badge-status {
+      background-color: #e8f5e9;
+      color: var(--success);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: 0.85rem;
+    }
 
-        .product-list { display: grid; gap: 12px; }
-        .product {
-            border: 1px solid #e5e7eb; border-radius: 11px; padding: 15px;
-            display: flex; justify-content: space-between; align-items: center; gap: 15px;
-        }
-        .product-info { display: flex; align-items: center; gap: 15px; min-width: 0; }
-        .product-image { width: 70px; height: 70px; border-radius: 10px; object-fit: cover; background: #f3f4f6; flex-shrink: 0; }
-        .product-actions { display: flex; gap: 8px; flex-shrink: 0; flex-wrap: wrap; }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
 
-        .btn {
-            border: 0; border-radius: 8px; padding: 9px 13px; cursor: pointer;
-            font-weight: bold; font-size: 13px; display: inline-flex; align-items: center;
-            justify-content: center; gap: 6px; transition: .15s ease;
-        }
-        .btn-primary { background: #facc15; color: #111827; }
-        .btn-secondary { background: #e5e7eb; color: #374151; }
-        .btn-danger { background: #fee2e2; color: #b91c1c; }
-        .btn-success { background: #dcfce7; color: #166534; }
-        .btn-whatsapp { background: #25d366; color: white; }
+    @media (max-width: 860px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
 
-        .form-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
-        .field { display: flex; flex-direction: column; gap: 7px; }
-        .field.full { grid-column: 1 / -1; }
-        .field label { font-size: 13px; font-weight: bold; }
-        .field input, .field textarea, .field select {
-            width: 100%; border: 1px solid #d1d5db; border-radius: 8px; padding: 11px 12px; font-size: 14px; outline: none;
-        }
-        .actions { margin-top: 22px; display: flex; gap: 10px; }
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      margin-bottom: 24px;
+    }
 
-        .horarios-semana { border: 1px solid #e5e7eb; border-radius: 12px; overflow: hidden; background: #fff; }
-        .horario-cabecalho, .horario-linha {
-            display: grid; grid-template-columns: minmax(150px, 1.5fr) 80px 1fr 1fr;
-            align-items: center; gap: 12px; padding: 12px 15px;
-        }
-        .horario-cabecalho { background: #f9fafb; color: #6b7280; font-size: 12px; font-weight: bold; border-bottom: 1px solid #e5e7eb; }
-        .horario-linha { border-bottom: 1px solid #f0f0f0; }
-        .horario-linha:last-child { border-bottom: 0; }
+    .card h2 {
+      font-size: 1.25rem;
+      margin-bottom: 16px;
+      color: var(--secondary);
+    }
 
-        .store-logo-box, .image-upload-box { border: 1px dashed #d1d5db; border-radius: 12px; padding: 16px; background: #f9fafb; }
-        .store-logo-row { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
-        .store-logo-preview { width: 110px; height: 110px; border-radius: 16px; object-fit: contain; background: white; border: 1px solid #e5e7eb; display: none; }
+    .form-group {
+      margin-bottom: 14px;
+    }
 
-        .settings-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
-        .setting-card {
-            border: 1px solid #e5e7eb; border-radius: 12px; padding: 18px;
-            display: grid; grid-template-columns: auto 1fr; gap: 12px 14px; align-items: start; background: #fff;
-        }
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #4a5568;
+    }
 
-        .modal-overlay {
-            display: none; position: fixed; inset: 0; background: rgba(0,0,0,.55);
-            z-index: 1000; padding: 20px; align-items: center; justify-content: center;
-        }
-        .modal-overlay.active { display: flex; }
-        .modal {
-            width: 100%; max-width: 650px; max-height: 90vh; overflow-y: auto;
-            background: white; border-radius: 16px; padding: 25px; box-shadow: 0 20px 50px rgba(0,0,0,.2);
-        }
-        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-        .close-modal { width: 35px; height: 35px; border: 0; border-radius: 50%; background: #f3f4f6; cursor: pointer; font-size: 18px; }
+    input, select, textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
 
-        /* QR CODE CARD */
-        .qr-card-box {
-            background: #fff; border: 1px solid #e5e7eb; border-radius: 14px;
-            padding: 20px; display: flex; align-items: center; gap: 20px; margin-top: 15px;
-        }
-        .qr-img { width: 130px; height: 130px; border-radius: 10px; border: 1px solid #e5e7eb; }
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--primary);
+    }
 
-        @media (max-width: 900px) {
-            .sidebar { width: 210px; }
-            .content { margin-left: 210px; width: calc(100% - 210px); }
-            .stats, .settings-grid { grid-template-columns: 1fr; }
-        }
-        @media (max-width: 650px) {
-            .sidebar { position: relative; width: 100%; height: auto; }
-            .app { display: block; }
-            .content { margin-left: 0; width: 100%; padding: 15px; }
-            .sidebar-footer { position: relative; left: auto; bottom: auto; margin-top: 25px; }
-            .form-grid { grid-template-columns: 1fr; }
-            .product { flex-direction: column; align-items: flex-start; }
-            .qr-card-box { flex-direction: column; text-align: center; }
-        }
-    </style>
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 11px 18px;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    .btn:hover {
+      background-color: var(--primary-hover);
+    }
+
+    .btn-secondary {
+      background-color: var(--secondary);
+    }
+
+    .btn-danger {
+      background-color: #e63946;
+      padding: 6px 10px;
+      font-size: 0.8rem;
+      width: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 14px;
+      font-size: 0.9rem;
+    }
+
+    th, td {
+      padding: 10px 12px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+
+    th {
+      background: #f1f5f9;
+      color: var(--secondary);
+      font-weight: 600;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #1d3557;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 8px;
+      display: none;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      z-index: 1000;
+    }
+  </style>
 </head>
-
 <body>
 
-<div class="app">
+  <div class="container">
+    <header>
+      <div>
+        <h1>Painel de Controle Delivery</h1>
+        <p style="color: var(--muted); font-size: 0.9rem;">Configuração de Bairros, Taxas e PIX</p>
+      </div>
+      <span class="badge-status">● Painel Ativo</span>
+    </header>
 
-    <aside class="sidebar">
-        <div class="brand">
-            <h1>HUB BRASIL</h1>
-            <p>Painel Administrativo</p>
+    <div class="grid">
+      <!-- Configurações Gerais -->
+      <div>
+        <div class="card">
+          <h2>Configurações do WhatsApp & PIX</h2>
+          <form id="form-config">
+            <div class="form-group">
+              <label for="nomeRestaurante">Nome do Estabelecimento:</label>
+              <input type="text" id="nomeRestaurante" placeholder="Ex: Hamburgueria Carioca" required>
+            </div>
+
+            <div class="form-group">
+              <label for="whatsapp">WhatsApp para Receber Pedidos (com DDD):</label>
+              <input type="text" id="whatsapp" placeholder="Ex: 21999998888 (somente números)" required>
+            </div>
+
+            <div class="form-group">
+              <label for="tipoChavePix">Tipo da Chave PIX:</label>
+              <select id="tipoChavePix">
+                <option value="CNPJ">CNPJ</option>
+                <option value="CPF">CPF</option>
+                <option value="Celular">Telefone / Celular</option>
+                <option value="E-mail">E-mail</option>
+                <option value="Chave Aleatória">Chave Aleatória</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="chavePix">Chave PIX (Copia e Cola):</label>
+              <input type="text" id="chavePix" placeholder="Digite sua chave PIX" required>
+            </div>
+
+            <div class="form-group">
+              <label for="beneficiarioPix">Nome do Titular do PIX:</label>
+              <input type="text" id="beneficiarioPix" placeholder="Ex: Hamburgueria Carioca Ltda">
+            </div>
+
+            <button type="submit" class="btn btn-secondary">Salvar Configurações</button>
+          </form>
         </div>
 
-        <nav class="menu">
-            <button class="menu-btn active" data-section="dashboard">Dashboard</button>
-            <button class="menu-btn" data-section="loja">Minha Loja</button>
-            <button class="menu-btn" data-section="produtos">Produtos</button>
-            <button class="menu-btn" data-section="qrcode">QR Code & Divulgação</button>
-            <button class="menu-btn" data-section="whatsapp">Central WhatsApp</button>
-            <button class="menu-btn" data-section="redes">Redes Sociais</button>
-            <button class="menu-btn" data-section="aparencia">Aparência & Layout</button>
-            <button class="menu-btn" data-section="configuracoes">Configurações</button>
-        </nav>
+        <!-- Produtos / Cardápio -->
+        <div class="card">
+          <h2>Cadastrar Itens no Cardápio</h2>
+          <form id="form-produto">
+            <div class="form-group">
+              <label for="nomeProd">Nome do Item:</label>
+              <input type="text" id="nomeProd" placeholder="Ex: Smash Burger Duplo" required>
+            </div>
+            <div class="form-group">
+              <label for="descProd">Descrição:</label>
+              <input type="text" id="descProd" placeholder="Ex: Pão brioche, 2x smash 90g, queijo cheddar" required>
+            </div>
+            <div class="form-group">
+              <label for="precoProd">Preço (R$):</label>
+              <input type="number" step="0.50" id="precoProd" placeholder="Ex: 28.50" required>
+            </div>
+            <button type="submit" class="btn">Adicionar Item</button>
+          </form>
 
-        <div class="sidebar-footer">Hub Brasil • Admin v3.0</div>
-    </aside>
-
-    <main class="content">
-        <div class="topbar">
-            <div><h2 id="pageTitle">Dashboard</h2></div>
-            <div class="status"><span class="status-dot"></span> Online</div>
+          <table id="tabela-produtos">
+            <thead>
+              <tr>
+                <th>Item</th>
+                <th>Preço</th>
+                <th style="width: 70px;">Ação</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
         </div>
+      </div>
 
-        <!-- DASHBOARD -->
-        <section id="dashboard" class="section active">
-            <div class="stats">
-                <div class="stat"><span>Produtos</span><strong id="totalProdutos">0</strong></div>
-                <div class="stat"><span>Categorias</span><strong id="totalCategorias">0</strong></div>
-                <div class="stat"><span>Produtos Ativos</span><strong id="produtosAtivos">0</strong></div>
-                <div class="stat"><span>Destaques</span><strong id="totalDestaques">0</strong></div>
+      <!-- Gerenciamento de Bairros -->
+      <div>
+        <div class="card">
+          <h2>Bairros Atendidos (Rio de Janeiro)</h2>
+          <p style="color: var(--muted); font-size: 0.85rem; margin-bottom: 14px;">
+            Cadastre os bairros atendidos e a taxa de entrega correspondente.
+          </p>
+
+          <form id="form-bairro">
+            <div class="form-group">
+              <label for="nomeBairro">Nome do Bairro:</label>
+              <input type="text" id="nomeBairro" placeholder="Ex: Tijuca, Méier, Copacabana..." required>
             </div>
-            <div class="card">
-                <div class="card-header">
-                    <h3>Bem-vindo ao Painel do Administrador</h3>
-                    <p>Aqui você gerencia o modelo visual da loja, produtos e compartilha seu QR Code.</p>
-                </div>
+            <div class="form-group">
+              <label for="taxaBairro">Taxa de Entrega (R$):</label>
+              <input type="number" step="0.50" id="taxaBairro" placeholder="Ex: 8.00 (coloque 0 para grátis)" required>
             </div>
-        </section>
+            <button type="submit" class="btn">Cadastrar Bairro</button>
+          </form>
 
-        <!-- MINHA LOJA -->
-        <section id="loja" class="section">
-            <div class="card">
-                <div class="card-header">
-                    <h3>Dados do Estabelecimento</h3>
-                    <p>Atualize os dados e imagens da loja.</p>
-                </div>
-                <div class="field full" style="margin-bottom:20px;">
-                    <label>Logo da Loja</label>
-                    <div class="store-logo-box">
-                        <div class="store-logo-row">
-                            <img id="lojaLogoPreview" class="store-logo-preview" alt="Prévia">
-                            <div>
-                                <input id="lojaLogoArquivo" type="file" accept="image/*" onchange="selecionarLogoLoja(event)">
-                                <small style="display:block;margin-top:4px;color:#6b7280;">Envie uma imagem quadrada recomendada.</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-grid">
-                    <div class="field full">
-                        <label>Nome da Loja</label>
-                        <input id="lojaNome" type="text" value="Carioca Ice Cream">
-                    </div>
-                    <div class="field">
-                        <label>Telefone Fixo</label>
-                        <input id="lojaTelefone" type="text" placeholder="(21) 3333-3333">
-                    </div>
-                    <div class="field">
-                        <label>WhatsApp Comercial</label>
-                        <input id="lojaWhatsapp" type="text" placeholder="(21) 99999-9999">
-                    </div>
-                    <div class="field full">
-                        <label>Endereço Completo</label>
-                        <input id="lojaEndereco" type="text" placeholder="Rua, número e bairro">
-                    </div>
-                    <div class="field">
-                        <label>Bairro</label>
-                        <input id="lojaBairro" type="text" placeholder="Bairro">
-                    </div>
-                    <div class="field">
-                        <label>Cidade</label>
-                        <input id="lojaCidade" type="text" placeholder="Rio de Janeiro">
-                    </div>
-                    <div class="field full">
-                        <label>Link de Áudio / Música (Para o Hub Clássico)</label>
-                        <input id="lojaMusicaUrl" type="text" placeholder="https://exemplo.com/audio.mp3">
-                    </div>
-                    <div class="field full">
-                        <label>Descrição Curta</label>
-                        <textarea id="lojaDescricao">Sorvetes artesanais, açaí no copo, milk shakes e sobremesas deliciosas.</textarea>
-                    </div>
-                </div>
-
-                <div class="actions">
-                    <button class="btn btn-primary" onclick="salvarLoja()">Salvar Informações</button>
-                </div>
-            </div>
-        </section>
-
-        <!-- PRODUTOS -->
-        <section id="produtos" class="section">
-            <div class="card">
-                <div class="card-header">
-                    <h3>Produtos</h3>
-                    <p>Itens que aparecerão nos 3 modelos de visualização.</p>
-                </div>
-                <div class="products-toolbar">
-                    <div class="search-box">
-                        <input id="buscaProduto" type="text" placeholder="Buscar produtos..." oninput="renderizarProdutos()">
-                    </div>
-                    <button class="btn btn-primary" onclick="abrirNovoProduto()">+ Novo Produto</button>
-                </div>
-                <div id="listaProdutos" class="product-list"></div>
-            </div>
-        </section>
-
-        <!-- QR CODE & DIVULGAÇÃO -->
-        <section id="qrcode" class="section">
-            <div class="card">
-                <div class="card-header">
-                    <h3>QR Code do Estabelecimento</h3>
-                    <p>Imprima para fixar nas mesas e balcões, ou envie o link diretamente para os clientes.</p>
-                </div>
-
-                <div class="qr-card-box">
-                    <img id="adminQrCodeImg" class="qr-img" src="" alt="QR Code da Loja">
-                    <div style="flex:1;">
-                        <h4 id="qrNomeLoja" style="font-size:18px; margin-bottom:5px;">Carioca Ice Cream</h4>
-                        <p style="font-size:13px; color:#6b7280; margin-bottom:12px;">Escaneie com a câmera do celular para acessar a vitrine digital e fazer pedidos.</p>
-                        <div style="display:flex; gap:10px; flex-wrap:wrap;">
-                            <button class="btn btn-primary" onclick="copiarLinkVitrine()">🔗 Copiar Link da Vitrine</button>
-                            <button class="btn btn-secondary" onclick="baixarQrCode()">📥 Baixar Imagem QR Code</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- WHATSAPP HUB -->
-        <section id="whatsapp" class="section">
-            <div class="card">
-                <div class="card-header">
-                    <h3>Central WhatsApp</h3>
-                    <p>Atalhos rápidos para enviar mensagens aos clientes.</p>
-                </div>
-                <div class="settings-grid">
-                    <div class="setting-card">
-                        <div style="font-size: 24px;">📱</div>
-                        <div>
-                            <h4>Link Direto da Vitrine</h4>
-                            <p>Envia o link completo com mensagem personalizada.</p>
-                        </div>
-                        <div style="grid-column: 2; display: flex; gap: 8px;">
-                            <button class="btn btn-whatsapp" onclick="dispararLinkWhatsApp()">Enviar no Whats</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- REDES SOCIAIS -->
-        <section id="redes" class="section">
-            <div class="card">
-                <div class="card-header">
-                    <h3>Redes Sociais & Links Externos</h3>
-                    <p>Links exibidos como botões no cardápio.</p>
-                </div>
-                <div class="form-grid">
-                    <div class="field">
-                        <label>Instagram</label>
-                        <input id="instagram" type="text" placeholder="@sualoja">
-                    </div>
-                    <div class="field">
-                        <label>WhatsApp de Pedidos</label>
-                        <input id="whatsappRede" type="text" placeholder="5521999999999">
-                    </div>
-                    <div class="field">
-                        <label>Link Avaliações Google</label>
-                        <input id="googleAvaliacoes" type="text" placeholder="https://maps.app.goo.gl/...">
-                    </div>
-                    <div class="field">
-                        <label>Link Google Maps</label>
-                        <input id="linkMapa" type="text" placeholder="https://maps.app.goo.gl/...">
-                    </div>
-                </div>
-                <div class="actions">
-                    <button class="btn btn-primary" onclick="salvarRedes()">Salvar Redes</button>
-                </div>
-            </div>
-        </section>
-
-        <!-- APARÊNCIA & SELEÇÃO DE LAYOUT (EXCLUSIVO ADMIN) -->
-        <section id="aparencia" class="section">
-            <div class="card">
-                <div class="card-header">
-                    <h3>Layout & Visual da Vitrine</h3>
-                    <p><strong>Configuração exclusiva:</strong> Os visitantes verão o modelo escolhido aqui.</p>
-                </div>
-                <div class="form-grid">
-                    <div class="field full">
-                        <label style="font-size: 15px; color: #111827;">Modelo de Layout Ativo:</label>
-                        <select id="aparenciaModeloLayout" style="font-weight: bold; border-color: #facc15; padding: 12px;">
-                            <option value="hub_classico">Layout 1: Hub Clássico / Linktree (Logo central, botões e música)</option>
-                            <option value="vitrine_abas">Layout 2: Vitrine com Abas (Cardápio, Info e Horários)</option>
-                            <option value="app_delivery">Layout 3: App Delivery / Catálogo (Busca rápida e chips)</option>
-                        </select>
-                    </div>
-                    <div class="field">
-                        <label>Cor Principal</label>
-                        <input id="aparenciaCorPrincipal" type="color" value="#FFD400" style="height:45px;">
-                    </div>
-                    <div class="field">
-                        <label>Cor Secundária</label>
-                        <input id="aparenciaCorSecundaria" type="color" value="#7B2CBF" style="height:45px;">
-                    </div>
-                </div>
-                <div class="actions">
-                    <button class="btn btn-primary" onclick="salvarAparencia()">Salvar Layout e Cores</button>
-                </div>
-            </div>
-        </section>
-
-        <!-- CONFIGURAÇÕES -->
-        <section id="configuracoes" class="section">
-            <div class="card">
-                <div class="card-header">
-                    <h3>Backup & Dados</h3>
-                    <p>Faça backup de todos os cadastros ou reinicie o sistema.</p>
-                </div>
-                <button class="btn btn-primary" onclick="exportarDados()">💾 Baixar Backup</button>
-                <button class="btn btn-danger" style="margin-left: 10px;" onclick="limparDados()">⚠️ Resetar Dados</button>
-            </div>
-        </section>
-    </main>
-</div>
-
-<!-- MODAL PRODUTO -->
-<div id="modalProduto" class="modal-overlay">
-    <div class="modal">
-        <div class="modal-header">
-            <h3 id="modalTitulo">Produto</h3>
-            <button class="close-modal" onclick="fecharModal()">&times;</button>
+          <table id="tabela-bairros">
+            <thead>
+              <tr>
+                <th>Bairro</th>
+                <th>Taxa</th>
+                <th style="width: 70px;">Ação</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
         </div>
-        <div class="form-grid">
-            <div class="field full">
-                <label>Nome do Produto</label>
-                <input id="produtoNome" type="text">
-            </div>
-            <div class="field">
-                <label>Categoria</label>
-                <input id="produtoCategoria" type="text">
-            </div>
-            <div class="field">
-                <label>Preço (R$)</label>
-                <input id="produtoPreco" type="number" step="0.01">
-            </div>
-            <div class="field full">
-                <label>Descrição</label>
-                <textarea id="produtoDescricao"></textarea>
-            </div>
-            <div class="field full">
-                <label>Imagem</label>
-                <input id="produtoImagemArquivo" type="file" accept="image/*" onchange="selecionarImagemProduto(event)">
-                <input id="produtoImagem" type="text" placeholder="Ou URL da imagem" style="margin-top:6px;">
-            </div>
-            <div class="field">
-                <label>Disponível?</label>
-                <select id="produtoDisponivel">
-                    <option value="true">Sim</option>
-                    <option value="false">Não</option>
-                </select>
-            </div>
-            <div class="field">
-                <label>Destaque?</label>
-                <select id="produtoDestaque">
-                    <option value="false">Não</option>
-                    <option value="true">Sim</option>
-                </select>
-            </div>
-        </div>
-        <div class="actions">
-            <button class="btn btn-primary" onclick="salvarProduto()">Salvar</button>
-            <button class="btn btn-secondary" onclick="fecharModal()">Cancelar</button>
-        </div>
+      </div>
     </div>
-</div>
+  </div>
 
-<script>
-    const PRODUTOS_PADRAO = [
-        { id: "p1", nome: "Copo de Açaí 500ml", categoria: "Açaí", preco: 20.00, descricao: "Açaí cremoso com acompanhamentos.", disponivel: true, destaque: true },
-        { id: "p2", nome: "Cascão Duplo Artesanal", categoria: "Sorvetes", preco: 15.00, descricao: "Duas bolas de sorvete premium.", disponivel: true, destaque: true }
+  <div id="toast" class="toast">Salvo com sucesso!</div>
+
+  <script>
+    const defaultSettings = {
+      nome: 'Hamburgueria Carioca',
+      whatsapp: '5521999998888',
+      tipoPix: 'CNPJ',
+      chavePix: '12.345.678/0001-90',
+      beneficiarioPix: 'Hamburgueria Carioca Oficial'
+    };
+
+    const defaultBairros = [
+      { id: 1, nome: 'Tijuca', taxa: 6.00 },
+      { id: 2, nome: 'Maracanã', taxa: 7.00 },
+      { id: 3, nome: 'Vila Isabel', taxa: 7.50 },
+      { id: 4, nome: 'Grajaú', taxa: 8.00 },
+      { id: 5, nome: 'Centro (RJ)', taxa: 10.00 },
+      { id: 6, nome: 'Botafogo', taxa: 12.00 },
+      { id: 7, nome: 'Copacabana', taxa: 14.00 }
     ];
 
-    let produtosPainel = JSON.parse(localStorage.getItem("hubProdutos")) || PRODUTOS_PADRAO;
-    let novaImagemProduto = "";
-    let produtoEditando = null;
-    window.logoLojaAtual = "";
+    const defaultProdutos = [
+      { id: 1, nome: 'X-Burger Especial Carioca', desc: 'Pão artesanal, blend 160g, cheddar cremoso e maionese da casa.', preco: 26.00 },
+      { id: 2, nome: 'Smash Bacon Duplo', desc: 'Dois smashes 90g, queijo prato, bacon crocante e molho barbecue.', preco: 32.00 },
+      { id: 3, nome: 'Batata Rústica Individual', desc: 'Batatas crocantes com alecrim e maionese temperada.', preco: 14.00 },
+      { id: 4, nome: 'Refrigerante Lata 350ml', desc: 'Coca-Cola, Guaraná Antarctica ou Fanta Laranja gelados.', preco: 6.50 }
+    ];
 
-    const botoesMenu = document.querySelectorAll(".menu-btn");
-    const secoes = document.querySelectorAll(".section");
-    const tituloPagina = document.getElementById("pageTitle");
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.innerText = msg;
+      toast.style.display = 'block';
+      setTimeout(() => { toast.style.display = 'none'; }, 2500);
+    }
 
-    botoesMenu.forEach(btn => {
-        btn.addEventListener("click", () => {
-            botoesMenu.forEach(b => b.classList.remove("active"));
-            btn.classList.add("active");
-            secoes.forEach(s => s.classList.remove("active"));
-            const targetId = btn.dataset.section;
-            document.getElementById(targetId).classList.add("active");
-            tituloPagina.textContent = btn.textContent.trim();
+    function getStorage(key, defaultVal) {
+      const data = localStorage.getItem(key);
+      return data ? JSON.parse(data) : defaultVal;
+    }
 
-            if (targetId === "produtos") renderizarProdutos();
-            if (targetId === "dashboard") atualizarDashboard();
-            if (targetId === "qrcode") gerarQrCodePainel();
-        });
+    function setStorage(key, val) {
+      localStorage.setItem(key, JSON.stringify(val));
+    }
+
+    function carregarConfig() {
+      const config = getStorage('delivery_config', defaultSettings);
+      document.getElementById('nomeRestaurante').value = config.nome || '';
+      document.getElementById('whatsapp').value = config.whatsapp || '';
+      document.getElementById('tipoChavePix').value = config.tipoPix || 'CNPJ';
+      document.getElementById('chavePix').value = config.chavePix || '';
+      document.getElementById('beneficiarioPix').value = config.beneficiarioPix || '';
+    }
+
+    document.getElementById('form-config').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const config = {
+        nome: document.getElementById('nomeRestaurante').value,
+        whatsapp: document.getElementById('whatsapp').value.replace(/\D/g, ''),
+        tipoPix: document.getElementById('tipoChavePix').value,
+        chavePix: document.getElementById('chavePix').value,
+        beneficiarioPix: document.getElementById('beneficiarioPix').value
+      };
+      setStorage('delivery_config', config);
+      showToast('Configurações salvas!');
     });
 
-    function formatarPreco(val) { return Number(val || 0).toFixed(2).replace(".", ","); }
+    function renderBairros() {
+      const bairros = getStorage('delivery_bairros', defaultBairros);
+      const tbody = document.querySelector('#tabela-bairros tbody');
+      tbody.innerHTML = '';
 
-    function renderizarProdutos() {
-        const lista = document.getElementById("listaProdutos");
-        const busca = document.getElementById("buscaProduto").value.toLowerCase().trim();
-        lista.innerHTML = "";
-
-        const filtrados = produtosPainel.filter(p => (p.nome + " " + p.categoria).toLowerCase().includes(busca));
-
-        filtrados.forEach(produto => {
-            const idx = produtosPainel.findIndex(p => p.id === produto.id);
-            const item = document.createElement("div");
-            item.className = "product";
-            item.innerHTML = `
-                <div class="product-info">
-                    <div>
-                        <h4>${produto.nome}</h4>
-                        <p>${produto.categoria} • R$ ${formatarPreco(produto.preco)}</p>
-                    </div>
-                </div>
-                <div class="product-actions">
-                    <button class="btn btn-secondary" onclick="editarProduto(${idx})">Editar</button>
-                    <button class="btn btn-danger" onclick="excluirProduto(${idx})">Excluir</button>
-                </div>
-            `;
-            lista.appendChild(item);
-        });
+      bairros.forEach(b => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><strong>${b.nome}</strong></td>
+          <td>R$ ${parseFloat(b.taxa).toFixed(2)}</td>
+          <td><button class="btn btn-danger" onclick="removerBairro(${b.id})">Excluir</button></td>
+        `;
+        tbody.appendChild(tr);
+      });
     }
 
-    function abrirNovoProduto() {
-        produtoEditando = null;
-        document.getElementById("produtoNome").value = "";
-        document.getElementById("produtoCategoria").value = "";
-        document.getElementById("produtoPreco").value = "";
-        document.getElementById("produtoDescricao").value = "";
-        document.getElementById("produtoImagem").value = "";
-        novaImagemProduto = "";
-        document.getElementById("modalProduto").classList.add("active");
-    }
+    document.getElementById('form-bairro').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const bairros = getStorage('delivery_bairros', defaultBairros);
+      const nome = document.getElementById('nomeBairro').value.trim();
+      const taxa = parseFloat(document.getElementById('taxaBairro').value) || 0;
 
-    function editarProduto(idx) {
-        produtoEditando = idx;
-        const p = produtosPainel[idx];
-        document.getElementById("produtoNome").value = p.nome;
-        document.getElementById("produtoCategoria").value = p.categoria;
-        document.getElementById("produtoPreco").value = p.preco;
-        document.getElementById("produtoDescricao").value = p.descricao || "";
-        document.getElementById("produtoImagem").value = p.imagem && !p.imagem.startsWith("data:") ? p.imagem : "";
-        novaImagemProduto = p.imagem && p.imagem.startsWith("data:") ? p.imagem : "";
-        document.getElementById("modalProduto").classList.add("active");
-    }
-
-    function salvarProduto() {
-        const nome = document.getElementById("produtoNome").value.trim();
-        const preco = parseFloat(document.getElementById("produtoPreco").value);
-        if (!nome || isNaN(preco)) { alert("Preencha nome e valor válidos."); return; }
-
-        const item = {
-            id: produtoEditando !== null ? produtosPainel[produtoEditando].id : "p-" + Date.now(),
-            nome: nome,
-            categoria: document.getElementById("produtoCategoria").value.trim() || "Geral",
-            preco: preco,
-            descricao: document.getElementById("produtoDescricao").value.trim(),
-            imagem: novaImagemProduto || document.getElementById("produtoImagem").value.trim(),
-            disponivel: document.getElementById("produtoDisponivel").value === "true",
-            destaque: document.getElementById("produtoDestaque").value === "true"
-        };
-
-        if (produtoEditando !== null) produtosPainel[produtoEditando] = item;
-        else produtosPainel.push(item);
-
-        localStorage.setItem("hubProdutos", JSON.stringify(produtosPainel));
-        fecharModal();
-        renderizarProdutos();
-        atualizarDashboard();
-    }
-
-    function excluirProduto(idx) {
-        if (confirm("Deseja excluir este item?")) {
-            produtosPainel.splice(idx, 1);
-            localStorage.setItem("hubProdutos", JSON.stringify(produtosPainel));
-            renderizarProdutos();
-            atualizarDashboard();
-        }
-    }
-
-    function fecharModal() { document.getElementById("modalProduto").classList.remove("active"); }
-
-    function selecionarImagemProduto(e) {
-        const file = e.target.files[0];
-        if (!file) return;
-        const reader = new FileReader();
-        reader.onload = evt => novaImagemProduto = evt.target.result;
-        reader.readAsDataURL(file);
-    }
-
-    function selecionarLogoLoja(e) {
-        const file = e.target.files[0];
-        if (!file) return;
-        const reader = new FileReader();
-        reader.onload = evt => {
-            window.logoLojaAtual = evt.target.result;
-            const p = document.getElementById("lojaLogoPreview");
-            p.src = window.logoLojaAtual;
-            p.style.display = "block";
-        };
-        reader.readAsDataURL(file);
-    }
-
-    function salvarLoja() {
-        const dados = {
-            nome: document.getElementById("lojaNome").value.trim(),
-            telefone: document.getElementById("lojaTelefone").value.trim(),
-            whatsapp: document.getElementById("lojaWhatsapp").value.trim(),
-            endereco: document.getElementById("lojaEndereco").value.trim(),
-            bairro: document.getElementById("lojaBairro").value.trim(),
-            cidade: document.getElementById("lojaCidade").value.trim(),
-            musicaUrl: document.getElementById("lojaMusicaUrl").value.trim(),
-            descricao: document.getElementById("lojaDescricao").value.trim(),
-            logo: window.logoLojaAtual || ""
-        };
-        localStorage.setItem("hubLoja", JSON.stringify(dados));
-        alert("Loja salva com sucesso!");
-        gerarQrCodePainel();
-    }
-
-    function carregarDadosLoja() {
-        const salvo = JSON.parse(localStorage.getItem("hubLoja") || "{}");
-        if (salvo.nome) document.getElementById("lojaNome").value = salvo.nome;
-        document.getElementById("lojaTelefone").value = salvo.telefone || "";
-        document.getElementById("lojaWhatsapp").value = salvo.whatsapp || "";
-        document.getElementById("lojaEndereco").value = salvo.endereco || "";
-        document.getElementById("lojaBairro").value = salvo.bairro || "";
-        document.getElementById("lojaCidade").value = salvo.cidade || "";
-        document.getElementById("lojaMusicaUrl").value = salvo.musicaUrl || "";
-        document.getElementById("lojaDescricao").value = salvo.descricao || "";
-        if (salvo.logo) {
-            window.logoLojaAtual = salvo.logo;
-            const p = document.getElementById("lojaLogoPreview");
-            p.src = salvo.logo;
-            p.style.display = "block";
-        }
-    }
-
-    function salvarRedes() {
-        const r = {
-            instagram: document.getElementById("instagram").value.trim(),
-            whatsapp: document.getElementById("whatsappRede").value.trim(),
-            googleAvaliacoes: document.getElementById("googleAvaliacoes").value.trim(),
-            linkMapa: document.getElementById("linkMapa").value.trim()
-        };
-        localStorage.setItem("hubRedes", JSON.stringify(r));
-        alert("Redes salvas!");
-    }
-
-    function carregarRedes() {
-        const r = JSON.parse(localStorage.getItem("hubRedes") || "{}");
-        document.getElementById("instagram").value = r.instagram || "";
-        document.getElementById("whatsappRede").value = r.whatsapp || "";
-        document.getElementById("googleAvaliacoes").value = r.googleAvaliacoes || "";
-        document.getElementById("linkMapa").value = r.linkMapa || "";
-    }
-
-    function salvarAparencia() {
-        const ap = {
-            modelo: document.getElementById("aparenciaModeloLayout").value,
-            principal: document.getElementById("aparenciaCorPrincipal").value,
-            secundaria: document.getElementById("aparenciaCorSecundaria").value
-        };
-        localStorage.setItem("hubAparencia", JSON.stringify(ap));
-        alert("Layout salvo! Os clientes agora verão este modelo.");
-    }
-
-    function carregarAparencia() {
-        const ap = JSON.parse(localStorage.getItem("hubAparencia") || "{}");
-        if (ap.modelo) document.getElementById("aparenciaModeloLayout").value = ap.modelo;
-        if (ap.principal) document.getElementById("aparenciaCorPrincipal").value = ap.principal;
-        if (ap.secundaria) document.getElementById("aparenciaCorSecundaria").value = ap.secundaria;
-    }
-
-    /* QR CODE NO PAINEL */
-    function obterUrlVitrine() {
-        const urlBase = window.location.href.replace("teste1.html", "teste.html");
-        return urlBase;
-    }
-
-    function gerarQrCodePainel() {
-        const url = obterUrlVitrine();
-        const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(url)}`;
-        document.getElementById("adminQrCodeImg").src = qrUrl;
-        const loja = JSON.parse(localStorage.getItem("hubLoja") || "{}");
-        document.getElementById("qrNomeLoja").textContent = loja.nome || "Carioca Ice Cream";
-    }
-
-    function copiarLinkVitrine() {
-        navigator.clipboard.writeText(obterUrlVitrine()).then(() => alert("Link copiado!"));
-    }
-
-    function baixarQrCode() {
-        const url = `https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=${encodeURIComponent(obterUrlVitrine())}`;
-        window.open(url, "_blank");
-    }
-
-    function dispararLinkWhatsApp() {
-        const url = encodeURIComponent(`Olá! Conheça nosso cardápio digital e faça seu pedido aqui: ${obterUrlVitrine()}`);
-        window.open(`https://api.whatsapp.com/send?text=${url}`, "_blank");
-    }
-
-    function atualizarDashboard() {
-        document.getElementById("totalProdutos").textContent = produtosPainel.length;
-        document.getElementById("totalCategorias").textContent = new Set(produtosPainel.map(p => p.categoria)).size;
-        document.getElementById("produtosAtivos").textContent = produtosPainel.filter(p => p.disponivel !== false).length;
-        document.getElementById("totalDestaques").textContent = produtosPainel.filter(p => p.destaque).length;
-    }
-
-    function exportarDados() {
-        const backup = { produtos: produtosPainel, loja: localStorage.getItem("hubLoja"), aparencia: localStorage.getItem("hubAparencia"), redes: localStorage.getItem("hubRedes") };
-        const blob = new Blob([JSON.stringify(backup, null, 2)], { type: "application/json" });
-        const a = document.createElement("a");
-        a.href = URL.createObjectURL(blob);
-        a.download = `backup-hub-${Date.now()}.json`;
-        a.click();
-    }
-
-    function limparDados() {
-        if (confirm("Resetar todos os dados?")) { localStorage.clear(); location.reload(); }
-    }
-
-    document.addEventListener("DOMContentLoaded", () => {
-        carregarDadosLoja();
-        carregarRedes();
-        carregarAparencia();
-        atualizarDashboard();
-        renderizarProdutos();
-        gerarQrCodePainel();
+      bairros.push({ id: Date.now(), nome, taxa });
+      setStorage('delivery_bairros', bairros);
+      document.getElementById('form-bairro').reset();
+      renderBairros();
+      showToast('Bairro adicionado!');
     });
-</script>
 
+    window.removerBairro = function(id) {
+      let bairros = getStorage('delivery_bairros', defaultBairros);
+      bairros = bairros.filter(b => b.id !== id);
+      setStorage('delivery_bairros', bairros);
+      renderBairros();
+      showToast('Bairro removido.');
+    };
+
+    function renderProdutos() {
+      const produtos = getStorage('delivery_produtos', defaultProdutos);
+      const tbody = document.querySelector('#tabela-produtos tbody');
+      tbody.innerHTML = '';
+
+      produtos.forEach(p => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>
+            <strong>${p.nome}</strong><br>
+            <small style="color: var(--muted);">${p.desc}</small>
+          </td>
+          <td>R$ ${parseFloat(p.preco).toFixed(2)}</td>
+          <td><button class="btn btn-danger" onclick="removerProduto(${p.id})">Excluir</button></td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    document.getElementById('form-produto').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const produtos = getStorage('delivery_produtos', defaultProdutos);
+      produtos.push({
+        id: Date.now(),
+        nome: document.getElementById('nomeProd').value.trim(),
+        desc: document.getElementById('descProd').value.trim(),
+        preco: parseFloat(document.getElementById('precoProd').value) || 0
+      });
+
+      setStorage('delivery_produtos', produtos);
+      document.getElementById('form-produto').reset();
+      renderProdutos();
+      showToast('Item cadastrado!');
+    });
+
+    window.removerProduto = function(id) {
+      let produtos = getStorage('delivery_produtos', defaultProdutos);
+      produtos = produtos.filter(p => p.id !== id);
+      setStorage('delivery_produtos', produtos);
+      renderProdutos();
+      showToast('Item removido.');
+    };
+
+    carregarConfig();
+    renderBairros();
+    renderProdutos();
+  </script>
 </body>
 </html>
