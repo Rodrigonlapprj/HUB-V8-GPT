@@ -2227,6 +2227,15 @@
 
                         </button>
 
+
+                        <button
+                            class="btn btn-danger"
+                            onclick="excluirProduto(${indice})">
+
+                            🗑️ Excluir
+
+                        </button>
+
                     </div>
 
                 `;
@@ -2614,6 +2623,40 @@
 
         atualizarDashboard();
 
+    }
+
+
+    /* =====================================
+       EXCLUIR PRODUTO
+    ====================================== */
+
+
+    function excluirProduto(indice) {
+
+        const produto = produtosPainel[indice];
+
+        if (!produto) {
+            return;
+        }
+
+        const confirmar = confirm(
+            "Deseja realmente excluir o produto \"" +
+            produto.nome +
+            "\"?\n\nEssa ação não poderá ser desfeita."
+        );
+
+        if (!confirmar) {
+            return;
+        }
+
+        produtosPainel.splice(indice, 1);
+
+        salvarProdutosLocalmente();
+        renderizarProdutos();
+        atualizarDashboard();
+        renderizarCategorias();
+
+        alert("Produto excluído com sucesso!");
     }
 
 
