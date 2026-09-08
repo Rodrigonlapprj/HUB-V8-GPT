@@ -1453,8 +1453,13 @@
                     </div>
 
                     <div class="field">
+                        <label>Dias de funcionamento</label>
+                        <input id="lojaDias" type="text" value="Todos os dias" placeholder="Ex.: Segunda a sexta">
+                    </div>
+
+                    <div class="field">
                         <label>Horário de funcionamento</label>
-                        <input id="lojaHorario" type="text" value="13h às 21h" placeholder="Ex.: Seg. a Dom. — 13h às 21h">
+                        <input id="lojaHorario" type="text" value="13h às 21h" placeholder="Ex.: 13h às 21h">
                     </div>
 
                     <div class="field">
@@ -1480,6 +1485,7 @@
                         <div>
                             <strong id="lojaPreviewNome">Carioca Ice Cream</strong>
                             <span id="lojaPreviewEndereco">Endereço ainda não informado</span>
+                            <span id="lojaPreviewDias">Todos os dias</span>
                             <span id="lojaPreviewHorario">13h às 21h</span>
                         </div>
                     </div>
@@ -3145,6 +3151,7 @@
             cidade: document.getElementById("lojaCidade").value.trim(),
             estado: document.getElementById("lojaEstado").value.trim().toUpperCase(),
             cep: document.getElementById("lojaCep").value.trim(),
+            dias: document.getElementById("lojaDias").value.trim(),
             horario: document.getElementById("lojaHorario").value.trim(),
             maps: document.getElementById("lojaMaps").value.trim(),
             descricao: document.getElementById("lojaDescricao").value.trim(),
@@ -3173,6 +3180,7 @@
             cidade: "",
             estado: "",
             cep: "",
+            dias: "Todos os dias",
             horario: "13h às 21h",
             maps: "",
             descricao: "Sorvetes, açaí, milk shakes e muito mais.",
@@ -3193,6 +3201,7 @@
         document.getElementById("lojaCidade").value = dados.cidade || "";
         document.getElementById("lojaEstado").value = dados.estado || "";
         document.getElementById("lojaCep").value = dados.cep || "";
+        document.getElementById("lojaDias").value = dados.dias || "Todos os dias";
         document.getElementById("lojaHorario").value = dados.horario || "";
         document.getElementById("lojaMaps").value = dados.maps || "";
         document.getElementById("lojaDescricao").value = dados.descricao || "";
@@ -3228,6 +3237,7 @@
 
         document.getElementById("lojaPreviewNome").textContent = nome;
         document.getElementById("lojaPreviewEndereco").textContent = endereco;
+        document.getElementById("lojaPreviewDias").textContent = dados.dias || "Dias não informados";
         document.getElementById("lojaPreviewHorario").textContent = dados.horario || "Horário não informado";
     }
 
@@ -3428,7 +3438,7 @@
         });
     }
 
-    ["lojaNome", "lojaEndereco", "lojaBairro", "lojaCidade", "lojaEstado", "lojaHorario"].forEach(id => {
+    ["lojaNome", "lojaEndereco", "lojaBairro", "lojaCidade", "lojaEstado", "lojaDias", "lojaHorario"].forEach(id => {
         const campo = document.getElementById(id);
         if (campo) {
             campo.addEventListener("input", function() {
@@ -3438,6 +3448,7 @@
                     bairro: document.getElementById("lojaBairro").value,
                     cidade: document.getElementById("lojaCidade").value,
                     estado: document.getElementById("lojaEstado").value.toUpperCase(),
+                    dias: document.getElementById("lojaDias").value,
                     horario: document.getElementById("lojaHorario").value
                 });
             });
