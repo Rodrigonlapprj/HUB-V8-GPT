@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cardápio Online & Checkout</title>
+  <title>Cardápio Online & Checkout Delivery</title>
   <style>
     :root {
       --primary: #e63946;
@@ -316,11 +316,11 @@
   </header>
 
   <div class="container">
-    <!-- Cardápio -->
+    <!-- Lista de Produtos -->
     <h2 class="section-title">🍔 Cardápio</h2>
     <div id="product-list" class="product-list"></div>
 
-    <!-- Carrinho e Checkout -->
+    <!-- Carrinho & Checkout -->
     <div class="checkout-card">
       <h2 class="section-title" style="margin-top: 0;">🛒 Seu Pedido</h2>
       
@@ -348,7 +348,7 @@
       <h2 class="section-title" style="margin-top: 0;">📍 Endereço de Entrega (Rio de Janeiro)</h2>
       
       <form id="form-finalizar">
-        <!-- Dados Pessoais -->
+        <!-- Identificação -->
         <div class="form-row">
           <div class="form-group" style="flex: 2;">
             <label for="cliente-nome">Seu Nome:*</label>
@@ -360,7 +360,7 @@
           </div>
         </div>
 
-        <!-- Endereço Simplificado: Rua, Número, Bairro, Complemento -->
+        <!-- Endereço Simplificado sem CEP -->
         <div class="form-row">
           <div class="form-group" style="flex: 3;">
             <label for="end-rua">Rua / Logradouro:*</label>
@@ -385,7 +385,7 @@
           </div>
         </div>
 
-        <!-- Formas de Pagamento -->
+        <!-- Opções de Pagamento -->
         <div class="form-group" style="margin-top: 16px;">
           <label>Forma de Pagamento:*</label>
           <div class="payment-options">
@@ -416,7 +416,7 @@
           </div>
         </div>
 
-        <!-- Bloco PIX Online Copia e Cola -->
+        <!-- Box PIX Online -->
         <div id="pix-box" class="pix-box">
           <p style="font-size: 0.88rem; color: #166534;">
             Copie nossa chave PIX para efetuar o pagamento. Envie o comprovante no WhatsApp:
@@ -428,7 +428,7 @@
           <small id="pix-beneficiario" style="display: block; margin-top: 6px; color: #15803d;"></small>
         </div>
 
-        <!-- Bloco Troco para Dinheiro -->
+        <!-- Box Troco para Dinheiro -->
         <div id="troco-box" class="troco-box" style="display: none;">
           <label for="troco-valor" style="color: #92400e;">Troco para quanto?</label>
           <input type="text" id="troco-valor" placeholder="Ex: R$ 50,00 (deixe vazio se não precisar)">
@@ -484,12 +484,14 @@
     let cart = [];
     let taxaEntrega = 0;
 
+    // Cabeçalho e Chave PIX
     document.getElementById('header-nome-loja').innerText = config.nome || 'Delivery';
     document.getElementById('pix-key-display').innerHTML = `<strong>${config.chavePix || 'Não configurada'}</strong> (${config.tipoPix || 'PIX'})`;
     if (config.beneficiarioPix) {
       document.getElementById('pix-beneficiario').innerText = `Beneficiário: ${config.beneficiarioPix}`;
     }
 
+    // Carregar Bairros
     const selectBairro = document.getElementById('end-bairro');
     bairros.forEach(b => {
       const opt = document.createElement('option');
@@ -509,6 +511,7 @@
       atualizarTotais();
     });
 
+    // Renderizar Cardápio Completo
     const prodContainer = document.getElementById('product-list');
     produtos.forEach(p => {
       const card = document.createElement('div');
@@ -586,6 +589,7 @@
       document.getElementById('total-val').innerText = `R$ ${total.toFixed(2)}`;
     }
 
+    // Controle dos blocos de pagamento
     const radiosPagamento = document.querySelectorAll('input[name="forma_pagamento"]');
     const pixBox = document.getElementById('pix-box');
     const trocoBox = document.getElementById('troco-box');
@@ -611,6 +615,7 @@
       });
     };
 
+    // Submissão do Pedido via WhatsApp
     document.getElementById('form-finalizar').addEventListener('submit', (e) => {
       e.preventDefault();
 
@@ -634,7 +639,7 @@
         const troco = document.getElementById('troco-valor').value.trim();
         detalhePagamento += troco ? ` (Troco para: ${troco})` : ' (Sem troco)';
       } else if (formaPagamento === 'PIX Online') {
-        detalhePagamento += ' (Comprovante a enviar)';
+        detalhePagamento += ' (Comprovante será enviado em seguida)';
       }
 
       const subtotal = cart.reduce((acc, item) => acc + (item.preco * item.qtd), 0);
