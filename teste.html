@@ -672,6 +672,12 @@
       const boxMusica = document.getElementById("boxMusicaHub");
       const boxWifi = document.getElementById("boxWifiHub");
 
+      // Recoloca o catálogo no container padrão caso estivesse no modal
+      const wrapper = document.querySelector(".main-wrapper");
+      if (catalogo.parentElement !== wrapper) {
+        wrapper.appendChild(catalogo);
+      }
+
       l1.style.display = "none";
       l2.style.display = "none";
       l3.style.display = "none";
@@ -696,6 +702,13 @@
         boxWifi.style.display = "none";
       }
     }
+
+    /* ATUALIZAÇÃO SIMULTÂNEA EM TEMPO REAL VIA STORAGE EVENT */
+    window.addEventListener("storage", (e) => {
+      if (e.key === "hubAparencia" || e.key === "hubLoja" || e.key === "hubProdutos" || e.key === "hubRedes") {
+        carregarDados();
+      }
+    });
 
     function iniciarMusicaSePermitido() {
       const audio = document.getElementById("audioFundo");
