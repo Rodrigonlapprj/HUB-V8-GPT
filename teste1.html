@@ -35,16 +35,16 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding-bottom: 70px;
+      padding-bottom: 80px;
     }
 
-    /* BARRA SUPERIOR ESCURA CONFORME AS FOTOS */
+    /* BARRA SUPERIOR ESCURA */
     .admin-dark-topbar {
       width: 100%;
       background: var(--topbar-bg);
       color: #94a3b8;
-      padding: 10px 16px;
-      font-size: 0.8rem;
+      padding: 12px 18px;
+      font-size: 0.85rem;
       font-weight: 600;
       display: flex;
       align-items: center;
@@ -53,10 +53,11 @@
     .admin-dark-topbar .brand-title {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
       color: #f8fafc;
-      font-weight: 700;
-      font-size: 0.85rem;
+      font-weight: 800;
+      font-size: 0.95rem;
+      cursor: pointer;
     }
 
     .main-admin-wrapper {
@@ -65,7 +66,7 @@
       padding: 16px 12px;
     }
 
-    /* CARD DE STATUS DO TOPO */
+    /* STATUS DO TOPO */
     .status-card-header {
       background: #ffffff;
       border-radius: 18px;
@@ -97,7 +98,7 @@
       background: var(--success-color);
     }
 
-    /* CONTAINER PRINCIPAL DAS SEÇÕES DO PAINEL */
+    /* CONTAINER PADRÃO DE SEÇÃO */
     .admin-section-card {
       background: #ffffff;
       border-radius: 20px;
@@ -107,9 +108,7 @@
       margin-bottom: 20px;
     }
 
-    .section-title-box {
-      margin-bottom: 18px;
-    }
+    .section-title-box { margin-bottom: 18px; }
     .section-title-box h2 {
       font-size: 1.25rem;
       font-weight: 800;
@@ -121,7 +120,80 @@
       color: var(--text-muted);
     }
 
-    /* ESTILOS DA SEÇÃO: PRODUTOS (IGUAL À FOTO) */
+    /* DASHBOARD */
+    .dash-metrics-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .metric-card {
+      background: #f8fafc;
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .metric-card-title {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .metric-card-value {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #111827;
+    }
+    .dash-quick-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .quick-link-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 14px 18px;
+      font-weight: 700;
+      font-size: 0.92rem;
+      color: #1f2937;
+      cursor: pointer;
+      transition: border-color 0.15s;
+    }
+    .quick-link-btn:hover { border-color: var(--primary-color); }
+
+    /* FORMULÁRIOS DE REDES SOCIAIS */
+    .form-group-field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+    .form-group-field label {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #1f2937;
+    }
+    .form-input-text {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      font-size: 0.95rem;
+      outline: none;
+      background: #ffffff;
+      color: #111827;
+    }
+    .form-input-text:focus { border-color: var(--primary-color); }
+
+    /* PRODUTOS */
     .search-input-box {
       width: 100%;
       padding: 12px 14px;
@@ -175,7 +247,7 @@
     .btn-acao-status.ativo { background: #ecfdf5; color: #059669; }
     .btn-acao-excluir { background: #fee2e2; color: #dc2626; }
 
-    /* ESTILOS DA SEÇÃO: CATEGORIAS (IGUAL À FOTO) */
+    /* CATEGORIAS */
     .card-categoria-item {
       background: #ffffff;
       border: 1px solid var(--border-color);
@@ -192,9 +264,7 @@
     .cat-nome-titulo { font-size: 1.05rem; font-weight: 800; color: #111827; }
     .cat-qtd-sub { font-size: 0.85rem; color: var(--text-muted); font-weight: 500; }
 
-    /* ESTILOS DA SEÇÃO: APARÊNCIA & PREVIEW (IGUAL À FOTO) */
-    .form-group-cor { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
-    .form-group-cor label { font-size: 0.88rem; font-weight: 700; color: #1f2937; }
+    /* APARÊNCIA */
     .color-input-container {
       display: flex; align-items: center; border: 1px solid var(--border-color);
       border-radius: 12px; padding: 6px 12px; gap: 12px; background: #ffffff;
@@ -239,7 +309,7 @@
     .preview-prod-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 4px; }
     .preview-prod-btn { background: var(--primary-color); color: #111827; border: none; border-radius: 8px; padding: 7px 16px; font-weight: 800; font-size: 0.82rem; }
 
-    /* ESTILOS DA SEÇÃO: HORÁRIOS (IGUAL À FOTO) */
+    /* HORÁRIOS */
     .horarios-table-card { background: #ffffff; border: 1px solid var(--border-color); border-radius: 16px; overflow: hidden; margin-top: 8px; }
     .horarios-header-row { display: grid; grid-template-columns: 1.8fr 1fr 1fr 1fr; padding: 14px 16px; background: #fafafa; border-bottom: 1px solid #f3f4f6; font-size: 0.78rem; font-weight: 700; color: var(--text-muted); align-items: center; }
     .horarios-row { display: grid; grid-template-columns: 1.8fr 1fr 1fr 1fr; padding: 14px 16px; border-bottom: 1px solid #f3f4f6; align-items: center; }
@@ -255,7 +325,7 @@
     }
     .horario-select:disabled { opacity: 0.35; cursor: not-allowed; }
 
-    /* ESTILOS DA SEÇÃO: CONFIGURAÇÕES & BACKUP (IGUAL À FOTO) */
+    /* CONFIGURAÇÕES & BACKUP */
     .cfg-card {
       background: #ffffff; border: 1px solid var(--border-color); border-radius: 16px;
       padding: 20px; display: flex; flex-direction: column; gap: 12px; margin-bottom: 14px;
@@ -278,7 +348,7 @@
     .switch-row label { font-size: 0.88rem; font-weight: 700; color: #1f2937; }
     .switch-check { width: 42px; height: 24px; accent-color: var(--primary-color); cursor: pointer; }
 
-    /* MENU LATERAL / NAVEGAÇÃO */
+    /* BOTÃO FLUTUANTE & GAVETA */
     .admin-menu-toggle {
       position: fixed;
       bottom: 20px;
@@ -340,7 +410,7 @@
 
   <!-- BARRA DE TOPO ESCURA CONFORME AS FOTOS -->
   <header class="admin-dark-topbar">
-    <div class="brand-title" onclick="abrirMenuGaveta()" style="cursor:pointer;">
+    <div class="brand-title" onclick="abrirMenuGaveta()">
       <span>⚙️</span>
       <span>Hub Brasil à V2</span>
     </div>
@@ -351,21 +421,89 @@
 
     <!-- STATUS DO TOPO -->
     <div class="status-card-header">
-      <h1 id="txtTituloPainel">Configurações</h1>
+      <h1 id="txtTituloPainel">Dashboard</h1>
       <div class="status-badge-live">
         <span class="status-dot"></span>
         <span>Sistema funcionando</span>
       </div>
     </div>
 
-    <!-- 1. SEÇÃO: CONFIGURAÇÕES & BACKUP (LAYOUT IDÊNTICO ÀS FOTOS) -->
-    <section id="sec-configuracoes" class="admin-section-card">
+    <!-- 1. SEÇÃO: DASHBOARD -->
+    <section id="sec-dashboard" class="admin-section-card">
+      <div class="section-title-box">
+        <h2>Visão Geral</h2>
+        <p>Acompanhe o status e as métricas do seu cardápio.</p>
+      </div>
+
+      <div class="dash-metrics-grid">
+        <div class="metric-card">
+          <span class="metric-card-title">Produtos Ativos</span>
+          <span id="dashTotalProdutos" class="metric-card-value">0</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-card-title">Categorias</span>
+          <span id="dashTotalCategorias" class="metric-card-value">0</span>
+        </div>
+      </div>
+
+      <div class="dash-quick-links">
+        <button type="button" class="quick-link-btn" onclick="navegarSecaoPainel('produtos', 'Produtos')">
+          <span>🍨 Gerenciar Produtos</span>
+          <span>➔</span>
+        </button>
+        <button type="button" class="quick-link-btn" onclick="navegarSecaoPainel('redes', 'Redes Sociais')">
+          <span>📱 Configurar WhatsApp & Redes</span>
+          <span>➔</span>
+        </button>
+        <button type="button" class="quick-link-btn" onclick="navegarSecaoPainel('aparencia', 'Aparência')">
+          <span>🎨 Personalizar Cores & Tema</span>
+          <span>➔</span>
+        </button>
+        <button type="button" class="quick-link-btn" onclick="navegarSecaoPainel('configuracoes', 'Configurações')">
+          <span>💾 Fazer Backup do Sistema</span>
+          <span>➔</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- 2. SEÇÃO: REDES SOCIAIS & CONTATOS -->
+    <section id="sec-redes" class="admin-section-card" style="display:none;">
+      <div class="section-title-box">
+        <h2>Redes Sociais & Contatos</h2>
+        <p>Links e números exibidos no cardápio e nos botões do Hub.</p>
+      </div>
+
+      <div class="form-group-field">
+        <label>WhatsApp para Pedidos (com DDD)</label>
+        <input type="text" id="campoWhatsLoja" class="form-input-text" placeholder="Ex: 21977138992">
+      </div>
+
+      <div class="form-group-field">
+        <label>Instagram (@ ou link completo)</label>
+        <input type="text" id="campoInstaLoja" class="form-input-text" placeholder="Ex: @cariocaicecream">
+      </div>
+
+      <div class="form-group-field">
+        <label>Link de Avaliações Google</label>
+        <input type="text" id="campoGoogleLoja" class="form-input-text" placeholder="https://g.page/r/...">
+      </div>
+
+      <div class="form-group-field">
+        <label>Link do Google Maps (Localização)</label>
+        <input type="text" id="campoMapsLoja" class="form-input-text" placeholder="https://maps.app.goo.gl/...">
+      </div>
+
+      <button type="button" class="btn-salvar-aparencia" onclick="salvarRedesSociais()">Salvar Redes Sociais</button>
+    </section>
+
+    <!-- 3. SEÇÃO: CONFIGURAÇÕES & BACKUP -->
+    <section id="sec-configuracoes" class="admin-section-card" style="display:none;">
       <div class="section-title-box">
         <h2>Configurações</h2>
         <p>Gerencie os dados e preferências do seu Hub Brasil.</p>
       </div>
 
-      <!-- BOTÕES DE ATIVAÇÃO MÚSICA & WI-FI NO HUB CLÁSSICO -->
+      <!-- CHAVES EXCLUSIVAS PARA MÚSICA E WI-FI NO HUB CLÁSSICO -->
       <div class="cfg-card">
         <div class="cfg-card-title">Recursos Exclusivos (Hub Clássico)</div>
         <div class="switch-row">
@@ -449,14 +587,14 @@
       </div>
     </section>
 
-    <!-- 2. SEÇÃO: APARÊNCIA & PREVIEW AO VIVO (LAYOUT IDÊNTICO ÀS FOTOS) -->
+    <!-- 4. SEÇÃO: APARÊNCIA & PREVIEW AO VIVO -->
     <section id="sec-aparencia" class="admin-section-card" style="display:none;">
       <div class="section-title-box">
         <h2>Aparência</h2>
         <p>Personalize a identidade visual da sua loja.</p>
       </div>
 
-      <div class="form-group-cor">
+      <div class="form-group-field">
         <label>Cor principal</label>
         <div class="color-input-container">
           <input type="color" id="corPrimariaPicker" class="color-picker-box" value="#FFD400" oninput="atualizarCorInput('primaria')">
@@ -465,7 +603,7 @@
         <span class="color-hint">Usada nos principais botões e destaques do cardápio.</span>
       </div>
 
-      <div class="form-group-cor">
+      <div class="form-group-field">
         <label>Cor secundária</label>
         <div class="color-input-container">
           <input type="color" id="corSecundariaPicker" class="color-picker-box" value="#7B2CBF" oninput="atualizarCorInput('secundaria')">
@@ -474,7 +612,7 @@
         <span class="color-hint">Usada para detalhes, categorias e elementos secundários.</span>
       </div>
 
-      <div class="form-group-cor">
+      <div class="form-group-field">
         <label>Tema</label>
         <div class="tema-grid">
           <label id="labelTemaClaro" class="tema-card-label selected">
@@ -488,7 +626,7 @@
         </div>
       </div>
 
-      <div class="form-group-cor">
+      <div class="form-group-field">
         <label>Estilo visual</label>
         <select id="selectEstiloVisual" class="select-estilo" onchange="aplicarPreviewAoVivo()">
           <option value="moderno" selected>Moderno</option>
@@ -535,7 +673,7 @@
       </div>
     </section>
 
-    <!-- 3. SEÇÃO: PRODUTOS (LAYOUT IDÊNTICO À FOTO) -->
+    <!-- 5. SEÇÃO: PRODUTOS -->
     <section id="sec-produtos" class="admin-section-card" style="display:none;">
       <div class="section-title-box">
         <h2>Produtos</h2>
@@ -548,7 +686,7 @@
       <div id="listaProdutosCardsPainel"></div>
     </section>
 
-    <!-- 4. SEÇÃO: CATEGORIAS (LAYOUT IDÊNTICO À FOTO) -->
+    <!-- 6. SEÇÃO: CATEGORIAS -->
     <section id="sec-categorias" class="admin-section-card" style="display:none;">
       <div class="section-title-box">
         <h2>Categorias</h2>
@@ -558,7 +696,7 @@
       <div id="listaCategoriasCardsPainel"></div>
     </section>
 
-    <!-- 5. SEÇÃO: HORÁRIOS DE FUNCIONAMENTO (LAYOUT IDÊNTICO À FOTO) -->
+    <!-- 7. SEÇÃO: HORÁRIOS DE FUNCIONAMENTO -->
     <section id="sec-horarios" class="admin-section-card" style="display:none;">
       <div class="section-title-box">
         <h2>Horário de funcionamento</h2>
@@ -583,26 +721,29 @@
 
   </main>
 
-  <!-- BOTÃO FLUTUANTE DE MENU GAVETA -->
-  <div class="admin-menu-toggle" onclick="abrirMenuGaveta()" title="Mudar Seção">
+  <!-- BOTÃO FLUTUANTE DE MENU -->
+  <div class="admin-menu-toggle" onclick="abrirMenuGaveta()" title="Abrir Navegação">
     ⚙️
   </div>
 
-  <!-- GAVETA LATERAL / MENU DE SEÇÕES -->
+  <!-- GAVETA LATERAL DE NAVEGAÇÃO -->
   <div id="drawerMenuAdmin" class="admin-drawer" onclick="fecharMenuGaveta(event)">
     <div class="admin-drawer-box" onclick="event.stopPropagation()">
       <h3 style="margin-bottom: 16px; font-size: 1.1rem; font-weight: 800;">Navegação do Painel</h3>
-      <button class="drawer-item-btn active" onclick="navegarSecaoPainel('configuracoes', 'Configurações')">⚙️ Configurações & Backup</button>
-      <button class="drawer-item-btn" onclick="navegarSecaoPainel('aparencia', 'Aparência')">🎨 Aparência</button>
+      <button class="drawer-item-btn active" onclick="navegarSecaoPainel('dashboard', 'Dashboard')">📊 Dashboard</button>
       <button class="drawer-item-btn" onclick="navegarSecaoPainel('produtos', 'Produtos')">🍨 Produtos</button>
       <button class="drawer-item-btn" onclick="navegarSecaoPainel('categorias', 'Categorias')">🏷️ Categorias</button>
+      <button class="drawer-item-btn" onclick="navegarSecaoPainel('redes', 'Redes Sociais')">📱 Redes Sociais & Contatos</button>
+      <button class="drawer-item-btn" onclick="navegarSecaoPainel('aparencia', 'Aparência')">🎨 Aparência</button>
       <button class="drawer-item-btn" onclick="navegarSecaoPainel('horarios', 'Horário de funcionamento')">🕒 Horário de funcionamento</button>
+      <button class="drawer-item-btn" onclick="navegarSecaoPainel('configuracoes', 'Configurações')">⚙️ Configurações & Backup</button>
       <button class="drawer-item-btn" style="background:#fee2e2; color:#dc2626; border-color:#fca5a5; margin-top:10px;" onclick="fecharMenuGaveta()">Fechar Menu</button>
     </div>
   </div>
 
   <script>
     let dadosLoja = {};
+    let dadosRedes = {};
     let produtosLoja = [];
 
     const DIAS_SEMANA = [
@@ -636,8 +777,10 @@
       const btnAlvo = btns.find(b => b.getAttribute("onclick").includes(nomeSecao));
       if (btnAlvo) btnAlvo.classList.add("active");
 
+      if (nomeSecao === 'dashboard') atualizarDashboardMetricas();
       if (nomeSecao === 'produtos') carregarProdutosPainel();
       if (nomeSecao === 'categorias') carregarCategoriasPainel();
+      if (nomeSecao === 'redes') carregarCamposRedes();
       if (nomeSecao === 'aparencia') carregarAparenciaSalva();
       if (nomeSecao === 'horarios') carregarTabelaHorarios();
       if (nomeSecao === 'configuracoes') atualizarResumoConfiguracoes();
@@ -648,6 +791,9 @@
     function carregarDadosIniciais() {
       const lojaSalva = JSON.parse(localStorage.getItem("hubLoja") || "{}");
       dadosLoja = { ...(typeof loja !== 'undefined' ? loja : {}), ...lojaSalva };
+
+      const redesSalvas = JSON.parse(localStorage.getItem("hubRedes") || "{}");
+      dadosRedes = { ...(typeof loja !== 'undefined' && loja.contatos ? loja.contatos : {}), ...redesSalvas };
 
       const prodsSalvos = localStorage.getItem("hubProdutos");
       if (prodsSalvos) {
@@ -666,6 +812,39 @@
       document.getElementById("checkExibirMusica").checked = dadosLoja.exibirMusica !== false;
       document.getElementById("checkExibirWifi").checked = dadosLoja.exibirWifi !== false;
 
+      atualizarDashboardMetricas();
+      atualizarResumoConfiguracoes();
+    }
+
+    /* DASHBOARD */
+    function atualizarDashboardMetricas() {
+      const prodsAtivos = produtosLoja.filter(p => p.disponivel !== false);
+      document.getElementById("dashTotalProdutos").textContent = prodsAtivos.length;
+      const cats = new Set(produtosLoja.map(p => p.categoria).filter(Boolean));
+      document.getElementById("dashTotalCategorias").textContent = cats.size;
+    }
+
+    /* REDES SOCIAIS */
+    function carregarCamposRedes() {
+      document.getElementById("campoWhatsLoja").value = dadosRedes.whatsapp || dadosLoja.whatsapp || "";
+      document.getElementById("campoInstaLoja").value = dadosRedes.instagram || "";
+      document.getElementById("campoGoogleLoja").value = dadosRedes.googleAvaliacoes || dadosLoja.googleAvaliacoes || "";
+      document.getElementById("campoMapsLoja").value = dadosRedes.linkMapa || dadosLoja.linkMapa || "";
+    }
+
+    function salvarRedesSociais() {
+      dadosRedes.whatsapp = document.getElementById("campoWhatsLoja").value.trim();
+      dadosRedes.instagram = document.getElementById("campoInstaLoja").value.trim();
+      dadosRedes.googleAvaliacoes = document.getElementById("campoGoogleLoja").value.trim();
+      dadosRedes.linkMapa = document.getElementById("campoMapsLoja").value.trim();
+
+      dadosLoja.whatsapp = dadosRedes.whatsapp;
+      dadosLoja.googleAvaliacoes = dadosRedes.googleAvaliacoes;
+      dadosLoja.linkMapa = dadosRedes.linkMapa;
+
+      localStorage.setItem("hubRedes", JSON.stringify(dadosRedes));
+      localStorage.setItem("hubLoja", JSON.stringify(dadosLoja));
+      alert("Redes sociais salvas com sucesso!");
       atualizarResumoConfiguracoes();
     }
 
@@ -722,6 +901,7 @@
         p.disponivel = !(p.disponivel !== false);
         localStorage.setItem("hubProdutos", JSON.stringify(produtosLoja));
         filtrarProdutosPainel();
+        atualizarDashboardMetricas();
         atualizarResumoConfiguracoes();
       }
     }
@@ -731,6 +911,7 @@
         produtosLoja = produtosLoja.filter(x => String(x.id) !== String(id));
         localStorage.setItem("hubProdutos", JSON.stringify(produtosLoja));
         filtrarProdutosPainel();
+        atualizarDashboardMetricas();
         atualizarResumoConfiguracoes();
       }
     }
@@ -743,6 +924,7 @@
       produtosLoja.push({ id: String(Date.now()), nome, preco, categoria: cat, disponivel: true, destaque: false });
       localStorage.setItem("hubProdutos", JSON.stringify(produtosLoja));
       filtrarProdutosPainel();
+      atualizarDashboardMetricas();
       atualizarResumoConfiguracoes();
     }
 
@@ -913,6 +1095,7 @@
       const backup = {
         loja: JSON.parse(localStorage.getItem("hubLoja") || "{}"),
         produtos: JSON.parse(localStorage.getItem("hubProdutos") || "[]"),
+        redes: JSON.parse(localStorage.getItem("hubRedes") || "{}"),
         aparencia: JSON.parse(localStorage.getItem("hubAparencia") || "{}"),
         horarios: JSON.parse(localStorage.getItem("hubHorarios") || "{}"),
         pix: JSON.parse(localStorage.getItem("hubPix") || "{}")
@@ -934,6 +1117,7 @@
           const d = JSON.parse(e.target.result);
           if (d.loja) localStorage.setItem("hubLoja", JSON.stringify(d.loja));
           if (d.produtos) localStorage.setItem("hubProdutos", JSON.stringify(d.produtos));
+          if (d.redes) localStorage.setItem("hubRedes", JSON.stringify(d.redes));
           if (d.aparencia) localStorage.setItem("hubAparencia", JSON.stringify(d.aparencia));
           if (d.horarios) localStorage.setItem("hubHorarios", JSON.stringify(d.horarios));
           if (d.pix) localStorage.setItem("hubPix", JSON.stringify(d.pix));
