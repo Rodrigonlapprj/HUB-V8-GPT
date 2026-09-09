@@ -39,7 +39,13 @@
 
     .main-wrapper { width: 100%; max-width: 600px; padding: 16px; }
 
-    /* MÚSICA NO TOPO (PÍLULA ORIGINAL DISCRETA) */
+    /* MÚSICA NO TOPO DO HUB CLÁSSICO */
+    .hub-music-container {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
     .music-pill-box {
       background: var(--card-bg);
       border: 1px solid var(--border-color);
@@ -48,7 +54,6 @@
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      margin: 0 auto 16px auto;
       box-shadow: 0 2px 6px rgba(0,0,0,0.04);
     }
     .music-btn {
@@ -79,6 +84,33 @@
     }
     .hub-btn:active { transform: scale(0.98); }
     .hub-btn.highlight { background: var(--primary-color); color: #111827; }
+
+    /* CARD WI-FI NO FINAL DO HUB CLÁSSICO */
+    .hub-wifi-box {
+      background: var(--card-bg);
+      border: 2px solid var(--border-color);
+      border-radius: 14px;
+      padding: 16px 20px;
+      margin-top: 25px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      text-align: left;
+    }
+    .hub-wifi-header { display: flex; align-items: center; gap: 12px; }
+    .hub-wifi-icon { font-size: 26px; }
+    .hub-wifi-title { font-size: 0.95rem; font-weight: bold; color: var(--text-color); }
+    .hub-wifi-sub { font-size: 0.8rem; color: var(--text-muted); }
+    .hub-wifi-action {
+      display: flex; justify-content: space-between; align-items: center;
+      background: #f9fafb; border: 1px dashed var(--border-color);
+      padding: 10px 14px; border-radius: 10px;
+    }
+    .hub-wifi-pass { font-family: monospace; font-size: 0.95rem; font-weight: bold; letter-spacing: 2px; }
+    .hub-wifi-btn {
+      background: var(--primary-color); color: #111827; border: none;
+      border-radius: 6px; padding: 6px 12px; font-size: 0.8rem; font-weight: bold; cursor: pointer;
+    }
 
     /* LAYOUT 2: VITRINE COM ABAS */
     .topo-bar {
@@ -139,46 +171,6 @@
     .qty-counter { display: flex; align-items: center; gap: 8px; background: #f3f4f6; border-radius: 8px; padding: 3px 6px; }
     .qty-counter button { width: 26px; height: 26px; border: none; border-radius: 6px; background: white; font-weight: bold; cursor: pointer; }
     .qty-counter span { font-weight: bold; font-size: 0.9rem; min-width: 16px; text-align: center; }
-
-    /* CARD DE WI-FI NO FINAL (FORMATO ORIGINAL DE BLOCO) */
-    .hub-wifi-box {
-      background: var(--card-bg);
-      border: 2px solid var(--border-color);
-      border-radius: 14px;
-      padding: 16px 20px;
-      margin-top: 25px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-    .hub-wifi-header {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .hub-wifi-icon { font-size: 26px; }
-    .hub-wifi-title { font-size: 0.95rem; font-weight: bold; color: var(--text-color); }
-    .hub-wifi-sub { font-size: 0.8rem; color: var(--text-muted); }
-    .hub-wifi-action {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: #f9fafb;
-      border: 1px dashed var(--border-color);
-      padding: 10px 14px;
-      border-radius: 10px;
-    }
-    .hub-wifi-pass { font-family: monospace; font-size: 0.95rem; font-weight: bold; letter-spacing: 2px; }
-    .hub-wifi-btn {
-      background: var(--primary-color);
-      color: #111827;
-      border: none;
-      border-radius: 6px;
-      padding: 6px 12px;
-      font-size: 0.8rem;
-      font-weight: bold;
-      cursor: pointer;
-    }
 
     /* BOTÃO FLUTUANTE DE QR CODE */
     .qr-fab-btn {
@@ -286,21 +278,21 @@
 
   <div class="main-wrapper">
 
-    <!-- REPRODUTOR DE MÚSICA NO TOPO (PÍLULA CLÁSSICA) -->
-    <div style="text-align: center; width: 100%;">
-      <div class="music-pill-box">
-        <button id="btnPlayMusica" class="music-btn" onclick="alternarAudio()" title="Tocar / Pausar Música">🎵</button>
-        <span id="labelAudio" class="music-label">Música da Loja</span>
-        <audio id="audioFundo" loop preload="auto">
-          <!-- Suporta arquivo música.mp3 (com acento) e musica.mp3 (sem acento) -->
-          <source src="música.mp3" type="audio/mpeg">
-          <source src="musica.mp3" type="audio/mpeg">
-        </audio>
-      </div>
-    </div>
-
     <!-- 1. HUB CLÁSSICO -->
     <div id="layoutHubClassico" class="layout-hub-classico" style="display:none;">
+      
+      <!-- REPRODUTOR DE MÚSICA EXCLUSIVO DO HUB CLÁSSICO -->
+      <div id="boxMusicaHub" class="hub-music-container" style="display:none;">
+        <div class="music-pill-box">
+          <button id="btnPlayMusica" class="music-btn" onclick="alternarAudio()">🎵</button>
+          <span id="labelAudio" class="music-label">Música da Loja</span>
+          <audio id="audioFundo" loop preload="auto">
+            <source src="música.mp3" type="audio/mpeg">
+            <source src="musica.mp3" type="audio/mpeg">
+          </audio>
+        </div>
+      </div>
+
       <div class="hub-header">
         <img id="hubLogoImg" class="hub-logo" src="logo.png" alt="Logo">
         <h1 id="hubNomeLoja" class="hub-title">Carioca Ice Cream</h1>
@@ -311,7 +303,7 @@
         <button class="hub-btn highlight" onclick="abrirCardapioHub()">
           <span>🍨</span> Ver Cardápio & Fazer Pedido
         </button>
-        <a id="btnHubWhats" href="#" target="_blank" class="hub-btn">
+        <a id="btnHubWhats" href="#" target="_blank" class="hub-btn" onclick="iniciarMusicaSePermitido()">
           <span>💬</span> Falar no WhatsApp
         </a>
         <a id="btnHubInsta" href="#" target="_blank" class="hub-btn">
@@ -324,6 +316,22 @@
           <span>📍</span> Como Chegar (Localização)
         </a>
       </div>
+
+      <!-- CARD DE WI-FI EXCLUSIVO DO HUB CLÁSSICO -->
+      <div id="boxWifiHub" class="hub-wifi-box" style="display:none;">
+        <div class="hub-wifi-header">
+          <div class="hub-wifi-icon">📶</div>
+          <div>
+            <div class="hub-wifi-title">Wi-Fi do Estabelecimento</div>
+            <div class="hub-wifi-sub">Rede: <strong id="wifiNomeRede">Carioca_Clientes</strong></div>
+          </div>
+        </div>
+        <div class="hub-wifi-action">
+          <span id="wifiSenhaTexto" class="hub-wifi-pass">••••••••</span>
+          <button id="btnVerWifi" type="button" class="hub-wifi-btn" onclick="alternarWifiSenha()">Ver Senha</button>
+        </div>
+      </div>
+
     </div>
 
     <!-- 2. VITRINE COM ABAS -->
@@ -375,21 +383,6 @@
       </div>
       <div id="listaCategoriasChips" class="chips-bar"></div>
       <div id="gridProdutos" class="products-list"></div>
-    </div>
-
-    <!-- CARD WI-FI NO FORMATO ORIGINAL (PARTE INFERIOR) -->
-    <div id="blocoWifi" class="hub-wifi-box">
-      <div class="hub-wifi-header">
-        <div class="hub-wifi-icon">📶</div>
-        <div>
-          <div class="hub-wifi-title">Wi-Fi do Estabelecimento</div>
-          <div class="hub-wifi-sub">Rede: <strong id="wifiNomeRede">Carioca_Clientes</strong></div>
-        </div>
-      </div>
-      <div class="hub-wifi-action">
-        <span id="wifiSenhaTexto" class="hub-wifi-pass">••••••••</span>
-        <button id="btnVerWifi" type="button" class="hub-wifi-btn" onclick="alternarWifiSenha()">Ver Senha</button>
-      </div>
     </div>
 
   </div>
@@ -566,7 +559,7 @@
     let carrinho = {};
     let taxaAtualEntrega = 0;
 
-    const SENHA_WIFI_PADRAO = "sorvete123";
+    let senhaWifiReal = "sorvete123";
     let wifiRevelado = false;
 
     const BAIRROS_FALLBACK = [
@@ -656,17 +649,67 @@
         document.getElementById("appLogoImg").src = dadosLoja.logo;
       }
 
-      // Conexão do áudio
+      // Configurações do Wi-Fi da loja
+      const nomeRede = dadosLoja.wifiRede || `${nome.replace(/\s+/g, '_')}_Clientes`;
+      senhaWifiReal = dadosLoja.wifiSenha || "sorvete123";
+      document.getElementById("wifiNomeRede").textContent = nomeRede;
+
+      // Configurações da Música
       const audioUrl = dadosLoja.musicaUrl || (typeof loja !== 'undefined' ? loja.musicaUrl : "");
       if (audioUrl) {
         document.getElementById("audioFundo").src = audioUrl;
       }
-
-      // Nome da Rede Wi-Fi
-      document.getElementById("wifiNomeRede").textContent = `${nome.replace(/\s+/g, '_')}_Clientes`;
     }
 
-    /* REPRODUTOR DE MÚSICA */
+    function aplicarLayoutDefinidoPeloAdmin() {
+      const modelo = dadosAparencia.modelo || "hub_classico";
+      const l1 = document.getElementById("layoutHubClassico");
+      const l2 = document.getElementById("layoutVitrineAbas");
+      const l3 = document.getElementById("layoutAppDelivery");
+      const catalogo = document.getElementById("catalogoProdutosContainer");
+      const boxMusica = document.getElementById("boxMusicaHub");
+      const boxWifi = document.getElementById("boxWifiHub");
+
+      l1.style.display = "none";
+      l2.style.display = "none";
+      l3.style.display = "none";
+
+      if (modelo === "hub_classico") {
+        l1.style.display = "block";
+        catalogo.style.display = "none";
+
+        // Exibe música e Wi-Fi apenas se ativados no painel (padrão ativo)
+        const exibirMusica = dadosLoja.exibirMusica !== false;
+        const exibirWifi = dadosLoja.exibirWifi !== false;
+        boxMusica.style.display = exibirMusica ? "flex" : "none";
+        boxWifi.style.display = exibirWifi ? "flex" : "none";
+      } else if (modelo === "vitrine_abas") {
+        l2.style.display = "block";
+        catalogo.style.display = "block";
+        boxMusica.style.display = "none";
+        boxWifi.style.display = "none";
+      } else {
+        l3.style.display = "block";
+        catalogo.style.display = "block";
+        boxMusica.style.display = "none";
+        boxWifi.style.display = "none";
+      }
+    }
+
+    /* REPRODUÇÃO AUTOMÁTICA EM QUALQUER INTERAÇÃO DO HUB */
+    function iniciarMusicaSePermitido() {
+      const audio = document.getElementById("audioFundo");
+      const btn = document.getElementById("btnPlayMusica");
+      const label = document.getElementById("labelAudio");
+
+      if (audio && audio.paused && dadosLoja.exibirMusica !== false) {
+        audio.play().then(() => {
+          if (btn) btn.textContent = "⏸️";
+          if (label) label.textContent = "Tocando...";
+        }).catch(() => {});
+      }
+    }
+
     function alternarAudio() {
       const audio = document.getElementById("audioFundo");
       const btn = document.getElementById("btnPlayMusica");
@@ -677,7 +720,7 @@
           btn.textContent = "⏸️";
           label.textContent = "Tocando...";
         }).catch(() => {
-          alert("Dica: Toque na tela para permitir a reprodução do áudio no navegador.");
+          alert("Toque na tela para autorizar o áudio no seu navegador.");
         });
       } else {
         audio.pause();
@@ -686,23 +729,42 @@
       }
     }
 
-    /* WI-FI REVELAR / COPIAR */
     function alternarWifiSenha() {
       const passElem = document.getElementById("wifiSenhaTexto");
       const btn = document.getElementById("btnVerWifi");
 
       if (!wifiRevelado) {
-        passElem.textContent = SENHA_WIFI_PADRAO;
+        passElem.textContent = senhaWifiReal;
         btn.textContent = "Copiar";
         wifiRevelado = true;
       } else {
-        navigator.clipboard.writeText(SENHA_WIFI_PADRAO).then(() => {
+        navigator.clipboard.writeText(senhaWifiReal).then(() => {
           btn.textContent = "Copiado! ✓";
           setTimeout(() => { btn.textContent = "Copiar"; }, 2000);
         }).catch(() => {
-          prompt("Copie a senha do Wi-Fi:", SENHA_WIFI_PADRAO);
+          prompt("Copie a senha do Wi-Fi:", senhaWifiReal);
         });
       }
+    }
+
+    function abrirCardapioHub() {
+      iniciarMusicaSePermitido();
+      const catalogo = document.getElementById("catalogoProdutosContainer");
+      document.getElementById("modalHubContentArea").appendChild(catalogo);
+      catalogo.style.display = "block";
+      document.getElementById("modalHubCardapio").classList.add("active");
+    }
+
+    function fecharCardapioHub() {
+      document.getElementById("modalHubCardapio").classList.remove("active");
+    }
+
+    function trocarAba(idx) {
+      const botoes = document.querySelectorAll(".aba-btn");
+      botoes.forEach(b => b.classList.remove("active"));
+      botoes[idx].classList.add("active");
+      document.getElementById("catalogoProdutosContainer").style.display = idx === 0 ? "block" : "none";
+      document.getElementById("abaConteudoInfo").style.display = idx === 1 ? "block" : "none";
     }
 
     function popularConfiguracoesCheckout() {
@@ -722,48 +784,6 @@
       if (dadosPix.favorecido) {
         document.getElementById("beneficiarioPixExibido").textContent = `Favorecido: ${dadosPix.favorecido}`;
       }
-    }
-
-    function aplicarLayoutDefinidoPeloAdmin() {
-      const modelo = dadosAparencia.modelo || "hub_classico";
-      const l1 = document.getElementById("layoutHubClassico");
-      const l2 = document.getElementById("layoutVitrineAbas");
-      const l3 = document.getElementById("layoutAppDelivery");
-      const catalogo = document.getElementById("catalogoProdutosContainer");
-
-      l1.style.display = "none";
-      l2.style.display = "none";
-      l3.style.display = "none";
-
-      if (modelo === "hub_classico") {
-        l1.style.display = "block";
-        catalogo.style.display = "none";
-      } else if (modelo === "vitrine_abas") {
-        l2.style.display = "block";
-        catalogo.style.display = "block";
-      } else {
-        l3.style.display = "block";
-        catalogo.style.display = "block";
-      }
-    }
-
-    function abrirCardapioHub() {
-      const catalogo = document.getElementById("catalogoProdutosContainer");
-      document.getElementById("modalHubContentArea").appendChild(catalogo);
-      catalogo.style.display = "block";
-      document.getElementById("modalHubCardapio").classList.add("active");
-    }
-
-    function fecharCardapioHub() {
-      document.getElementById("modalHubCardapio").classList.remove("active");
-    }
-
-    function trocarAba(idx) {
-      const botoes = document.querySelectorAll(".aba-btn");
-      botoes.forEach(b => b.classList.remove("active"));
-      botoes[idx].classList.add("active");
-      document.getElementById("catalogoProdutosContainer").style.display = idx === 0 ? "block" : "none";
-      document.getElementById("abaConteudoInfo").style.display = idx === 1 ? "block" : "none";
     }
 
     function renderizarCategorias() {
@@ -826,6 +846,7 @@
     }
 
     function adicionarAoCarrinho(id) {
+      iniciarMusicaSePermitido();
       const prod = produtosLoja.find(p => p.id === id);
       if (!prod) return;
       carrinho[id] = { produto: prod, qtd: 1 };
