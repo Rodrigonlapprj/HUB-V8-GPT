@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cardápio & Vitrine Digital</title>
+  <title>Cardápio & Vitrine Digital (V1)</title>
 
   <!-- Fallbacks dos arquivos locais existentes -->
   <script src="loja.js"></script>
@@ -678,7 +678,6 @@
         l1.style.display = "block";
         catalogo.style.display = "none";
 
-        // Exibe música e Wi-Fi apenas se ativados no painel (padrão ativo)
         const exibirMusica = dadosLoja.exibirMusica !== false;
         const exibirWifi = dadosLoja.exibirWifi !== false;
         boxMusica.style.display = exibirMusica ? "flex" : "none";
@@ -696,7 +695,6 @@
       }
     }
 
-    /* REPRODUÇÃO AUTOMÁTICA EM QUALQUER INTERAÇÃO DO HUB */
     function iniciarMusicaSePermitido() {
       const audio = document.getElementById("audioFundo");
       const btn = document.getElementById("btnPlayMusica");
