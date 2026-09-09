@@ -39,6 +39,26 @@
 
     .main-wrapper { width: 100%; max-width: 600px; padding: 16px; }
 
+    /* REPRODUTOR DE MÚSICA NO TOPO (GLOBAL) */
+    .music-player-bar {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 30px;
+      padding: 8px 18px;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      margin: 0 auto 18px auto;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .music-btn {
+      width: 36px; height: 36px; border-radius: 50%; border: none;
+      background: var(--primary-color); cursor: pointer; display: grid;
+      place-items: center; font-size: 16px; transition: transform 0.15s;
+    }
+    .music-btn:active { transform: scale(0.92); }
+    .music-text { font-size: 0.85rem; font-weight: 700; color: var(--text-color); }
+
     /* LAYOUT 1: HUB CLÁSSICO */
     .layout-hub-classico { text-align: center; margin-bottom: 24px; }
     .hub-header { margin-bottom: 20px; }
@@ -49,16 +69,6 @@
     }
     .hub-title { font-size: 1.45rem; font-weight: 800; margin-bottom: 6px; }
     .hub-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.4; margin-bottom: 16px; }
-
-    .music-player-box {
-      background: var(--card-bg); border: 1px solid var(--border-color);
-      border-radius: 30px; padding: 8px 16px; display: inline-flex;
-      align-items: center; gap: 10px; margin-bottom: 20px;
-    }
-    .music-btn {
-      width: 34px; height: 34px; border-radius: 50%; border: none;
-      background: var(--primary-color); cursor: pointer; display: grid; place-items: center;
-    }
 
     .hub-buttons-list { display: flex; flex-direction: column; gap: 12px; }
     .hub-btn {
@@ -131,6 +141,54 @@
     .qty-counter button { width: 26px; height: 26px; border: none; border-radius: 6px; background: white; font-weight: bold; cursor: pointer; }
     .qty-counter span { font-weight: bold; font-size: 0.9rem; min-width: 16px; text-align: center; }
 
+    /* CARD DO WI-FI NA PARTE INFERIOR */
+    .wifi-card-box {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 16px;
+      margin-top: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    }
+    .wifi-card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .wifi-icon {
+      font-size: 26px;
+      background: #eff6ff;
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+    }
+    .wifi-info-title { font-size: 0.95rem; font-weight: bold; color: var(--text-color); }
+    .wifi-info-sub { font-size: 0.8rem; color: var(--text-muted); }
+    .wifi-reveal-area {
+      background: #f8fafc;
+      border: 1px dashed var(--border-color);
+      border-radius: 10px;
+      padding: 10px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .wifi-secret { font-family: monospace; font-size: 1rem; font-weight: bold; letter-spacing: 2px; }
+    .wifi-btn-toggle {
+      background: var(--secondary-color);
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
     /* BOTÃO FLUTUANTE DE QR CODE */
     .qr-fab-btn {
       position: fixed;
@@ -181,7 +239,6 @@
     .close-btn { width: 32px; height: 32px; border-radius: 50%; border: none; background: #f3f4f6; font-weight: bold; cursor: pointer; }
 
     .cart-item-row { display: flex; justify-content: space-between; align-items: center; padding-bottom: 10px; border-bottom: 1px solid #f3f4f6; margin-bottom: 10px; }
-    
     .cart-form-field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
     .cart-form-field label { font-size: 0.82rem; font-weight: 700; color: var(--text-muted); }
     .cart-form-field input, .cart-form-field select, .cart-form-field textarea {
@@ -191,10 +248,7 @@
     .form-row-2 { display: flex; gap: 10px; }
     .form-row-2 > div { flex: 1; }
 
-    /* Opções de Pagamento */
-    .payment-radios-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 4px;
-    }
+    .payment-radios-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 4px; }
     .payment-radio-label {
       border: 1px solid var(--border-color); border-radius: 10px; padding: 10px 8px;
       font-size: 0.8rem; font-weight: 600; display: flex; align-items: center; gap: 6px;
@@ -241,18 +295,21 @@
 
   <div class="main-wrapper">
 
+    <!-- REPRODUTOR DE ÁUDIO NO TOPO (GLOBAL) -->
+    <div id="boxMusicaTopo" style="text-align: center; display: none;">
+      <div class="music-player-bar">
+        <button id="btnPlayMusica" class="music-btn" onclick="alternarAudio()">▶️</button>
+        <span class="music-text" id="labelAudio">Música da Loja</span>
+        <audio id="audioFundo" loop></audio>
+      </div>
+    </div>
+
     <!-- 1. HUB CLÁSSICO -->
     <div id="layoutHubClassico" class="layout-hub-classico" style="display:none;">
       <div class="hub-header">
         <img id="hubLogoImg" class="hub-logo" src="" alt="Logo">
         <h1 id="hubNomeLoja" class="hub-title">Carioca Ice Cream</h1>
         <p id="hubDescricaoLoja" class="hub-desc">Sorvetes artesanais e sobremesas deliciosas.</p>
-
-        <div id="hubMusicBox" class="music-player-box" style="display:none;">
-          <button class="music-btn" onclick="alternarAudio()">🎵</button>
-          <span id="labelAudio" style="font-size: 0.8rem; font-weight: bold;">Música de Fundo</span>
-          <audio id="audioFundo" loop></audio>
-        </div>
       </div>
 
       <div class="hub-buttons-list">
@@ -325,9 +382,24 @@
       <div id="gridProdutos" class="products-list"></div>
     </div>
 
+    <!-- SEÇÃO WI-FI INFERIOR COM SENHA OCULTA -->
+    <div id="secaoWifiLoja" class="wifi-card-box">
+      <div class="wifi-card-header">
+        <div class="wifi-icon">📶</div>
+        <div style="flex:1;">
+          <div class="wifi-info-title">Wi-Fi para Clientes</div>
+          <div class="wifi-info-sub">Rede: <strong id="wifiNomeRede">Carioca_Clientes_5G</strong></div>
+        </div>
+      </div>
+      <div class="wifi-reveal-area">
+        <span id="wifiSenhaDisplay" class="wifi-secret">••••••••</span>
+        <button id="btnVerWifi" type="button" class="wifi-btn-toggle" onclick="alternarVisibilidadeWifi()">Ver Senha</button>
+      </div>
+    </div>
+
   </div>
 
-  <!-- BOTÃO FLUTUANTE REDONDO DE QR CODE (FAB) -->
+  <!-- BOTÃO FLUTUANTE DE QR CODE -->
   <button class="qr-fab-btn" onclick="abrirModalCompartilhar()" title="Compartilhar / QR Code">
     <svg viewBox="0 0 24 24">
       <path d="M3 3h8v8H3V3zm2 2v4h4V5H5zm8-2h8v8h-8V3zm2 2v4h4V5h-4zM3 13h8v8H3v-8zm2 2v4h4v-4H5zm13-2h3v2h-3v-2zm-5 0h2v3h-2v-3zm2 3h3v2h-3v-2zm3 2h3v3h-3v-3zm-3 1h-2v2h2v-2zm5-1v2h1v-2h-1z"/>
@@ -356,10 +428,8 @@
         <button class="close-btn" onclick="fecharModalCarrinho()">&times;</button>
       </div>
 
-      <!-- Lista de Itens -->
       <div id="cartItemsList"></div>
 
-      <!-- Resumo Financeiro Dinâmico -->
       <div class="totals-summary">
         <div class="totals-summary-row">
           <span>Subtotal itens:</span>
@@ -375,7 +445,6 @@
         </div>
       </div>
 
-      <!-- Dados do Cliente -->
       <div class="cart-form-field">
         <label>Seu Nome *</label>
         <input type="text" id="pedidoNomeCliente" placeholder="Como podemos te chamar?">
@@ -389,7 +458,6 @@
         </select>
       </div>
 
-      <!-- Bloco de Entrega Simplificado RJ (sem CEP) -->
       <div id="campoEnderecoBox">
         <div class="form-row-2">
           <div class="cart-form-field" style="flex: 2.5;">
@@ -416,7 +484,6 @@
         </div>
       </div>
 
-      <!-- Formas de Pagamento -->
       <div class="cart-form-field">
         <label>Forma de Pagamento *</label>
         <div class="payment-radios-grid">
@@ -439,7 +506,6 @@
         </div>
       </div>
 
-      <!-- Bloco PIX Online (Copia e Cola) -->
       <div id="blocoPixOnline" class="pix-box-area">
         <small style="color:#166534; font-weight:bold; display:block;">Chave PIX da Loja:</small>
         <div class="pix-box-row">
@@ -449,7 +515,6 @@
         <small id="beneficiarioPixExibido" style="color:#15803d; font-size:0.75rem; display:block; margin-top:4px;"></small>
       </div>
 
-      <!-- Bloco Troco Dinheiro -->
       <div id="blocoTrocoDinheiro" class="troco-box-area">
         <label style="font-size:0.8rem; font-weight:700; color:#92400e; display:block; margin-bottom:4px;">Troco para quanto?</label>
         <input type="text" id="pedidoTroco" placeholder="Ex: R$ 50,00 (deixe em branco se não precisar)">
@@ -505,6 +570,9 @@
     let categoriaSelecionada = "todos";
     let carrinho = {};
     let taxaAtualEntrega = 0;
+
+    const senhaWifiReal = "sorvete123";
+    let wifiVisivel = false;
 
     const BAIRROS_FALLBACK = [
       { id: 1, nome: "Tijuca", taxa: 6.00 },
@@ -593,14 +661,52 @@
         document.getElementById("appLogoImg").src = dadosLoja.logo;
       }
 
-      if (dadosLoja.musicaUrl) {
-        document.getElementById("audioFundo").src = dadosLoja.musicaUrl;
-        document.getElementById("hubMusicBox").style.display = "inline-flex";
+      // Música no Topo
+      const audioUrl = dadosLoja.musicaUrl || (typeof loja !== 'undefined' ? loja.musicaUrl : "");
+      if (audioUrl) {
+        document.getElementById("audioFundo").src = audioUrl;
+        document.getElementById("boxMusicaTopo").style.display = "block";
+      }
+
+      document.getElementById("wifiNomeRede").textContent = `${nome.replace(/\s+/g, '_')}_Clientes`;
+    }
+
+    function alternarAudio() {
+      const audio = document.getElementById("audioFundo");
+      const btn = document.getElementById("btnPlayMusica");
+      if (audio.paused) {
+        audio.play().then(() => {
+          btn.textContent = "⏸️";
+        }).catch(() => {
+          alert("Toque na tela para autorizar o áudio do navegador.");
+        });
+      } else {
+        audio.pause();
+        btn.textContent = "▶️";
+      }
+    }
+
+    function alternarVisibilidadeWifi() {
+      const display = document.getElementById("wifiSenhaDisplay");
+      const btn = document.getElementById("btnVerWifi");
+
+      if (!wifiVisivel) {
+        display.textContent = senhaWifiReal;
+        btn.textContent = "Copiar Senha";
+        wifiVisivel = true;
+      } else {
+        navigator.clipboard.writeText(senhaWifiReal).then(() => {
+          btn.textContent = "Copiado! ✓";
+          setTimeout(() => {
+            btn.textContent = "Copiar Senha";
+          }, 2000);
+        }).catch(() => {
+          prompt("Copie a senha:", senhaWifiReal);
+        });
       }
     }
 
     function popularConfiguracoesCheckout() {
-      // Popula Bairros
       const selectBairro = document.getElementById("pedidoBairro");
       selectBairro.innerHTML = '<option value="">Selecione seu bairro...</option>';
       bairrosEntrega.forEach(b => {
@@ -611,7 +717,6 @@
         selectBairro.appendChild(opt);
       });
 
-      // Popula PIX
       const chave = dadosPix.chave || dadosLoja.chavePix || "Não configurada";
       const tipo = dadosPix.tipo || "PIX";
       document.getElementById("textoChavePixExibida").textContent = `${chave} (${tipo})`;
@@ -641,12 +746,6 @@
         l3.style.display = "block";
         catalogo.style.display = "block";
       }
-    }
-
-    function alternarAudio() {
-      const audio = document.getElementById("audioFundo");
-      if (audio.paused) audio.play();
-      else audio.pause();
     }
 
     function abrirCardapioHub() {
@@ -727,7 +826,6 @@
       });
     }
 
-    /* CARRINHO & CÁLCULOS */
     function adicionarAoCarrinho(id) {
       const prod = produtosLoja.find(p => p.id === id);
       if (!prod) return;
@@ -841,7 +939,6 @@
       });
     }
 
-    /* FINALIZAÇÃO E ENVIO VIA WHATSAPP (CORREÇÃO WA.ME + DDI 55) */
     function finalizarPedidoWhatsApp() {
       const chaves = Object.keys(carrinho);
       if (chaves.length === 0) {
@@ -920,17 +1017,14 @@
       msg += `----------------------------------------\n`;
       msg += `_Pedido gerado pelo Cardápio Online_`;
 
-      // Formatação à prova de falhas: limpa caracteres e garante o prefixo 55
       let whats = (dadosLoja.whatsapp || dadosRedes.whatsapp || '21977138992').replace(/\D/g, '');
       if (whats.length === 10 || whats.length === 11) {
         whats = '55' + whats;
       }
 
-      // Abre a API oficial sem causar o erro no WhatsApp Web ou App
       window.open(`https://wa.me/${whats}?text=${encodeURIComponent(msg)}`, '_blank');
     }
 
-    /* COMPARTILHAMENTO & QR CODE */
     function gerarQrCodeCliente() {
       const url = window.location.href;
       document.getElementById("imgQrCodeCliente").src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(url)}`;
