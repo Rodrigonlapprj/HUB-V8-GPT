@@ -4,9 +4,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hub Brasil - Cardápio & Painel (V1)</title>
+  <title>Hub Brasil à V2 - Painel Administrativo</title>
 
-  <!-- Fallbacks locais -->
+  <!-- Fallbacks dos arquivos locais existentes -->
   <script src="loja.js"></script>
   <script src="categorias.js"></script>
   <script src="produtos.js"></script>
@@ -15,14 +15,14 @@
     :root {
       --primary-color: #FFD400;
       --secondary-color: #7B2CBF;
-      --bg-color: #f8fafc;
+      --bg-color: #f1f5f9;
       --card-bg: #ffffff;
-      --text-color: #1f2937;
+      --text-color: #111827;
       --text-muted: #6b7280;
       --border-color: #e5e7eb;
-      --whatsapp-green: #25D366;
-      --success-color: #16a34a;
-      --danger-color: #dc2626;
+      --topbar-bg: #0f172a;
+      --success-color: #10b981;
+      --danger-color: #ef4444;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
@@ -35,144 +35,124 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding-bottom: 120px;
+      padding-bottom: 70px;
     }
 
-    .main-wrapper { width: 100%; max-width: 600px; padding: 16px; }
+    /* BARRA SUPERIOR ESCURA CONFORME AS FOTOS */
+    .admin-dark-topbar {
+      width: 100%;
+      background: var(--topbar-bg);
+      color: #94a3b8;
+      padding: 10px 16px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .admin-dark-topbar .brand-title {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #f8fafc;
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
 
-    .top-status-header {
+    .main-admin-wrapper {
+      width: 100%;
+      max-width: 580px;
+      padding: 16px 12px;
+    }
+
+    /* CARD DE STATUS DO TOPO */
+    .status-card-header {
+      background: #ffffff;
+      border-radius: 18px;
+      padding: 16px 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: #ffffff;
-      padding: 14px 18px;
-      border-radius: 16px;
-      border: 1px solid var(--border-color);
-      margin-bottom: 16px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+      border: 1px solid #f1f5f9;
+      margin-bottom: 18px;
     }
-    .top-status-header h2 { font-size: 1.25rem; font-weight: 800; color: #111827; }
+    .status-card-header h1 {
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: #111827;
+    }
     .status-badge-live {
       display: flex;
       align-items: center;
       gap: 6px;
-      font-size: 0.8rem;
+      font-size: 0.82rem;
       font-weight: 600;
-      color: #059669;
+      color: var(--success-color);
     }
-    .status-dot { width: 8px; height: 8px; border-radius: 50%; background: #10b981; }
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--success-color);
+    }
 
-    .nav-tabs-bar {
-      display: flex;
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 14px;
-      padding: 4px;
+    /* CONTAINER PRINCIPAL DAS SEÇÕES DO PAINEL */
+    .admin-section-card {
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 22px 18px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+      border: 1px solid #f1f5f9;
+      margin-bottom: 20px;
+    }
+
+    .section-title-box {
       margin-bottom: 18px;
-      overflow-x: auto;
-      gap: 4px;
     }
-    .nav-tab-btn {
-      flex: 1;
-      min-width: fit-content;
-      padding: 10px 14px;
-      border: none;
-      background: transparent;
-      border-radius: 10px;
-      font-weight: 700;
-      font-size: 0.84rem;
-      color: var(--text-muted);
-      cursor: pointer;
-      white-space: nowrap;
-    }
-    .nav-tab-btn.active {
-      background: var(--primary-color);
+    .section-title-box h2 {
+      font-size: 1.25rem;
+      font-weight: 800;
       color: #111827;
+      margin-bottom: 4px;
+    }
+    .section-title-box p {
+      font-size: 0.86rem;
+      color: var(--text-muted);
     }
 
-    .hub-music-container {
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      margin-bottom: 16px;
-    }
-    .music-pill-box {
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 30px;
-      padding: 6px 16px;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.04);
-    }
-    .music-btn {
-      width: 32px; height: 32px; border-radius: 50%; border: none;
-      background: var(--primary-color); cursor: pointer; display: grid;
-      place-items: center; font-size: 14px;
-    }
-    .music-label { font-size: 0.8rem; font-weight: 700; color: var(--text-color); }
-
-    .layout-hub-classico { text-align: center; margin-bottom: 24px; }
-    .hub-header { margin-bottom: 20px; }
-    .hub-logo {
-      width: 105px; height: 105px; border-radius: 50%; object-fit: cover;
-      margin: 0 auto 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      border: 3px solid var(--primary-color); background: white;
-    }
-    .hub-title { font-size: 1.45rem; font-weight: 800; margin-bottom: 6px; }
-    .hub-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.4; margin-bottom: 16px; }
-
-    .hub-buttons-list { display: flex; flex-direction: column; gap: 12px; }
-    .hub-btn {
-      display: flex; align-items: center; justify-content: center; gap: 12px;
-      background: var(--card-bg); border: 2px solid var(--primary-color);
-      color: var(--text-color); text-decoration: none; padding: 15px 20px;
-      border-radius: 14px; font-weight: 700; font-size: 1rem; cursor: pointer;
-      transition: transform .15s;
-    }
-    .hub-btn:active { transform: scale(0.98); }
-    .hub-btn.highlight { background: var(--primary-color); color: #111827; }
-
-    .hub-wifi-box {
-      background: var(--card-bg);
-      border: 2px solid var(--border-color);
-      border-radius: 14px;
-      padding: 16px 20px;
-      margin-top: 25px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      text-align: left;
-    }
-    .hub-wifi-header { display: flex; align-items: center; gap: 12px; }
-    .hub-wifi-icon { font-size: 26px; }
-    .hub-wifi-title { font-size: 0.95rem; font-weight: bold; color: var(--text-color); }
-    .hub-wifi-sub { font-size: 0.8rem; color: var(--text-muted); }
-    .hub-wifi-action {
-      display: flex; justify-content: space-between; align-items: center;
-      background: #f9fafb; border: 1px dashed var(--border-color);
-      padding: 10px 14px; border-radius: 10px;
-    }
-    .hub-wifi-pass { font-family: monospace; font-size: 0.95rem; font-weight: bold; letter-spacing: 2px; }
-    .hub-wifi-btn {
-      background: var(--primary-color); color: #111827; border: none;
-      border-radius: 6px; padding: 6px 12px; font-size: 0.8rem; font-weight: bold; cursor: pointer;
-    }
-
+    /* ESTILOS DA SEÇÃO: PRODUTOS (IGUAL À FOTO) */
     .search-input-box {
-      width: 100%; padding: 12px 14px; border: 1px solid var(--border-color);
-      border-radius: 12px; font-size: 0.95rem; outline: none; background: #ffffff;
-      color: #111827; margin-bottom: 12px;
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      font-size: 0.95rem;
+      outline: none;
+      background: #ffffff;
+      margin-bottom: 12px;
     }
     .btn-novo-produto {
-      width: 100%; background: var(--primary-color); color: #111827;
-      border: none; border-radius: 12px; padding: 14px; font-weight: 800;
-      font-size: 0.95rem; cursor: pointer; margin-bottom: 14px;
+      width: 100%;
+      background: var(--primary-color);
+      color: #111827;
+      border: none;
+      border-radius: 12px;
+      padding: 14px;
+      font-weight: 800;
+      font-size: 0.95rem;
+      cursor: pointer;
+      margin-bottom: 16px;
     }
     .card-prod-item {
-      background: #ffffff; border: 1px solid var(--border-color);
-      border-radius: 18px; padding: 16px; display: flex; flex-direction: column;
-      gap: 14px; margin-bottom: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 18px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 14px;
     }
     .card-prod-top { display: flex; gap: 14px; align-items: flex-start; }
     .card-prod-thumb {
@@ -181,7 +161,7 @@
     }
     .card-prod-info { display: flex; flex-direction: column; gap: 3px; flex: 1; }
     .card-prod-nome { font-size: 1.05rem; font-weight: 800; color: #111827; }
-    .card-prod-cat { font-size: 0.82rem; color: var(--text-muted); }
+    .card-prod-cat { font-size: 0.82rem; color: var(--text-muted); text-transform: lowercase; }
     .card-prod-preco { font-size: 1.05rem; font-weight: 800; color: #111827; margin: 2px 0; }
     .card-prod-badges { display: flex; gap: 6px; align-items: center; margin-top: 2px; }
     .badge-status { font-size: 0.72rem; font-weight: 700; padding: 3px 8px; border-radius: 6px; }
@@ -195,30 +175,31 @@
     .btn-acao-status.ativo { background: #ecfdf5; color: #059669; }
     .btn-acao-excluir { background: #fee2e2; color: #dc2626; }
 
+    /* ESTILOS DA SEÇÃO: CATEGORIAS (IGUAL À FOTO) */
     .card-categoria-item {
-      background: #ffffff; border: 1px solid var(--border-color);
-      border-radius: 16px; padding: 24px 16px; text-align: center;
-      display: flex; flex-direction: column; align-items: center;
-      justify-content: center; gap: 6px; margin-bottom: 12px;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.02);
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 24px 16px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin-bottom: 12px;
     }
     .cat-nome-titulo { font-size: 1.05rem; font-weight: 800; color: #111827; }
     .cat-qtd-sub { font-size: 0.85rem; color: var(--text-muted); font-weight: 500; }
 
-    .aparencia-box {
-      background: #ffffff; border: 1px solid var(--border-color);
-      border-radius: 18px; padding: 22px; display: flex; flex-direction: column; gap: 18px;
-    }
-    .form-group-cor { display: flex; flex-direction: column; gap: 6px; }
+    /* ESTILOS DA SEÇÃO: APARÊNCIA & PREVIEW (IGUAL À FOTO) */
+    .form-group-cor { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
     .form-group-cor label { font-size: 0.88rem; font-weight: 700; color: #1f2937; }
     .color-input-container {
       display: flex; align-items: center; border: 1px solid var(--border-color);
       border-radius: 12px; padding: 6px 12px; gap: 12px; background: #ffffff;
     }
-    .color-picker-box {
-      width: 44px; height: 32px; border: none; border-radius: 6px;
-      cursor: pointer; background: none; padding: 0;
-    }
+    .color-picker-box { width: 44px; height: 32px; border: none; border-radius: 6px; cursor: pointer; background: none; padding: 0; }
     .color-text-input { border: none; outline: none; font-size: 0.95rem; font-weight: 600; color: #111827; width: 100%; text-transform: uppercase; }
     .color-hint { font-size: 0.78rem; color: var(--text-muted); line-height: 1.35; }
     .tema-grid { display: flex; gap: 12px; margin-top: 4px; }
@@ -228,8 +209,8 @@
       padding: 14px 10px; cursor: pointer; font-size: 0.9rem; font-weight: 700; color: #1f2937;
     }
     .tema-card-label.selected { border: 2px solid var(--primary-color); background: #fffdf0; }
-    .select-estilo { width: 100%; padding: 12px 14px; border-radius: 12px; border: 1px solid var(--border-color); background-color: #f9fafb; font-size: 0.95rem; font-weight: 600; color: #1f2937; outline: none; }
-    .btn-salvar-aparencia { background: var(--primary-color); color: #111827; border: none; border-radius: 12px; padding: 14px; font-size: 0.95rem; font-weight: 800; cursor: pointer; width: 100%; }
+    .select-estilo { width: 100%; padding: 12px 14px; border-radius: 12px; border: 1px solid var(--border-color); background-color: #f9fafb; font-size: 0.95rem; font-weight: 600; color: #1f2937; outline: none; margin-bottom: 16px; }
+    .btn-salvar-aparencia { background: var(--primary-color); color: #111827; border: none; border-radius: 12px; padding: 14px; font-size: 0.95rem; font-weight: 800; cursor: pointer; width: 100%; margin-bottom: 10px; }
     .btn-restaurar-padrao { background: #f3f4f6; color: #374151; border: none; border-radius: 12px; padding: 14px; font-size: 0.95rem; font-weight: 700; cursor: pointer; width: 100%; }
 
     .preview-phone-card {
@@ -258,6 +239,7 @@
     .preview-prod-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 4px; }
     .preview-prod-btn { background: var(--primary-color); color: #111827; border: none; border-radius: 8px; padding: 7px 16px; font-weight: 800; font-size: 0.82rem; }
 
+    /* ESTILOS DA SEÇÃO: HORÁRIOS (IGUAL À FOTO) */
     .horarios-table-card { background: #ffffff; border: 1px solid var(--border-color); border-radius: 16px; overflow: hidden; margin-top: 8px; }
     .horarios-header-row { display: grid; grid-template-columns: 1.8fr 1fr 1fr 1fr; padding: 14px 16px; background: #fafafa; border-bottom: 1px solid #f3f4f6; font-size: 0.78rem; font-weight: 700; color: var(--text-muted); align-items: center; }
     .horarios-row { display: grid; grid-template-columns: 1.8fr 1fr 1fr 1fr; padding: 14px 16px; border-bottom: 1px solid #f3f4f6; align-items: center; }
@@ -273,6 +255,7 @@
     }
     .horario-select:disabled { opacity: 0.35; cursor: not-allowed; }
 
+    /* ESTILOS DA SEÇÃO: CONFIGURAÇÕES & BACKUP (IGUAL À FOTO) */
     .cfg-card {
       background: #ffffff; border: 1px solid var(--border-color); border-radius: 16px;
       padding: 20px; display: flex; flex-direction: column; gap: 12px; margin-bottom: 14px;
@@ -294,163 +277,230 @@
     .switch-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #f3f4f6; }
     .switch-row label { font-size: 0.88rem; font-weight: 700; color: #1f2937; }
     .switch-check { width: 42px; height: 24px; accent-color: var(--primary-color); cursor: pointer; }
+
+    /* MENU LATERAL / NAVEGAÇÃO */
+    .admin-menu-toggle {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: var(--topbar-bg);
+      color: #ffffff;
+      border: 2px solid var(--primary-color);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      z-index: 2000;
+      font-size: 22px;
+    }
+    .admin-drawer {
+      position: fixed;
+      inset: 0;
+      background: rgba(15,23,42,0.7);
+      display: none;
+      z-index: 2100;
+      align-items: flex-end;
+    }
+    .admin-drawer.active { display: flex; }
+    .admin-drawer-box {
+      width: 100%;
+      background: #ffffff;
+      border-radius: 24px 24px 0 0;
+      padding: 24px 20px;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+    .drawer-item-btn {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px;
+      background: #f8fafc;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      margin-bottom: 8px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #1f2937;
+      cursor: pointer;
+    }
+    .drawer-item-btn.active {
+      background: #fffdf0;
+      border-color: var(--primary-color);
+      color: #111827;
+    }
   </style>
 </head>
 
 <body>
 
-  <div class="main-wrapper">
+  <!-- BARRA DE TOPO ESCURA CONFORME AS FOTOS -->
+  <header class="admin-dark-topbar">
+    <div class="brand-title" onclick="abrirMenuGaveta()" style="cursor:pointer;">
+      <span>⚙️</span>
+      <span>Hub Brasil à V2</span>
+    </div>
+    <div style="font-size: 0.75rem;">Administração</div>
+  </header>
 
-    <div class="top-status-header">
-      <h2 id="tituloAbaAtual">Painel Hub Brasil (V1)</h2>
+  <main class="main-admin-wrapper">
+
+    <!-- STATUS DO TOPO -->
+    <div class="status-card-header">
+      <h1 id="txtTituloPainel">Configurações</h1>
       <div class="status-badge-live">
         <span class="status-dot"></span>
         <span>Sistema funcionando</span>
       </div>
     </div>
 
-    <div class="nav-tabs-bar">
-      <button class="nav-tab-btn active" onclick="mostrarSecao('hub')">Hub / Cardápio</button>
-      <button class="nav-tab-btn" onclick="mostrarSecao('produtos')">Produtos</button>
-      <button class="nav-tab-btn" onclick="mostrarSecao('categorias')">Categorias</button>
-      <button class="nav-tab-btn" onclick="mostrarSecao('aparencia')">Aparência</button>
-      <button class="nav-tab-btn" onclick="mostrarSecao('horarios')">Horários</button>
-      <button class="nav-tab-btn" onclick="mostrarSecao('configuracoes')">Configurações</button>
-    </div>
-
-    <!-- SEÇÃO 1: HUB CLÁSSICO -->
-    <div id="secao-hub" class="secao-painel">
-      <div class="layout-hub-classico">
-        
-        <div id="boxMusicaHub" class="hub-music-container">
-          <div class="music-pill-box">
-            <button id="btnPlayMusica" class="music-btn" onclick="alternarAudio()">🎵</button>
-            <span id="labelAudio" class="music-label">Música da Loja</span>
-            <audio id="audioFundo" loop preload="auto">
-              <source src="música.mp3" type="audio/mpeg">
-              <source src="musica.mp3" type="audio/mpeg">
-            </audio>
-          </div>
-        </div>
-
-        <div class="hub-header">
-          <img id="hubLogoImg" class="hub-logo" src="logo.png" alt="Logo">
-          <h1 id="hubNomeLoja" class="hub-title">Carioca Ice Cream</h1>
-          <p id="hubDescricaoLoja" class="hub-desc">Sorvetes artesanais e sobremesas deliciosas.</p>
-        </div>
-
-        <div class="hub-buttons-list">
-          <button class="hub-btn highlight" onclick="alert('Visualização do cardápio!')">
-            <span>🍨</span> Ver Cardápio & Fazer Pedido
-          </button>
-          <a id="btnHubWhats" href="#" target="_blank" class="hub-btn">
-            <span>💬</span> Falar no WhatsApp
-          </a>
-          <a id="btnHubInsta" href="#" target="_blank" class="hub-btn">
-            <span>📸</span> Instagram da Loja
-          </a>
-          <a id="btnHubGoogle" href="#" target="_blank" class="hub-btn">
-            <span>⭐</span> Avaliações Google
-          </a>
-          <a id="btnHubMaps" href="#" target="_blank" class="hub-btn">
-            <span>📍</span> Como Chegar (Localização)
-          </a>
-        </div>
-
-        <div id="boxWifiHub" class="hub-wifi-box">
-          <div class="hub-wifi-header">
-            <div class="hub-wifi-icon">📶</div>
-            <div>
-              <div class="hub-wifi-title">Wi-Fi do Estabelecimento</div>
-              <div class="hub-wifi-sub">Rede: <strong id="wifiNomeRede">Carioca_Clientes</strong></div>
-            </div>
-          </div>
-          <div class="hub-wifi-action">
-            <span id="wifiSenhaTexto" class="hub-wifi-pass">••••••••</span>
-            <button id="btnVerWifi" type="button" class="hub-wifi-btn" onclick="alternarWifiSenha()">Ver Senha</button>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- SEÇÃO 2: PRODUTOS -->
-    <div id="secao-produtos" class="secao-painel" style="display:none;">
-      <div style="margin-bottom: 12px;">
-        <h2 style="font-size: 1.4rem; font-weight: 800; color: #111827;">Produtos</h2>
-        <p style="font-size: 0.88rem; color: var(--text-muted);">Produtos cadastrados no seu cardápio.</p>
+    <!-- 1. SEÇÃO: CONFIGURAÇÕES & BACKUP (LAYOUT IDÊNTICO ÀS FOTOS) -->
+    <section id="sec-configuracoes" class="admin-section-card">
+      <div class="section-title-box">
+        <h2>Configurações</h2>
+        <p>Gerencie os dados e preferências do seu Hub Brasil.</p>
       </div>
 
-      <input type="text" id="buscaProdutoPainel" class="search-input-box" placeholder="🔍 Buscar produto..." oninput="filtrarProdutosPainel()">
-      <button type="button" class="btn-novo-produto" onclick="adicionarProdutoNovoExemplo()">+ Novo produto</button>
-
-      <div id="listaProdutosCardsPainel"></div>
-    </div>
-
-    <!-- SEÇÃO 3: CATEGORIAS -->
-    <div id="secao-categorias" class="secao-painel" style="display:none;">
-      <div style="margin-bottom: 12px;">
-        <h2 style="font-size: 1.4rem; font-weight: 800; color: #111827;">Categorias</h2>
-        <p style="font-size: 0.88rem; color: var(--text-muted);">Categorias utilizadas no cardápio.</p>
+      <!-- BOTÕES DE ATIVAÇÃO MÚSICA & WI-FI NO HUB CLÁSSICO -->
+      <div class="cfg-card">
+        <div class="cfg-card-title">Recursos Exclusivos (Hub Clássico)</div>
+        <div class="switch-row">
+          <label>Disponibilizar Música no Cardápio</label>
+          <input type="checkbox" id="checkExibirMusica" class="switch-check" checked onchange="salvarConfigRecursosHub()">
+        </div>
+        <div class="switch-row">
+          <label>Disponibilizar Wi-Fi no Cardápio</label>
+          <input type="checkbox" id="checkExibirWifi" class="switch-check" checked onchange="salvarConfigRecursosHub()">
+        </div>
       </div>
 
-      <div id="listaCategoriasCardsPainel"></div>
-    </div>
-
-    <!-- SEÇÃO 4: APARÊNCIA -->
-    <div id="secao-aparencia" class="secao-painel" style="display:none;">
-      <div style="margin-bottom: 12px;">
-        <h2 style="font-size: 1.4rem; font-weight: 800; color: #111827;">Aparência</h2>
-        <p style="font-size: 0.88rem; color: var(--text-muted);">Personalize a identidade visual da sua loja.</p>
+      <!-- BACKUP DOS DADOS -->
+      <div class="cfg-card">
+        <div class="cfg-card-header">
+          <div class="cfg-icon-box">💾</div>
+          <div>
+            <div class="cfg-card-title">Backup dos dados</div>
+            <div class="cfg-card-desc">Baixe uma cópia dos produtos, loja, redes sociais e aparência cadastrados neste navegador.</div>
+          </div>
+        </div>
+        <button type="button" class="cfg-btn-primary" onclick="baixarBackupHub()">Baixar backup</button>
       </div>
 
-      <div class="aparencia-box">
-        <div class="form-group-cor">
-          <label>Cor principal</label>
-          <div class="color-input-container">
-            <input type="color" id="corPrimariaPicker" class="color-picker-box" value="#FFD400" oninput="atualizarCorInput('primaria')">
-            <input type="text" id="corPrimariaHex" class="color-text-input" value="#FFD400" maxlength="7" oninput="atualizarCorPicker('primaria')">
-          </div>
-          <span class="color-hint">Usada nos principais botões e destaques do cardápio.</span>
-        </div>
-
-        <div class="form-group-cor">
-          <label>Cor secundária</label>
-          <div class="color-input-container">
-            <input type="color" id="corSecundariaPicker" class="color-picker-box" value="#7B2CBF" oninput="atualizarCorInput('secundaria')">
-            <input type="text" id="corSecundariaHex" class="color-text-input" value="#7B2CBF" maxlength="7" oninput="atualizarCorPicker('secundaria')">
-          </div>
-          <span class="color-hint">Usada para detalhes, categorias e elementos secundários.</span>
-        </div>
-
-        <div class="form-group-cor">
-          <label>Tema</label>
-          <div class="tema-grid">
-            <label id="labelTemaClaro" class="tema-card-label selected">
-              <input type="radio" name="temaRadio" value="claro" checked onchange="trocarTemaVisual('claro')">
-              <span>☀️ Claro</span>
-            </label>
-            <label id="labelTemaEscuro" class="tema-card-label">
-              <input type="radio" name="temaRadio" value="escuro" onchange="trocarTemaVisual('escuro')">
-              <span>🌙 Escuro</span>
-            </label>
+      <!-- RESTAURAR BACKUP -->
+      <div class="cfg-card">
+        <div class="cfg-card-header">
+          <div class="cfg-icon-box">📥</div>
+          <div>
+            <div class="cfg-card-title">Restaurar backup</div>
+            <div class="cfg-card-desc">Selecione um arquivo de backup do Hub Brasil para restaurar os dados cadastrados.</div>
           </div>
         </div>
-
-        <div class="form-group-cor">
-          <label>Estilo visual</label>
-          <select id="selectEstiloVisual" class="select-estilo" onchange="aplicarPreviewAoVivo()">
-            <option value="moderno" selected>Moderno</option>
-            <option value="classico">Clássico</option>
-          </select>
-        </div>
-
-        <button type="button" class="btn-salvar-aparencia" onclick="salvarConfiguracaoAparencia()">Salvar aparência</button>
-        <button type="button" class="btn-restaurar-padrao" onclick="restaurarAparenciaPadrao()">Restaurar padrão</button>
+        <input type="file" id="inputArquivoBackup" accept=".json" style="display:none;" onchange="processarRestauracaoBackup(event)">
+        <button type="button" class="cfg-btn-secondary" onclick="document.getElementById('inputArquivoBackup').click()">Restaurar backup</button>
       </div>
 
-      <div style="margin-top: 20px;">
-        <h3 style="font-size: 1.05rem; font-weight: 800;">Pré-visualização</h3>
+      <!-- RESUMO DOS DADOS -->
+      <div class="cfg-card">
+        <div class="cfg-card-header">
+          <div class="cfg-icon-box">📊</div>
+          <div>
+            <div class="cfg-card-title">Resumo dos dados</div>
+            <div class="cfg-card-desc">Confira rapidamente o que está armazenado localmente neste navegador.</div>
+          </div>
+        </div>
+        <div class="cfg-summary-list">
+          <div class="cfg-summary-row">
+            <span>Produtos</span>
+            <strong id="resumoQtdProdutos">0</strong>
+          </div>
+          <div class="cfg-summary-row">
+            <span>Categorias</span>
+            <strong id="resumoQtdCategorias">0</strong>
+          </div>
+          <div class="cfg-summary-row">
+            <span>Redes sociais</span>
+            <strong id="resumoStatusRedes">Não configuradas</strong>
+          </div>
+          <div class="cfg-summary-row">
+            <span>Aparência</span>
+            <strong id="resumoStatusAparencia">Padrão</strong>
+          </div>
+        </div>
+      </div>
+
+      <!-- APAGAR DADOS LOCAIS -->
+      <div class="cfg-card" style="border-color: #fee2e2; background: #fffafb;">
+        <div class="cfg-card-header">
+          <div class="cfg-icon-box" style="background:#fee2e2;">⚠️</div>
+          <div>
+            <div class="cfg-card-title">Apagar dados locais</div>
+            <div class="cfg-card-desc">Remove os dados salvos neste navegador. Essa ação não altera os arquivos do GitHub.</div>
+          </div>
+        </div>
+        <button type="button" class="cfg-btn-danger" onclick="confirmarLimparDadosLocais()">Apagar dados locais</button>
+      </div>
+
+      <div class="cfg-notice-card">
+        <strong>Importante:</strong> nesta versão de demonstração, os dados ficam armazenados no navegador. O backup serve para você não perder seus cadastros ao trocar de computador ou navegador.
+      </div>
+    </section>
+
+    <!-- 2. SEÇÃO: APARÊNCIA & PREVIEW AO VIVO (LAYOUT IDÊNTICO ÀS FOTOS) -->
+    <section id="sec-aparencia" class="admin-section-card" style="display:none;">
+      <div class="section-title-box">
+        <h2>Aparência</h2>
+        <p>Personalize a identidade visual da sua loja.</p>
+      </div>
+
+      <div class="form-group-cor">
+        <label>Cor principal</label>
+        <div class="color-input-container">
+          <input type="color" id="corPrimariaPicker" class="color-picker-box" value="#FFD400" oninput="atualizarCorInput('primaria')">
+          <input type="text" id="corPrimariaHex" class="color-text-input" value="#FFD400" maxlength="7" oninput="atualizarCorPicker('primaria')">
+        </div>
+        <span class="color-hint">Usada nos principais botões e destaques do cardápio.</span>
+      </div>
+
+      <div class="form-group-cor">
+        <label>Cor secundária</label>
+        <div class="color-input-container">
+          <input type="color" id="corSecundariaPicker" class="color-picker-box" value="#7B2CBF" oninput="atualizarCorInput('secundaria')">
+          <input type="text" id="corSecundariaHex" class="color-text-input" value="#7B2CBF" maxlength="7" oninput="atualizarCorPicker('secundaria')">
+        </div>
+        <span class="color-hint">Usada para detalhes, categorias e elementos secundários.</span>
+      </div>
+
+      <div class="form-group-cor">
+        <label>Tema</label>
+        <div class="tema-grid">
+          <label id="labelTemaClaro" class="tema-card-label selected">
+            <input type="radio" name="temaRadio" value="claro" checked onchange="trocarTemaVisual('claro')">
+            <span>☀️ Claro</span>
+          </label>
+          <label id="labelTemaEscuro" class="tema-card-label">
+            <input type="radio" name="temaRadio" value="escuro" onchange="trocarTemaVisual('escuro')">
+            <span>🌙 Escuro</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group-cor">
+        <label>Estilo visual</label>
+        <select id="selectEstiloVisual" class="select-estilo" onchange="aplicarPreviewAoVivo()">
+          <option value="moderno" selected>Moderno</option>
+          <option value="classico">Clássico</option>
+        </select>
+      </div>
+
+      <button type="button" class="btn-salvar-aparencia" onclick="salvarConfiguracaoAparencia()">Salvar aparência</button>
+      <button type="button" class="btn-restaurar-padrao" onclick="restaurarAparenciaPadrao()">Restaurar padrão</button>
+
+      <div style="margin-top: 24px;">
+        <h3 style="font-size: 1.05rem; font-weight: 800; margin-bottom: 8px;">Pré-visualização</h3>
         <div id="cardPreviaMobile" class="preview-phone-card">
           <div class="preview-header-loja">
             <div id="prevLogoBox" class="preview-logo-box">CI</div>
@@ -483,12 +533,35 @@
           </div>
         </div>
       </div>
-    </div>
+    </section>
 
-    <!-- SEÇÃO 5: HORÁRIOS -->
-    <div id="secao-horarios" class="secao-painel" style="display:none;">
-      <div style="margin-bottom: 12px;">
-        <h2 style="font-size: 1.4rem; font-weight: 800; color: #111827;">Horário de funcionamento</h2>
+    <!-- 3. SEÇÃO: PRODUTOS (LAYOUT IDÊNTICO À FOTO) -->
+    <section id="sec-produtos" class="admin-section-card" style="display:none;">
+      <div class="section-title-box">
+        <h2>Produtos</h2>
+        <p>Produtos cadastrados no seu cardápio.</p>
+      </div>
+
+      <input type="text" id="buscaProdutoPainel" class="search-input-box" placeholder="🔍 Buscar produto..." oninput="filtrarProdutosPainel()">
+      <button type="button" class="btn-novo-produto" onclick="adicionarProdutoNovoExemplo()">+ Novo produto</button>
+
+      <div id="listaProdutosCardsPainel"></div>
+    </section>
+
+    <!-- 4. SEÇÃO: CATEGORIAS (LAYOUT IDÊNTICO À FOTO) -->
+    <section id="sec-categorias" class="admin-section-card" style="display:none;">
+      <div class="section-title-box">
+        <h2>Categorias</h2>
+        <p>Categorias utilizadas no cardápio.</p>
+      </div>
+
+      <div id="listaCategoriasCardsPainel"></div>
+    </section>
+
+    <!-- 5. SEÇÃO: HORÁRIOS DE FUNCIONAMENTO (LAYOUT IDÊNTICO À FOTO) -->
+    <section id="sec-horarios" class="admin-section-card" style="display:none;">
+      <div class="section-title-box">
+        <h2>Horário de funcionamento</h2>
       </div>
 
       <div class="horarios-table-card">
@@ -505,102 +578,32 @@
         Marque os dias em que a loja funciona e informe o horário de abertura e fechamento de cada dia.
       </p>
 
-      <button type="button" class="btn-salvar-aparencia" style="margin-top: 14px;" onclick="salvarHorariosLoja()">Salvar Horários</button>
+      <button type="button" class="btn-salvar-aparencia" style="margin-top: 16px;" onclick="salvarHorariosLoja()">Salvar Horários</button>
+    </section>
+
+  </main>
+
+  <!-- BOTÃO FLUTUANTE DE MENU GAVETA -->
+  <div class="admin-menu-toggle" onclick="abrirMenuGaveta()" title="Mudar Seção">
+    ⚙️
+  </div>
+
+  <!-- GAVETA LATERAL / MENU DE SEÇÕES -->
+  <div id="drawerMenuAdmin" class="admin-drawer" onclick="fecharMenuGaveta(event)">
+    <div class="admin-drawer-box" onclick="event.stopPropagation()">
+      <h3 style="margin-bottom: 16px; font-size: 1.1rem; font-weight: 800;">Navegação do Painel</h3>
+      <button class="drawer-item-btn active" onclick="navegarSecaoPainel('configuracoes', 'Configurações')">⚙️ Configurações & Backup</button>
+      <button class="drawer-item-btn" onclick="navegarSecaoPainel('aparencia', 'Aparência')">🎨 Aparência</button>
+      <button class="drawer-item-btn" onclick="navegarSecaoPainel('produtos', 'Produtos')">🍨 Produtos</button>
+      <button class="drawer-item-btn" onclick="navegarSecaoPainel('categorias', 'Categorias')">🏷️ Categorias</button>
+      <button class="drawer-item-btn" onclick="navegarSecaoPainel('horarios', 'Horário de funcionamento')">🕒 Horário de funcionamento</button>
+      <button class="drawer-item-btn" style="background:#fee2e2; color:#dc2626; border-color:#fca5a5; margin-top:10px;" onclick="fecharMenuGaveta()">Fechar Menu</button>
     </div>
-
-    <!-- SEÇÃO 6: CONFIGURAÇÕES E BACKUP -->
-    <div id="secao-configuracoes" class="secao-painel" style="display:none;">
-      <div style="margin-bottom: 12px;">
-        <h2 style="font-size: 1.4rem; font-weight: 800; color: #111827;">Configurações</h2>
-        <p style="font-size: 0.88rem; color: var(--text-muted);">Gerencie os dados e preferências do seu Hub Brasil.</p>
-      </div>
-
-      <div class="cfg-card">
-        <div class="cfg-card-title">Recursos Exclusivos (Hub Clássico)</div>
-        <div class="switch-row">
-          <label>Exibir Reprodutor de Música</label>
-          <input type="checkbox" id="checkExibirMusica" class="switch-check" checked onchange="salvarConfigRecursosHub()">
-        </div>
-        <div class="switch-row">
-          <label>Exibir Card de Wi-Fi</label>
-          <input type="checkbox" id="checkExibirWifi" class="switch-check" checked onchange="salvarConfigRecursosHub()">
-        </div>
-      </div>
-
-      <div class="cfg-card">
-        <div class="cfg-card-header">
-          <div class="cfg-icon-box">💾</div>
-          <div>
-            <div class="cfg-card-title">Backup dos dados</div>
-            <div class="cfg-card-desc">Baixe uma cópia dos produtos, loja, redes sociais e aparência cadastrados neste navegador.</div>
-          </div>
-        </div>
-        <button type="button" class="cfg-btn-primary" onclick="baixarBackupHub()">Baixar backup</button>
-      </div>
-
-      <div class="cfg-card">
-        <div class="cfg-card-header">
-          <div class="cfg-icon-box">📥</div>
-          <div>
-            <div class="cfg-card-title">Restaurar backup</div>
-            <div class="cfg-card-desc">Selecione um arquivo de backup do Hub Brasil para restaurar os dados cadastrados.</div>
-          </div>
-        </div>
-        <input type="file" id="inputArquivoBackup" accept=".json" style="display:none;" onchange="processarRestauracaoBackup(event)">
-        <button type="button" class="cfg-btn-secondary" onclick="document.getElementById('inputArquivoBackup').click()">Restaurar backup</button>
-      </div>
-
-      <div class="cfg-card">
-        <div class="cfg-card-header">
-          <div class="cfg-icon-box">📊</div>
-          <div>
-            <div class="cfg-card-title">Resumo dos dados</div>
-            <div class="cfg-card-desc">Confira rapidamente o que está armazenado localmente neste navegador.</div>
-          </div>
-        </div>
-        <div class="cfg-summary-list">
-          <div class="cfg-summary-row">
-            <span>Produtos</span>
-            <strong id="resumoQtdProdutos">0</strong>
-          </div>
-          <div class="cfg-summary-row">
-            <span>Categorias</span>
-            <strong id="resumoQtdCategorias">0</strong>
-          </div>
-          <div class="cfg-summary-row">
-            <span>Redes sociais</span>
-            <strong id="resumoStatusRedes">Não configuradas</strong>
-          </div>
-          <div class="cfg-summary-row">
-            <span>Aparência</span>
-            <strong id="resumoStatusAparencia">Padrão</strong>
-          </div>
-        </div>
-      </div>
-
-      <div class="cfg-card" style="border-color: #fee2e2; background: #fffafb;">
-        <div class="cfg-card-header">
-          <div class="cfg-icon-box" style="background:#fee2e2;">⚠️</div>
-          <div>
-            <div class="cfg-card-title">Apagar dados locais</div>
-            <div class="cfg-card-desc">Remove os dados salvos neste navegador. Essa ação não altera os arquivos do GitHub.</div>
-          </div>
-        </div>
-        <button type="button" class="cfg-btn-danger" onclick="confirmarLimparDadosLocais()">Apagar dados locais</button>
-      </div>
-
-      <div class="cfg-notice-card">
-        <strong>Importante:</strong> nesta versão de demonstração, os dados ficam armazenados no navegador. O backup serve para você não perder seus cadastros ao trocar de computador ou navegador.
-      </div>
-    </div>
-
   </div>
 
   <script>
     let dadosLoja = {};
     let produtosLoja = [];
-    let senhaWifiReal = "sorvete123";
-    let wifiRevelado = false;
 
     const DIAS_SEMANA = [
       { id: "seg", nome: "Segunda-feira" },
@@ -612,14 +615,24 @@
       { id: "dom", nome: "Domingo" }
     ];
 
-    function mostrarSecao(nomeSecao) {
-      document.querySelectorAll(".secao-painel").forEach(s => s.style.display = "none");
-      document.querySelectorAll(".nav-tab-btn").forEach(b => b.classList.remove("active"));
-      
-      const elSecao = document.getElementById(`secao-${nomeSecao}`);
+    function abrirMenuGaveta() {
+      document.getElementById("drawerMenuAdmin").classList.add("active");
+    }
+
+    function fecharMenuGaveta() {
+      document.getElementById("drawerMenuAdmin").classList.remove("active");
+    }
+
+    function navegarSecaoPainel(nomeSecao, tituloExibido) {
+      document.querySelectorAll(".admin-section-card").forEach(s => s.style.display = "none");
+      document.querySelectorAll(".drawer-item-btn").forEach(b => b.classList.remove("active"));
+
+      const elSecao = document.getElementById(`sec-${nomeSecao}`);
       if (elSecao) elSecao.style.display = "block";
 
-      const btns = Array.from(document.querySelectorAll(".nav-tab-btn"));
+      document.getElementById("txtTituloPainel").textContent = tituloExibido;
+
+      const btns = Array.from(document.querySelectorAll(".drawer-item-btn"));
       const btnAlvo = btns.find(b => b.getAttribute("onclick").includes(nomeSecao));
       if (btnAlvo) btnAlvo.classList.add("active");
 
@@ -628,6 +641,8 @@
       if (nomeSecao === 'aparencia') carregarAparenciaSalva();
       if (nomeSecao === 'horarios') carregarTabelaHorarios();
       if (nomeSecao === 'configuracoes') atualizarResumoConfiguracoes();
+
+      fecharMenuGaveta();
     }
 
     function carregarDadosIniciais() {
@@ -648,16 +663,8 @@
         ];
       }
 
-      const exibirM = dadosLoja.exibirMusica !== false;
-      const exibirW = dadosLoja.exibirWifi !== false;
-      document.getElementById("boxMusicaHub").style.display = exibirM ? "flex" : "none";
-      document.getElementById("boxWifiHub").style.display = exibirW ? "flex" : "none";
-      document.getElementById("checkExibirMusica").checked = exibirM;
-      document.getElementById("checkExibirWifi").checked = exibirW;
-
-      const aparencia = JSON.parse(localStorage.getItem("hubAparencia") || "{}");
-      if (aparencia.principal) document.documentElement.style.setProperty("--primary-color", aparencia.principal);
-      if (aparencia.secundaria) document.documentElement.style.setProperty("--secondary-color", aparencia.secundaria);
+      document.getElementById("checkExibirMusica").checked = dadosLoja.exibirMusica !== false;
+      document.getElementById("checkExibirWifi").checked = dadosLoja.exibirWifi !== false;
 
       atualizarResumoConfiguracoes();
     }
@@ -666,41 +673,9 @@
       dadosLoja.exibirMusica = document.getElementById("checkExibirMusica").checked;
       dadosLoja.exibirWifi = document.getElementById("checkExibirWifi").checked;
       localStorage.setItem("hubLoja", JSON.stringify(dadosLoja));
-      document.getElementById("boxMusicaHub").style.display = dadosLoja.exibirMusica ? "flex" : "none";
-      document.getElementById("boxWifiHub").style.display = dadosLoja.exibirWifi ? "flex" : "none";
     }
 
-    function alternarAudio() {
-      const audio = document.getElementById("audioFundo");
-      const btn = document.getElementById("btnPlayMusica");
-      const label = document.getElementById("labelAudio");
-      if (audio.paused) {
-        audio.play().then(() => {
-          btn.textContent = "⏸️";
-          label.textContent = "Tocando...";
-        }).catch(() => alert("Toque na tela para liberar a reprodução de áudio."));
-      } else {
-        audio.pause();
-        btn.textContent = "🎵";
-        label.textContent = "Música da Loja";
-      }
-    }
-
-    function alternarWifiSenha() {
-      const passElem = document.getElementById("wifiSenhaTexto");
-      const btn = document.getElementById("btnVerWifi");
-      if (!wifiRevelado) {
-        passElem.textContent = senhaWifiReal;
-        btn.textContent = "Copiar";
-        wifiRevelado = true;
-      } else {
-        navigator.clipboard.writeText(senhaWifiReal).then(() => {
-          btn.textContent = "Copiado! ✓";
-          setTimeout(() => { btn.textContent = "Copiar"; }, 2000);
-        });
-      }
-    }
-
+    /* PRODUTOS */
     function carregarProdutosPainel() {
       renderizarCardsProdutos(produtosLoja);
     }
@@ -726,7 +701,7 @@
             </div>
           </div>
           <div class="card-prod-actions">
-            <button type="button" class="btn-acao-prod btn-acao-editar" onclick="alert('Editar: ${prod.nome}')">Editar</button>
+            <button type="button" class="btn-acao-prod btn-acao-editar" onclick="alert('Editar produto: ${prod.nome}')">Editar</button>
             <button type="button" class="btn-acao-prod ${isAtivo ? "btn-acao-status" : "btn-acao-status ativo"}" onclick="alternarStatusProduto('${prod.id}')">${isAtivo ? "Desativar" : "Ativar"}</button>
             <button type="button" class="btn-acao-prod btn-acao-excluir" onclick="removerProduto('${prod.id}')">Excluir</button>
           </div>
@@ -764,13 +739,14 @@
       const nome = prompt("Nome do produto:");
       if (!nome) return;
       const preco = parseFloat(prompt("Preço (ex: 15.00):") || "10");
-      const cat = prompt("Categoria (ex: sorvete, acai):") || "Geral";
+      const cat = prompt("Categoria (ex: sorvete, acai):") || "geral";
       produtosLoja.push({ id: String(Date.now()), nome, preco, categoria: cat, disponivel: true, destaque: false });
       localStorage.setItem("hubProdutos", JSON.stringify(produtosLoja));
       filtrarProdutosPainel();
       atualizarResumoConfiguracoes();
     }
 
+    /* CATEGORIAS */
     function carregarCategoriasPainel() {
       const container = document.getElementById("listaCategoriasCardsPainel");
       container.innerHTML = "";
@@ -792,6 +768,7 @@
       });
     }
 
+    /* APARÊNCIA */
     function carregarAparenciaSalva() {
       const salva = JSON.parse(localStorage.getItem("hubAparencia") || "{}");
       const p = salva.principal || "#FFD400";
@@ -851,8 +828,6 @@
         estilo: document.getElementById("selectEstiloVisual").value
       };
       localStorage.setItem("hubAparencia", JSON.stringify(dados));
-      document.documentElement.style.setProperty("--primary-color", dados.principal);
-      document.documentElement.style.setProperty("--secondary-color", dados.secundaria);
       alert("Aparência salva com sucesso!");
     }
 
@@ -865,6 +840,7 @@
       salvarConfiguracaoAparencia();
     }
 
+    /* HORÁRIOS */
     function gerarOpcoesHoras(sel) {
       let h = "";
       for (let i = 0; i < 24; i++) {
@@ -919,6 +895,7 @@
       alert("Horários salvos com sucesso!");
     }
 
+    /* CONFIGURAÇÕES, BACKUP E RESTAURAÇÃO */
     function atualizarResumoConfiguracoes() {
       const p = JSON.parse(localStorage.getItem("hubProdutos") || "[]");
       document.getElementById("resumoQtdProdutos").textContent = p.length;
