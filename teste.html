@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cardápio & Vitrine Digital (V1)</title>
+  <title>Cardápio & Vitrine Digital</title>
 
   <!-- Fallbacks dos arquivos locais existentes -->
   <script src="loja.js"></script>
@@ -408,7 +408,7 @@
     </div>
   </div>
 
-  <!-- MODAL DO CARRINHO & CHECKOUT ATUALIZADO -->
+  <!-- MODAL DO CARRINHO & CHECKOUT -->
   <div id="modalCarrinho" class="modal-overlay" style="z-index: 1300;">
     <div class="modal-content">
       <div class="modal-header">
@@ -510,7 +510,7 @@
 
       <div class="cart-form-field">
         <label>Observações do Pedido (opcional)</label>
-        <textarea id="pedidoObservacao" rows="2" placeholder="Ex: Sem cebola, caprichar na calda, interfone quebrado..."></textarea>
+        <textarea id="pedidoObservacao" rows="2" placeholder="Ex: Sem calda, interfone quebrado..."></textarea>
       </div>
 
       <button class="btn-send-whatsapp" onclick="finalizarPedidoWhatsApp()">
@@ -590,8 +590,10 @@
       if (prodsSalvos) produtosLoja = JSON.parse(prodsSalvos);
       else if (typeof produtos !== 'undefined' && Array.isArray(produtos)) produtosLoja = produtos;
       else produtosLoja = [
-        { id: "p1", nome: "Copo de Açaí 500ml", categoria: "Açaí", preco: 20.00, descricao: "Açaí cremoso com banana e granola.", disponivel: true, destaque: true },
-        { id: "p2", nome: "Cascão Duplo", categoria: "Sorvetes", preco: 15.00, descricao: "Duas bolas artesanais.", disponivel: true, destaque: true }
+        { id: "1", nome: "Açaí Copo 300ml", categoria: "acai", preco: 9.00, disponivel: true, destaque: false },
+        { id: "2", nome: "Açaí Copo 500ml", categoria: "acai", preco: 13.00, disponivel: true, destaque: true },
+        { id: "3", nome: "Açaí Copo 700ml", categoria: "acai", preco: 16.00, disponivel: true, destaque: false },
+        { id: "4", nome: "Sorvete Copo 300ml", categoria: "sorvete", preco: 12.00, disponivel: true, destaque: false }
       ];
 
       popularTextosELinks();
@@ -845,7 +847,7 @@
 
     function adicionarAoCarrinho(id) {
       iniciarMusicaSePermitido();
-      const prod = produtosLoja.find(p => p.id === id);
+      const prod = produtosLoja.find(p => String(p.id) === String(id));
       if (!prod) return;
       carrinho[id] = { produto: prod, qtd: 1 };
       atualizarCarrinhoVisual();
