@@ -386,6 +386,7 @@
             padding: 11px 12px;
             font-size: 14px;
             outline: none;
+            background: white;
         }
 
         .field textarea {
@@ -693,53 +694,6 @@
             cursor: pointer;
         }
 
-        /* SELEÇÃO DOS 3 MODELOS DE LAYOUT */
-        .layout-options-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-            margin-top: 6px;
-            margin-bottom: 18px;
-        }
-
-        .layout-card-option {
-            border: 2px solid #e5e7eb;
-            border-radius: 12px;
-            padding: 14px 10px;
-            text-align: center;
-            cursor: pointer;
-            background: #fff;
-            transition: .2s;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .layout-card-option:hover {
-            border-color: #d1d5db;
-        }
-
-        .layout-card-option.active {
-            border-color: #facc15;
-            background: #fffdf0;
-        }
-
-        .layout-card-option .layout-icon {
-            font-size: 24px;
-        }
-
-        .layout-card-option strong {
-            font-size: 13px;
-            color: #111827;
-        }
-
-        .layout-card-option small {
-            font-size: 11px;
-            color: #6b7280;
-            line-height: 1.25;
-        }
-
         /* APARÊNCIA */
         .appearance-grid {
             display: grid;
@@ -886,7 +840,7 @@
         @media (max-width: 900px) {
             .sidebar { width: 210px; }
             .content { margin-left: 210px; width: calc(100% - 210px); }
-            .stats, .category-list, .settings-grid, .appearance-grid, .layout-options-grid { grid-template-columns: 1fr; }
+            .stats, .category-list, .settings-grid, .appearance-grid { grid-template-columns: 1fr; }
         }
 
         @media (max-width: 650px) {
@@ -1241,28 +1195,17 @@
             <div class="card">
                 <div class="card-header">
                     <h3>Aparência do Cardápio</h3>
-                    <p>Escolha o modelo de layout, personalize as cores e o tema da vitrine do seu cliente.</p>
+                    <p>Escolha o formato de exibição, personalize as cores e o tema da vitrine do seu cliente.</p>
                 </div>
 
+                <!-- SELETOR EM CAIXA DE SELEÇÃO LIMPA -->
                 <div class="field full" style="margin-bottom: 20px;">
                     <label>Modelo de Layout do Cardápio</label>
-                    <div class="layout-options-grid">
-                        <div class="layout-card-option active" data-modelo="hub_classico" onclick="selecionarModeloLayout('hub_classico')">
-                            <span class="layout-icon">🔗</span>
-                            <strong>Hub Clássico</strong>
-                            <small>Estilo Linktree com música, Wi-Fi e botões de redes</small>
-                        </div>
-                        <div class="layout-card-option" data-modelo="vitrine_abas" onclick="selecionarModeloLayout('vitrine_abas')">
-                            <span class="layout-icon">📑</span>
-                            <strong>Vitrine com Abas</strong>
-                            <small>Cardápio organizado com aba de informações</small>
-                        </div>
-                        <div class="layout-card-option" data-modelo="app_delivery" onclick="selecionarModeloLayout('app_delivery')">
-                            <span class="layout-icon">📱</span>
-                            <strong>App Delivery</strong>
-                            <small>Formato de aplicativo moderno com compra rápida</small>
-                        </div>
-                    </div>
+                    <select id="selectModeloLayout" onchange="aoTrocarModeloLayoutSimultaneo(this.value)">
+                        <option value="hub_classico">🔗 Hub Clássico (Estilo Linktree com Música e Wi-Fi)</option>
+                        <option value="vitrine_abas">📑 Vitrine com Abas (Cardápio & Informações)</option>
+                        <option value="app_delivery">📱 App Delivery (Formato Aplicativo com compra rápida)</option>
+                    </select>
                 </div>
 
                 <div class="appearance-grid">
@@ -1499,7 +1442,6 @@
     let produtosPainel = JSON.parse(localStorage.getItem("hubProdutos")) || PRODUTOS_PADRAO;
     let novaImagemProduto = "";
     let produtoEditando = null;
-    let modeloLayoutAtual = "hub_classico";
 
     /* NAVEGAÇÃO ENTRE ABAS */
     const botoesMenu = document.querySelectorAll(".menu-btn");
@@ -1883,12 +1825,11 @@
         alert("Redes sociais salvas com sucesso!");
     }
 
-    /* APARÊNCIA & 3 MODELOS DE LAYOUT */
-    function selecionarModeloLayout(modelo) {
-        modeloLayoutAtual = modelo;
-        document.querySelectorAll(".layout-card-option").forEach(card => {
-            card.classList.toggle("active", card.dataset.modelo === modelo);
-        });
+    /* APARÊNCIA & SELEÇÃO SIMULTÂNEA DE LAYOUT */
+    function aoTrocarModeloLayoutSimultaneo(modelo) {
+        const aparencia = JSON.parse(localStorage.getItem("hubAparencia") || "{}");
+        aparencia.modelo = modelo;
+        localStorage.setItem("hubAparencia", JSON.stringify(aparencia));
     }
 
     function carregarAparencia() {
@@ -1910,8 +1851,8 @@
             document.getElementById("aparenciaEstilo").value = aparencia.estilo;
         }
 
-        modeloLayoutAtual = aparencia.modelo || "hub_classico";
-        selecionarModeloLayout(modeloLayoutAtual);
+        const modeloSalvo = aparencia.modelo || "hub_classico";
+        document.getElementById("selectModeloLayout").value = modeloSalvo;
         aplicarPreviewTema();
     }
 
@@ -1923,11 +1864,11 @@
             secundaria: document.getElementById("aparenciaCorSecundariaHex").value,
             tema: document.querySelector('input[name="aparenciaTema"]:checked').value,
             estilo: document.getElementById("aparenciaEstilo").value,
-            modelo: modeloLayoutAtual
+            modelo: document.getElementById("selectModeloLayout").value
         };
         localStorage.setItem("hubAparencia", JSON.stringify(dados));
         aplicarPreviewTema();
-        alert("Aparência e modelo de layout salvos com sucesso!");
+        alert("Aparência e formato do cardápio salvos com sucesso!");
     }
 
     function restaurarAparencia() {
@@ -1937,7 +1878,7 @@
         document.getElementById("aparenciaCorSecundariaHex").value = "#7B2CBF";
         document.querySelector('input[name="aparenciaTema"][value="claro"]').checked = true;
         document.getElementById("aparenciaEstilo").value = "moderno";
-        selecionarModeloLayout("hub_classico");
+        document.getElementById("selectModeloLayout").value = "hub_classico";
         aplicarPreviewTema();
         salvarAparencia();
     }
@@ -2044,3 +1985,4 @@
 
 </body>
 </html>
+
