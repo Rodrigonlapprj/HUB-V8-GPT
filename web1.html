@@ -1,0 +1,2445 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hub Brasil | Painel Administrativo</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&family=Montserrat:wght@600;800&family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f6f8;
+            color: #202124;
+        }
+
+        button, input, textarea, select {
+            font-family: inherit;
+        }
+
+        .app {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* MENU LATERAL */
+        .sidebar {
+            width: 250px;
+            background: #111827;
+            color: white;
+            padding: 25px 15px;
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            overflow-y: auto;
+        }
+
+        .brand {
+            padding: 5px 10px 30px;
+        }
+
+        .brand h1 {
+            font-size: 23px;
+            letter-spacing: .5px;
+            margin-bottom: 5px;
+        }
+
+        .brand p {
+            font-size: 13px;
+            color: #9ca3af;
+        }
+
+        .menu {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .menu button {
+            width: 100%;
+            border: 0;
+            background: transparent;
+            color: #d1d5db;
+            text-align: left;
+            padding: 13px 14px;
+            border-radius: 9px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            transition: .2s;
+        }
+
+        .menu button:hover {
+            background: #1f2937;
+            color: white;
+        }
+
+        .menu button.active {
+            background: #facc15;
+            color: #111827;
+            font-weight: bold;
+        }
+
+        .menu-icon {
+            width: 19px;
+            height: 19px;
+            flex-shrink: 0;
+        }
+
+        .sidebar-footer {
+            position: absolute;
+            bottom: 20px;
+            left: 25px;
+            right: 25px;
+            font-size: 12px;
+            color: #6b7280;
+        }
+
+        /* CONTEÚDO */
+        .content {
+            margin-left: 250px;
+            width: calc(100% - 250px);
+            padding: 30px;
+        }
+
+        .topbar {
+            background: white;
+            border-radius: 14px;
+            padding: 20px 25px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,.05);
+        }
+
+        .topbar h2 {
+            font-size: 23px;
+        }
+
+        .status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: #16a34a;
+        }
+
+        .status-dot {
+            width: 9px;
+            height: 9px;
+            background: #22c55e;
+            border-radius: 50%;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .card {
+            background: white;
+            border-radius: 14px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,.05);
+        }
+
+        .card-header {
+            margin-bottom: 20px;
+        }
+
+        .card-header h3 {
+            font-size: 19px;
+            margin-bottom: 5px;
+        }
+
+        .card-header p {
+            font-size: 14px;
+            color: #6b7280;
+        }
+
+        /* DASHBOARD */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+            margin-bottom: 20px;
+        }
+
+        .stat {
+            background: white;
+            padding: 22px;
+            border-radius: 14px;
+            box-shadow: 0 2px 10px rgba(0,0,0,.05);
+        }
+
+        .stat span {
+            font-size: 13px;
+            color: #6b7280;
+        }
+
+        .stat strong {
+            display: block;
+            margin-top: 8px;
+            font-size: 28px;
+        }
+
+        /* PRODUTOS */
+        .products-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .search-box {
+            flex: 1;
+        }
+
+        .search-box input {
+            width: 100%;
+            border: 1px solid #d1d5db;
+            border-radius: 9px;
+            padding: 12px 14px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .search-box input:focus {
+            border-color: #facc15;
+        }
+
+        .product-list {
+            display: grid;
+            gap: 12px;
+        }
+
+        .product {
+            border: 1px solid #e5e7eb;
+            border-radius: 11px;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            transition: .2s;
+        }
+
+        .product:hover {
+            box-shadow: 0 3px 12px rgba(0,0,0,.06);
+        }
+
+        .product-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            min-width: 0;
+        }
+
+        .product-image {
+            width: 70px;
+            height: 70px;
+            border-radius: 10px;
+            object-fit: cover;
+            background: #f3f4f6;
+            flex-shrink: 0;
+        }
+
+        .product-info h4 {
+            margin-bottom: 5px;
+            font-size: 16px;
+        }
+
+        .product-info p {
+            font-size: 13px;
+            color: #6b7280;
+            margin-bottom: 4px;
+        }
+
+        .product-price {
+            font-weight: bold;
+        }
+
+        .badges {
+            display: flex;
+            gap: 5px;
+            margin-top: 6px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 3px 7px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        .badge-active {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .badge-inactive {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .badge-highlight {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 8px;
+            flex-shrink: 0;
+            flex-wrap: wrap;
+        }
+
+        /* BOTÕES */
+        .btn {
+            border: 0;
+            border-radius: 8px;
+            padding: 9px 13px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 13px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: .15s ease;
+        }
+
+        .btn-primary {
+            background: #facc15;
+            color: #111827;
+        }
+
+        .btn-secondary {
+            background: #e5e7eb;
+            color: #374151;
+        }
+
+        .btn-danger {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+
+        .btn-success {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .btn-whatsapp {
+            background: #25d366;
+            color: white;
+        }
+
+        .btn-whatsapp:hover {
+            background: #20ba5a;
+        }
+
+        /* FORMULÁRIOS */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .field.full {
+            grid-column: 1 / -1;
+        }
+
+        .field label {
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .field input, .field textarea, .field select {
+            width: 100%;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            padding: 11px 12px;
+            font-size: 14px;
+            outline: none;
+            background: white;
+        }
+
+        .field textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .field input:focus, .field textarea:focus, .field select:focus {
+            border-color: #facc15;
+        }
+
+        .actions {
+            margin-top: 22px;
+            display: flex;
+            gap: 10px;
+        }
+
+        /* HORÁRIOS */
+        .horarios-semana {
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #fff;
+        }
+
+        .horario-cabecalho, .horario-linha {
+            display: grid;
+            grid-template-columns: minmax(150px, 1.5fr) 80px 1fr 1fr;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 15px;
+        }
+
+        .horario-cabecalho {
+            background: #f9fafb;
+            color: #6b7280;
+            font-size: 12px;
+            font-weight: bold;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .horario-linha {
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .horario-linha:last-child {
+            border-bottom: 0;
+        }
+
+        .horario-linha strong {
+            font-size: 14px;
+        }
+
+        .horario-linha input[type="time"] {
+            width: 100%;
+            min-width: 0;
+        }
+
+        .horario-linha input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .horario-ajuda {
+            display: block;
+            margin-top: 8px;
+            color: #6b7280;
+            font-size: 12px;
+        }
+
+        /* CATEGORIAS */
+        .category-list {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .category {
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            background: #ffffff;
+        }
+
+        .category strong {
+            display: block;
+            margin-bottom: 5px;
+            text-transform: lowercase;
+        }
+
+        .category span {
+            font-size: 13px;
+            color: #6b7280;
+        }
+
+        /* LOGO & IMAGENS */
+        .store-logo-box, .image-upload-box {
+            border: 1px dashed #d1d5db;
+            border-radius: 12px;
+            padding: 16px;
+            background: #f9fafb;
+        }
+
+        .store-logo-row, .image-upload-row {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+        .store-logo-preview {
+            width: 110px;
+            height: 110px;
+            border-radius: 16px;
+            object-fit: contain;
+            background: white;
+            border: 1px solid #e5e7eb;
+            display: none;
+            padding: 8px;
+        }
+
+        .image-preview {
+            width: 100px;
+            height: 100px;
+            border-radius: 12px;
+            object-fit: cover;
+            background: #e5e7eb;
+            border: 1px solid #e5e7eb;
+            display: none;
+        }
+
+        .image-url-input {
+            margin-top: 12px;
+        }
+
+        .store-preview-card {
+            margin-top: 22px;
+            padding: 18px;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            background: #fafafa;
+        }
+
+        .store-preview-title {
+            font-size: 13px;
+            font-weight: bold;
+            color: #6b7280;
+            margin-bottom: 12px;
+        }
+
+        .store-preview-content {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .store-preview-logo {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            object-fit: contain;
+            background: white;
+            border: 1px solid #e5e7eb;
+            padding: 5px;
+        }
+
+        .notice {
+            padding: 15px;
+            border-radius: 10px;
+            background: #fffbeb;
+            border: 1px solid #fde68a;
+            color: #92400e;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        /* MODAL */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,.55);
+            z-index: 1000;
+            padding: 20px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            width: 100%;
+            max-width: 650px;
+            max-height: 90vh;
+            overflow-y: auto;
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 20px 50px rgba(0,0,0,.2);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-header h3 {
+            font-size: 20px;
+        }
+
+        .close-modal {
+            width: 35px;
+            height: 35px;
+            border: 0;
+            border-radius: 50%;
+            background: #f3f4f6;
+            cursor: pointer;
+            font-size: 18px;
+            line-height: 1;
+        }
+
+        /* CONFIGURAÇÕES */
+        .settings-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+        }
+
+        .setting-card {
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 18px;
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 12px 14px;
+            align-items: start;
+            background: #fff;
+        }
+
+        .setting-card h4 {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .setting-card p {
+            color: #6b7280;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .setting-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            background: #f3f4f6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .settings-summary {
+            grid-column: 1 / -1;
+            display: grid;
+            gap: 8px;
+            margin-top: 10px;
+            border-top: 1px solid #f3f4f6;
+            padding-top: 10px;
+        }
+
+        .settings-summary span {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            color: #4b5563;
+        }
+
+        .setting-danger {
+            border-color: #fecaca;
+            background: #fffafa;
+        }
+
+        .switch-row {
+            grid-column: 1 / -1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #f3f4f6;
+        }
+        .switch-row label {
+            font-size: 13px;
+            font-weight: bold;
+        }
+        .switch-check {
+            width: 38px;
+            height: 20px;
+            accent-color: #facc15;
+            cursor: pointer;
+        }
+
+        /* APARÊNCIA DIGITAL */
+        .appearance-grid {
+            display: grid;
+            grid-template-columns: minmax(300px, 1fr) minmax(320px, 1fr);
+            gap: 28px;
+            align-items: start;
+        }
+
+        .appearance-controls {
+            display: grid;
+            gap: 16px;
+        }
+
+        .color-control {
+            display: grid;
+            grid-template-columns: 56px 1fr;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .color-control input[type="color"] {
+            width: 56px;
+            height: 42px;
+            padding: 3px;
+            border: 1px solid #d1d5db;
+            border-radius: 9px;
+            background: #fff;
+            cursor: pointer;
+        }
+
+        .theme-options {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .theme-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 11px 14px;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            cursor: pointer;
+            background: #fff;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .appearance-preview {
+            --preview-primary: #FFD400;
+            --preview-secondary: #7B2CBF;
+            --preview-bg: #f8fafc;
+            --preview-card: #fff;
+            --preview-text: #202124;
+            min-height: 450px;
+            border: 1px solid #e5e7eb;
+            border-radius: 18px;
+            padding: 18px;
+            background: var(--preview-bg);
+            color: var(--preview-text);
+            box-shadow: 0 8px 28px rgba(0,0,0,.06);
+            transition: .2s ease;
+        }
+
+        .appearance-preview.dark {
+            --preview-bg: #17181c;
+            --preview-card: #24262b;
+            --preview-text: #f4f4f5;
+        }
+
+        .preview-store-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--preview-card);
+            border-radius: 14px;
+            padding: 12px;
+        }
+
+        .preview-logo {
+            width: 46px;
+            height: 46px;
+            border-radius: 12px;
+            display: grid;
+            place-items: center;
+            background: var(--preview-primary);
+            color: #202124;
+            font-weight: 900;
+        }
+
+        .preview-banner {
+            margin: 16px 0;
+            min-height: 90px;
+            border-radius: 16px;
+            padding: 18px;
+            display: flex;
+            align-items: flex-end;
+            font-size: 18px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--preview-primary), var(--preview-secondary));
+            color: #fff;
+        }
+
+        .preview-category-row {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding-bottom: 4px;
+        }
+
+        .preview-chip {
+            white-space: nowrap;
+            padding: 6px 12px;
+            border-radius: 999px;
+            background: var(--preview-card);
+            border: 1px solid #e5e7eb;
+            font-size: 12px;
+        }
+
+        .preview-chip.active {
+            background: var(--preview-secondary);
+            border-color: var(--preview-secondary);
+            color: #fff;
+        }
+
+        .preview-product-card {
+            display: flex;
+            gap: 14px;
+            margin-top: 14px;
+            padding: 12px;
+            background: var(--preview-card);
+            border-radius: 14px;
+        }
+
+        .preview-product-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #e5e7eb, #f9fafb);
+        }
+
+        /* ========================================================
+           MODAL DE VISUALIZAÇÃO DO CARDÁPIO IMPRESSO (A4 / PDF)
+           ======================================================== */
+        #modalPreviewImpresso .modal {
+            max-width: 950px;
+            background: #525659;
+            padding: 20px;
+        }
+
+        .folha-a4 {
+            width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto;
+            background: var(--print-cor-fundo, #ffffff);
+            padding: 12mm 15mm;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            color: #111;
+            font-family: 'Roboto Condensed', sans-serif;
+        }
+
+        /* MODELO 2: FAIXAS E COLUNAS (PIZZARIA/LANCHONETE) */
+        .print-m2-topo {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
+            margin-bottom: 14px;
+        }
+        .print-m2-titulo {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+        .print-m2-logo {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            border: 2px solid var(--print-cor-primaria, #f4b800);
+            object-fit: cover;
+        }
+        .print-m2-contato {
+            background: var(--print-cor-primaria, #f4b800);
+            color: var(--print-cor-secundaria, #222222);
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 13px;
+        }
+        .print-m2-corpo {
+            display: grid;
+            grid-template-columns: 1.8fr 1fr;
+            gap: 16px;
+        }
+        .print-m2-bloco { margin-bottom: 12px; page-break-inside: avoid; }
+        .print-m2-faixa {
+            background: var(--print-cor-primaria, #f4b800);
+            color: var(--print-cor-secundaria, #222222);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 5px 8px;
+            border-radius: 3px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+        .print-m2-badge {
+            background: #000;
+            color: #fff;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 9px;
+            margin-right: 6px;
+        }
+        .print-m2-lista { list-style: none; padding: 4px 6px; }
+        .print-m2-lista li {
+            font-size: 11.5px;
+            line-height: 1.4;
+            border-bottom: 1px dashed #eee;
+            padding: 3px 0;
+            display: flex;
+            justify-content: space-between;
+        }
+        .print-m2-aviso {
+            background: #fff8e1;
+            border: 1px dashed var(--print-cor-primaria, #f4b800);
+            padding: 8px;
+            text-align: center;
+            font-size: 10px;
+            font-weight: bold;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        .print-m2-lateral-box {
+            background: #fafafa;
+            border: 1px solid #e8e8e8;
+            border-radius: 5px;
+            padding: 10px;
+            font-size: 11px;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        /* MODELO 1: FLYER VISUAL COM FOTOS (SORVETERIA/AÇAÍ) */
+        .print-m1-topo {
+            text-align: center;
+            padding: 18px;
+            background: var(--print-cor-primaria, #f4b800);
+            color: var(--print-cor-secundaria, #222222);
+            border-radius: 8px;
+            margin-bottom: 18px;
+            font-family: 'Poppins', sans-serif;
+        }
+        .print-m1-topo h1 { font-size: 24px; text-transform: uppercase; }
+        .print-m1-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+        }
+        .print-m1-card {
+            border: 1.5px solid var(--print-cor-primaria, #f4b800);
+            border-radius: 8px;
+            padding: 12px;
+            background: #fff;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .print-m1-card img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 6px;
+            background: #eee;
+            flex-shrink: 0;
+        }
+        .print-m1-card h3 { font-family: 'Poppins', sans-serif; font-size: 13.5px; margin-bottom: 4px; }
+        .print-m1-card p { font-size: 11px; color: #555; margin-bottom: 6px; }
+        .print-m1-card .preco { font-size: 14px; font-weight: bold; color: var(--print-cor-primaria, #f4b800); }
+
+        /* REGRAS DE IMPRESSÃO DIRETA PELO PAINEL */
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            #folhaA4Container, #folhaA4Container * {
+                visibility: visible;
+            }
+            #modalPreviewImpresso {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: auto;
+                background: none !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                display: block !important;
+            }
+            #modalPreviewImpresso .modal {
+                box-shadow: none !important;
+                max-width: 100% !important;
+                background: none !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+            .modal-header, .painel-impresso-botoes {
+                display: none !important;
+            }
+            .folha-a4 {
+                width: 100% !important;
+                min-height: 100vh !important;
+                padding: 5mm 8mm !important;
+                margin: 0 !important;
+                box-shadow: none !important;
+            }
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+        }
+
+        /* RESPONSIVO */
+        @media (max-width: 900px) {
+            .sidebar { width: 210px; }
+            .content { margin-left: 210px; width: calc(100% - 210px); }
+            .stats, .category-list, .settings-grid, .appearance-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 650px) {
+            .sidebar { position: relative; width: 100%; height: auto; }
+            .app { display: block; }
+            .content { margin-left: 0; width: 100%; padding: 15px; }
+            .sidebar-footer { position: relative; left: auto; bottom: auto; margin-top: 25px; }
+            .form-grid { grid-template-columns: 1fr; }
+            .product { flex-direction: column; align-items: flex-start; }
+            .product-actions { width: 100%; }
+            .product-actions button { flex: 1; }
+            .products-toolbar { flex-direction: column; align-items: stretch; }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- MENU LATERAL -->
+    <aside class="sidebar">
+        <div class="brand">
+            <h1>HUB BRASIL</h1>
+            <p>Painel administrativo</p>
+        </div>
+
+        <nav class="menu">
+            <button class="menu-btn active" data-section="dashboard">
+                <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+                    <rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/>
+                </svg>
+                Dashboard
+            </button>
+
+            <button class="menu-btn" data-section="loja">
+                <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 10l2-6h14l2 6"/><path d="M5 10v10h14V10"/><path d="M9 20v-6h6v6"/>
+                </svg>
+                Minha Loja
+            </button>
+
+            <button class="menu-btn" data-section="produtos">
+                <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="8"/><path d="M8 12h8"/><path d="M12 8v8"/>
+                </svg>
+                Produtos
+            </button>
+
+            <button class="menu-btn" data-section="categorias">
+                <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M4 4h6v6H4z"/><path d="M14 4h6v6h-6z"/><path d="M4 14h6v6H4z"/><path d="M14 14h6v6h-6z"/>
+                </svg>
+                Categorias
+            </button>
+
+            <!-- ABA DEDICADA EXCLUSIVA NO PAINEL: IMPRESSÃO & PDF -->
+            <button class="menu-btn" data-section="cardapioImpresso">
+                <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                    <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                    <rect x="6" y="14" width="12" height="8"></rect>
+                </svg>
+                Cardápio Impresso / PDF
+            </button>
+
+            <button class="menu-btn" data-section="whatsapp">
+                <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+                </svg>
+                WhatsApp Hub
+            </button>
+
+            <button class="menu-btn" data-section="redes">
+                <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="4" y="4" width="16" height="16" rx="4"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/>
+                </svg>
+                Redes Sociais
+            </button>
+
+            <!-- ABA DE APARÊNCIA DIGITAL MANTIDA INTACTA -->
+            <button class="menu-btn" data-section="aparencia">
+                <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="9"/><path d="M8 12h8"/><path d="M12 8v8"/>
+                </svg>
+                Aparência
+            </button>
+
+            <button class="menu-btn" data-section="configuracoes">
+                <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="3"/>
+                    <path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-1.8 1.8-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6V20h-2.6v-.1a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1-1.8-1.8.1-.1A1.7 1.7 0 0 0 8 15a1.7 1.7 0 0 0-1.6-1H6v-2.6h.4A1.7 1.7 0 0 0 8 10.3a1.7 1.7 0 0 0-.3-1.9l-.1-.1 1.8-1.8.1.1a1.7 1.7 0 0 0 1.9.3 1.7 1.7 0 0 0 1-1.6V5h2.6v.3a1.7 1.7 0 0 0 1 1.6 1.7 1.7 0 0 0 1.9-.3l.1-.1 1.8 1.8-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.6 1h.4V14h-.4a1.7 1.7 0 0 0-1.6 1Z"/>
+                </svg>
+                Configurações
+            </button>
+        </nav>
+
+        <div class="sidebar-footer">
+            Hub Brasil • Versão 2.0
+        </div>
+    </aside>
+
+    <!-- ÁREA PRINCIPAL -->
+    <main class="content">
+        <div class="topbar">
+            <div>
+                <h2 id="pageTitle">Dashboard</h2>
+            </div>
+            <div class="status">
+                <span class="status-dot"></span>
+                Sistema funcionando
+            </div>
+        </div>
+
+        <!-- DASHBOARD -->
+        <section id="dashboard" class="section active">
+            <div class="stats">
+                <div class="stat">
+                    <span>Produtos</span>
+                    <strong id="totalProdutos">0</strong>
+                </div>
+                <div class="stat">
+                    <span>Categorias</span>
+                    <strong id="totalCategorias">0</strong>
+                </div>
+                <div class="stat">
+                    <span>Produtos ativos</span>
+                    <strong id="produtosAtivos">0</strong>
+                </div>
+                <div class="stat">
+                    <span>Destaques</span>
+                    <strong id="totalDestaques">0</strong>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h3>Bem-vindo ao Hub Brasil</h3>
+                    <p>Centro de gerenciamento da sua loja física e digital.</p>
+                </div>
+                <div class="notice">
+                    ⚡ Esta demonstração salva os dados localmente no seu navegador. Os botões de WhatsApp geram links diretos prontos para envio.
+                </div>
+                <p style="font-size:14px;color:#6b7280;">
+                    Loja selecionada: <strong id="dashboardNomeLoja" style="color:#202124;">Carioca Ice Cream</strong>
+                </p>
+            </div>
+        </section>
+
+        <!-- MINHA LOJA -->
+        <section id="loja" class="section">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Minha Loja</h3>
+                    <p>Cadastre as informações que identificam seu estabelecimento.</p>
+                </div>
+
+                <div class="field full" style="margin-bottom:20px;">
+                    <label>Logo da loja</label>
+                    <div class="store-logo-box">
+                        <div class="store-logo-row">
+                            <img id="lojaLogoPreview" class="store-logo-preview" alt="Pré-visualização da logo">
+                            <div class="store-logo-info">
+                                <input id="lojaLogoArquivo" type="file" accept="image/png,image/jpeg,image/webp">
+                                <small>Escolha o arquivo do logo. Ele será redimensionado e salvo no navegador.</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-grid">
+                    <div class="field full">
+                        <label>Nome da loja</label>
+                        <input id="lojaNome" type="text" value="Carioca Ice Cream" placeholder="Nome do seu negócio">
+                    </div>
+
+                    <div class="field">
+                        <label>Telefone fixo</label>
+                        <input id="lojaTelefone" type="text" placeholder="(00) 0000-0000">
+                    </div>
+
+                    <div class="field">
+                        <label>WhatsApp Comercial</label>
+                        <input id="lojaWhatsapp" type="text" placeholder="(00) 00000-0000">
+                    </div>
+
+                    <div class="field full">
+                        <label>Endereço completo</label>
+                        <input id="lojaEndereco" type="text" placeholder="Rua, número e complemento">
+                    </div>
+
+                    <div class="field">
+                        <label>Bairro</label>
+                        <input id="lojaBairro" type="text" placeholder="Bairro">
+                    </div>
+
+                    <div class="field">
+                        <label>Cidade</label>
+                        <input id="lojaCidade" type="text" placeholder="Cidade">
+                    </div>
+
+                    <div class="field">
+                        <label>Estado (UF)</label>
+                        <input id="lojaEstado" type="text" maxlength="2" placeholder="RJ">
+                    </div>
+
+                    <div class="field">
+                        <label>CEP</label>
+                        <input id="lojaCep" type="text" placeholder="00000-000">
+                    </div>
+
+                    <div class="field full">
+                        <label>Horário de funcionamento semanal</label>
+                        <div class="horarios-semana">
+                            <div class="horario-cabecalho"><span>Dia</span><span>Aberto</span><span>Abre</span><span>Fecha</span></div>
+                            <div class="horario-linha"><strong>Segunda-feira</strong><input type="checkbox" id="diaSegunda" checked><input type="time" id="abreSegunda" value="13:00"><input type="time" id="fechaSegunda" value="21:00"></div>
+                            <div class="horario-linha"><strong>Terça-feira</strong><input type="checkbox" id="diaTerca" checked><input type="time" id="abreTerca" value="13:00"><input type="time" id="fechaTerca" value="21:00"></div>
+                            <div class="horario-linha"><strong>Quarta-feira</strong><input type="checkbox" id="diaQuarta" checked><input type="time" id="abreQuarta" value="13:00"><input type="time" id="fechaQuarta" value="21:00"></div>
+                            <div class="horario-linha"><strong>Quinta-feira</strong><input type="checkbox" id="diaQuinta" checked><input type="time" id="abreQuinta" value="13:00"><input type="time" id="fechaQuinta" value="21:00"></div>
+                            <div class="horario-linha"><strong>Sexta-feira</strong><input type="checkbox" id="diaSexta" checked><input type="time" id="abreSexta" value="13:00"><input type="time" id="fechaSexta" value="21:00"></div>
+                            <div class="horario-linha"><strong>Sábado</strong><input type="checkbox" id="diaSabado" checked><input type="time" id="abreSabado" value="13:00"><input type="time" id="fechaSabado" value="21:00"></div>
+                            <div class="horario-linha"><strong>Domingo</strong><input type="checkbox" id="diaDomingo" checked><input type="time" id="abreDomingo" value="13:00"><input type="time" id="fechaDomingo" value="21:00"></div>
+                        </div>
+                        <span class="horario-ajuda">Marque os dias em que a loja funciona e informe o horário de abertura e fechamento.</span>
+                    </div>
+
+                    <div class="field full">
+                        <label>Descrição do estabelecimento</label>
+                        <textarea id="lojaDescricao">Sorvetes artesanais, açaí no copo, milk shakes e sobremesas deliciosas.</textarea>
+                    </div>
+                </div>
+
+                <div class="actions">
+                    <button class="btn btn-primary" onclick="salvarLoja()">Salvar dados da loja</button>
+                    <button class="btn btn-secondary" onclick="carregarDadosLoja()">Desfazer alterações</button>
+                </div>
+
+                <div class="store-preview-card">
+                    <div class="store-preview-title">Resumo do Estabelecimento</div>
+                    <div class="store-preview-content">
+                        <img id="lojaPreviewLogoFinal" class="store-preview-logo" alt="Logo" style="display:none;">
+                        <div>
+                            <strong id="lojaPreviewNome">Carioca Ice Cream</strong>
+                            <span id="lojaPreviewEndereco">Endereço não informado</span>
+                            <span id="lojaPreviewDias">Todos os dias</span>
+                            <span id="lojaPreviewHorario">13h às 21h</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRODUTOS -->
+        <section id="produtos" class="section">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Produtos do Cardápio</h3>
+                    <p>Cadastre, altere preços e compartilhe itens individualmente no WhatsApp.</p>
+                </div>
+
+                <div class="products-toolbar">
+                    <div class="search-box">
+                        <input id="buscaProduto" type="text" placeholder="🔍 Buscar por nome ou categoria..." oninput="renderizarProdutos()">
+                    </div>
+                    <button class="btn btn-primary" onclick="abrirNovoProduto()">+ Novo produto</button>
+                </div>
+
+                <div id="listaProdutos" class="product-list"></div>
+            </div>
+        </section>
+
+        <!-- CATEGORIAS -->
+        <section id="categorias" class="section">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Categorias</h3>
+                    <p>Categorias ativas geradas pelos produtos cadastrados.</p>
+                </div>
+                <div id="listaCategorias" class="category-list"></div>
+            </div>
+        </section>
+
+        <!-- ABA DE CARDÁPIO IMPRESSO / PDF DENTRO DO PAINEL -->
+        <section id="cardapioImpresso" class="section">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Configuração e Geração do Cardápio Impresso / PDF</h3>
+                    <p>Selecione o modelo da folha A4 e as cores para imprimir ou gerar PDF direto do painel.</p>
+                </div>
+
+                <div class="form-grid">
+                    <div class="field full">
+                        <label>Modelo do Cardápio Impresso</label>
+                        <select id="selectModeloImpresso" onchange="aoMudarModeloImpresso()">
+                            <option value="modelo2">Modelo 2 - Faixas & Colunas (Pizzarias, Lanchonetes, Combos e Porções)</option>
+                            <option value="modelo1">Modelo 1 - Flyer Visual em Grade (Sorveterias, Açaí e Vitrines com Fotos)</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label>Cor Principal das Faixas / Títulos</label>
+                        <div class="color-control">
+                            <input id="corImpressoPrimaria" type="color" value="#f4b800">
+                            <input id="corImpressoPrimariaHex" type="text" value="#f4b800" maxlength="7">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label>Cor do Texto das Faixas</label>
+                        <div class="color-control">
+                            <input id="corImpressoSecundaria" type="color" value="#222222">
+                            <input id="corImpressoSecundariaHex" type="text" value="#222222" maxlength="7">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label>Cor de Fundo da Folha</label>
+                        <div class="color-control">
+                            <input id="corImpressoFundo" type="color" value="#ffffff">
+                            <input id="corImpressoFundoHex" type="text" value="#ffffff" maxlength="7">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label>Mensagem / Aviso de Rodapé</label>
+                        <input id="avisoImpresso" type="text" value="ADICIONAL EM QUALQUER PORÇÃO: R$ 5,00 • ACEITAMOS CARTÕES E PIX">
+                    </div>
+                </div>
+
+                <div class="actions" style="margin-top: 25px;">
+                    <button class="btn btn-primary" onclick="salvarConfigImpresso()">Salvar Configurações</button>
+                    <button class="btn btn-secondary" onclick="visualizarCardapioA4()">👁️ Visualizar & Imprimir Folha A4</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- WHATSAPP HUB -->
+        <section id="whatsapp" class="section">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Central WhatsApp</h3>
+                    <p>Atalhos rápidos para divulgar seu cardápio e fechar pedidos no WhatsApp.</p>
+                </div>
+
+                <div class="settings-grid">
+                    <div class="setting-card">
+                        <div class="setting-icon">📱</div>
+                        <div>
+                            <h4>Link Direto do Cardápio</h4>
+                            <p>Mensagem simpática com link direto para o cliente navegar no seu catálogo.</p>
+                        </div>
+                        <div style="grid-column: 2; display: flex; gap: 8px; flex-wrap: wrap;">
+                            <button class="btn btn-whatsapp" type="button" onclick="dispararLinkWhatsApp()">Enviar no WhatsApp</button>
+                            <button class="btn btn-secondary" type="button" onclick="copiarMensagemWhatsApp()">Copiar Texto</button>
+                        </div>
+                    </div>
+
+                    <div class="setting-card">
+                        <div class="setting-icon">⭐</div>
+                        <div>
+                            <h4>Lista de Destaques em Texto</h4>
+                            <p>Organiza todos os itens marcados como destaque com preços e descrição formatada.</p>
+                        </div>
+                        <div style="grid-column: 2; display: flex; gap: 8px; flex-wrap: wrap;">
+                            <button class="btn btn-whatsapp" type="button" onclick="dispararDestaquesWhatsApp()">Disparar Destaques</button>
+                            <button class="btn btn-secondary" type="button" onclick="copiarDestaquesWhatsApp()">Copiar Destaques</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- REDES SOCIAIS -->
+        <section id="redes" class="section">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Redes Sociais</h3>
+                    <p>Configure os links oficiais da sua loja.</p>
+                </div>
+
+                <div class="form-grid">
+                    <div class="field">
+                        <label>Instagram</label>
+                        <input id="instagram" type="text" placeholder="@sualoja">
+                    </div>
+                    <div class="field">
+                        <label>Facebook</label>
+                        <input id="facebook" type="text" placeholder="facebook.com/sualoja">
+                    </div>
+                    <div class="field">
+                        <label>TikTok</label>
+                        <input id="tiktok" type="text" placeholder="@sualoja">
+                    </div>
+                    <div class="field">
+                        <label>WhatsApp de Pedidos</label>
+                        <input id="whatsappRede" type="text" placeholder="5521999999999">
+                    </div>
+                    <div class="field">
+                        <label>Link Google Avaliações</label>
+                        <input id="googleAvaliacoes" type="text" placeholder="https://g.page/r/...">
+                    </div>
+                    <div class="field">
+                        <label>Link Google Maps</label>
+                        <input id="linkMapa" type="text" placeholder="https://maps.google.com/...">
+                    </div>
+                </div>
+
+                <div class="actions">
+                    <button class="btn btn-primary" onclick="salvarRedes()">Salvar redes sociais</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- APARÊNCIA DIGITAL MANTIDA INTEGRALMENTE -->
+        <section id="aparencia" class="section">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Aparência do Cardápio Digital</h3>
+                    <p>Escolha o formato de exibição web, personalize as cores e o tema da vitrine do seu cliente.</p>
+                </div>
+
+                <div class="field full" style="margin-bottom: 20px;">
+                    <label>Modelo de Layout do Cardápio Digital</label>
+                    <select id="selectModeloLayout" onchange="aoTrocarModeloLayoutSimultaneo(this.value)">
+                        <option value="hub_classico">🔗 Hub Clássico (Estilo Linktree com Música e Wi-Fi)</option>
+                        <option value="vitrine_abas">📑 Vitrine com Abas (Cardápio & Informações)</option>
+                        <option value="app_delivery">📱 App Delivery (Formato Aplicativo com compra rápida)</option>
+                    </select>
+                </div>
+
+                <div class="appearance-grid">
+                    <div class="appearance-controls">
+                        <div class="field full">
+                            <label>Cor principal</label>
+                            <div class="color-control">
+                                <input id="aparenciaCorPrincipal" type="color" value="#FFD400">
+                                <input id="aparenciaCorPrincipalHex" type="text" value="#FFD400" maxlength="7">
+                            </div>
+                        </div>
+
+                        <div class="field full">
+                            <label>Cor secundária</label>
+                            <div class="color-control">
+                                <input id="aparenciaCorSecundaria" type="color" value="#7B2CBF">
+                                <input id="aparenciaCorSecundariaHex" type="text" value="#7B2CBF" maxlength="7">
+                            </div>
+                        </div>
+
+                        <div class="field full">
+                            <label>Tema</label>
+                            <div class="theme-options">
+                                <label class="theme-option">
+                                    <input type="radio" name="aparenciaTema" value="claro" checked>
+                                    <span>☀️ Claro</span>
+                                </label>
+                                <label class="theme-option">
+                                    <input type="radio" name="aparenciaTema" value="escuro">
+                                    <span>🌙 Escuro</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="field full">
+                            <label>Estilo visual</label>
+                            <select id="aparenciaEstilo">
+                                <option value="moderno">Moderno</option>
+                                <option value="classico">Clássico</option>
+                                <option value="elegante">Elegante</option>
+                                <option value="divertido">Divertido</option>
+                            </select>
+                        </div>
+
+                        <div class="actions">
+                            <button class="btn btn-primary" type="button" onclick="salvarAparencia()">Salvar cores & layout</button>
+                            <button class="btn btn-secondary" type="button" onclick="restaurarAparencia()">Padrão</button>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div style="font-weight:bold; margin-bottom:10px;">Pré-visualização do Tema</div>
+                        <div id="aparenciaPreview" class="appearance-preview">
+                            <div class="preview-store-header">
+                                <div class="preview-logo">HB</div>
+                                <div>
+                                    <strong id="aparenciaPreviewNome">Carioca Ice Cream</strong>
+                                    <small style="display:block;opacity:.65;">Cardápio Digital</small>
+                                </div>
+                            </div>
+                            <div class="preview-banner">
+                                <span>Seu sabor. Seu momento.</span>
+                            </div>
+                            <div class="preview-category-row">
+                                <span class="preview-chip active">Açaí</span>
+                                <span class="preview-chip">Sorvetes</span>
+                                <span class="preview-chip">Milk Shake</span>
+                            </div>
+                            <div class="preview-product-card">
+                                <div class="preview-product-image"></div>
+                                <div style="display:flex; flex-direction:column; gap:4px; flex:1;">
+                                    <strong>Produto em destaque</strong>
+                                    <small style="opacity:.7">Descrição do produto aparece aqui.</small>
+                                    <b style="margin-top:auto;">R$ 15,00</b>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONFIGURAÇÕES -->
+        <section id="configuracoes" class="section">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Configurações & Dados</h3>
+                    <p>Exporte, faça backup ou limpe os cadastros salvos.</p>
+                </div>
+
+                <div class="settings-grid">
+                    <div class="setting-card" style="grid-column: 1 / -1;">
+                        <div class="setting-icon">⚙️</div>
+                        <div style="width:100%;">
+                            <h4>Recursos Exclusivos (Hub Clássico)</h4>
+                            <p>Ative ou desative o tocador de música e a senha do Wi-Fi na tela do cliente.</p>
+                        </div>
+                        <div class="switch-row">
+                            <label>Disponibilizar Música no Cardápio</label>
+                            <input type="checkbox" id="checkExibirMusica" class="switch-check" checked onchange="salvarConfigRecursosHub()">
+                        </div>
+                        <div class="switch-row">
+                            <label>Disponibilizar Wi-Fi no Cardápio</label>
+                            <input type="checkbox" id="checkExibirWifi" class="switch-check" checked onchange="salvarConfigRecursosHub()">
+                        </div>
+                    </div>
+
+                    <div class="setting-card">
+                        <div class="setting-icon">📊</div>
+                        <div>
+                            <h4>Resumo dos Dados</h4>
+                            <p>Confira rapidamente o que está armazenado localmente.</p>
+                        </div>
+                        <div class="settings-summary">
+                            <span>Produtos <strong id="resumoProdutos">0</strong></span>
+                            <span>Categorias <strong id="resumoCategorias">0</strong></span>
+                            <span>Redes sociais <strong id="resumoRedes">Não configuradas</strong></span>
+                            <span>Aparência <strong id="resumoAparencia">Padrão</strong></span>
+                        </div>
+                    </div>
+
+                    <div class="setting-card">
+                        <div class="setting-icon">💾</div>
+                        <div>
+                            <h4>Baixar Backup</h4>
+                            <p>Salva um arquivo JSON com produtos, dados da loja e cores.</p>
+                        </div>
+                        <button class="btn btn-primary" style="grid-column:2; justify-self:start;" type="button" onclick="exportarDados()">Baixar backup</button>
+                    </div>
+
+                    <div class="setting-card">
+                        <div class="setting-icon">📥</div>
+                        <div>
+                            <h4>Restaurar Backup</h4>
+                            <p>Carregue um arquivo JSON gerado anteriormente.</p>
+                        </div>
+                        <input id="arquivoBackup" type="file" accept=".json" hidden onchange="importarDados(this.files[0]); this.value='';">
+                        <button class="btn btn-secondary" style="grid-column:2; justify-self:start;" type="button" onclick="document.getElementById('arquivoBackup').click()">Restaurar backup</button>
+                    </div>
+
+                    <div class="setting-card setting-danger">
+                        <div class="setting-icon">⚠️</div>
+                        <div>
+                            <h4>Apagar Dados Locais</h4>
+                            <p>Limpa a memória do navegador resetando as configurações locais.</p>
+                        </div>
+                        <button class="btn btn-danger" style="grid-column:2; justify-self:start;" type="button" onclick="limparDados()">Apagar dados locais</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</div>
+
+<!-- MODAL DE PRODUTO -->
+<div id="modalProduto" class="modal-overlay">
+    <div class="modal">
+        <div class="modal-header">
+            <h3 id="modalTitulo">Editar produto</h3>
+            <button class="close-modal" onclick="fecharModal()">&times;</button>
+        </div>
+
+        <div class="form-grid">
+            <div class="field full">
+                <label>Nome do produto</label>
+                <input id="produtoNome" type="text" placeholder="Ex: Açaí Turbinado 500ml ou Combo Sofrência">
+            </div>
+
+            <div class="field">
+                <label>Categoria</label>
+                <input id="produtoCategoria" type="text" placeholder="Ex: Combos, Pizzas, Açaí, Sorvetes">
+            </div>
+
+            <div class="field">
+                <label>Preço (R$)</label>
+                <input id="produtoPreco" type="number" step="0.01" placeholder="0.00">
+            </div>
+
+            <div class="field full">
+                <label>Imagem do produto</label>
+                <div class="image-upload-box">
+                    <div class="image-upload-row">
+                        <img id="produtoImagemPreview" class="image-preview" alt="Prévia">
+                        <div style="flex:1;">
+                            <input id="produtoImagemArquivo" type="file" accept="image/*" onchange="selecionarImagemProduto(event)">
+                            <small style="display:block; margin-top:5px; color:#6b7280;">Escolha uma imagem do seu dispositivo.</small>
+                        </div>
+                    </div>
+                    <input id="produtoImagem" class="image-url-input" type="text" placeholder="Ou cole o link direto da imagem na web">
+                </div>
+            </div>
+
+            <div class="field full">
+                <label>Descrição detalhada</label>
+                <textarea id="produtoDescricao" placeholder="Descreva os ingredientes, adicionais ou porções inclusas."></textarea>
+            </div>
+
+            <div class="field">
+                <label>Disponibilidade</label>
+                <select id="produtoDisponivel">
+                    <option value="true">Disponível no cardápio</option>
+                    <option value="false">Indisponível (Pausado)</option>
+                </select>
+            </div>
+
+            <div class="field">
+                <label>Destacar no topo?</label>
+                <select id="produtoDestaque">
+                    <option value="false">Não</option>
+                    <option value="true">Sim (Destaque do Dia)</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="actions">
+            <button class="btn btn-primary" onclick="salvarProduto()">Salvar produto</button>
+            <button class="btn btn-secondary" onclick="fecharModal()">Cancelar</button>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL COM A FOLHA A4 PARA IMPRIMIR OU SALVAR COMO PDF -->
+<div id="modalPreviewImpresso" class="modal-overlay">
+    <div class="modal">
+        <div class="modal-header">
+            <h3 style="color:#fff;">📄 Pré-visualização do Cardápio A4</h3>
+            <button class="close-modal" onclick="fecharModalImpresso()">&times;</button>
+        </div>
+
+        <div class="painel-impresso-botoes" style="display:flex; justify-content:flex-end; gap:10px; margin-bottom:15px;">
+            <button class="btn btn-secondary" onclick="fecharModalImpresso()">Fechar</button>
+            <button class="btn btn-primary" onclick="window.print()">🖨️ Salvar em PDF / Imprimir</button>
+        </div>
+
+        <div id="folhaA4Container" class="folha-a4">
+            <!-- MODELO 2: FAIXAS E COLUNAS (RITA CAKES / PIZZARIAS) -->
+            <div id="printLayoutModelo2" style="display:none;">
+                <header class="print-m2-topo">
+                    <div class="print-m2-titulo print-loja-nome">MEU ESTABELECIMENTO</div>
+                    <img class="print-m2-logo print-loja-logo" src="logo.png" alt="Logo">
+                    <div class="print-m2-contato print-loja-whats">📱 (21) 99999-9999</div>
+                </header>
+
+                <div class="print-m2-corpo">
+                    <div id="printM2Coluna1"></div>
+                    <div>
+                        <div id="printM2Coluna2"></div>
+                        <div class="print-m2-aviso" id="printM2AvisoRodape">
+                            ADICIONAL DE 200g EM QUALQUER PORÇÃO: R$ 5,00
+                        </div>
+                        <div class="print-m2-lateral-box">
+                            <strong>FAÇA SEU PEDIDO</strong><br>
+                            <span class="print-loja-whats">(21) 99999-9999</span>
+                        </div>
+                        <div class="print-m2-lateral-box" style="font-size:9.5px; color:#666;">
+                            Aceitamos cartões de crédito, débito e Pix.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MODELO 1: FLYER VISUAL COM FOTOS (SORVETERIA / AÇAÍ) -->
+            <div id="printLayoutModelo1" style="display:none;">
+                <header class="print-m1-topo">
+                    <h1 class="print-loja-nome">MEU ESTABELECIMENTO</h1>
+                    <p class="print-loja-whats">📱 WhatsApp: (21) 99999-9999</p>
+                </header>
+                <div class="print-m1-grid" id="printM1Grid"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    /* DADOS E INICIALIZAÇÃO */
+    const PRODUTOS_PADRAO = [
+        { id: "p1", nome: "Copo de Açaí 500ml", categoria: "Açaí", preco: 20.00, descricao: "Açaí cremoso com 3 adicionais à sua escolha.", disponivel: true, destaque: true, imagem: "" },
+        { id: "p2", nome: "Cascão Duplo Artesanal", categoria: "Sorvetes", preco: 15.00, descricao: "Duas bolas de sorvete premium com calda.", disponivel: true, destaque: true, imagem: "" }
+    ];
+
+    let produtosPainel = JSON.parse(localStorage.getItem("hubProdutos")) || PRODUTOS_PADRAO;
+    let novaImagemProduto = "";
+    let produtoEditando = null;
+
+    /* NAVEGAÇÃO ENTRE ABAS */
+    const botoesMenu = document.querySelectorAll(".menu-btn");
+    const secoes = document.querySelectorAll(".section");
+    const tituloPagina = document.getElementById("pageTitle");
+
+    botoesMenu.forEach(btn => {
+        btn.addEventListener("click", () => {
+            botoesMenu.forEach(b => b.classList.remove("active"));
+            btn.classList.add("active");
+
+            secoes.forEach(s => s.classList.remove("active"));
+            const targetId = btn.dataset.section;
+            document.getElementById(targetId).classList.add("active");
+
+            tituloPagina.textContent = btn.textContent.trim();
+
+            if (targetId === "produtos") renderizarProdutos();
+            if (targetId === "categorias") renderizarCategorias();
+            if (targetId === "dashboard") atualizarDashboard();
+            if (targetId === "cardapioImpresso") carregarConfigImpresso();
+            if (targetId === "aparencia") carregarAparencia();
+            if (targetId === "configuracoes") atualizarResumoConfiguracoes();
+        });
+    });
+
+    function formatarPreco(val) {
+        return Number(val || 0).toFixed(2).replace(".", ",");
+    }
+
+    /* GESTÃO DE PRODUTOS */
+    function renderizarProdutos() {
+        const lista = document.getElementById("listaProdutos");
+        const busca = document.getElementById("buscaProduto").value.toLowerCase().trim();
+        lista.innerHTML = "";
+
+        const filtrados = produtosPainel.filter(p => 
+            (p.nome + " " + p.categoria + " " + (p.descricao || "")).toLowerCase().includes(busca)
+        );
+
+        if (filtrados.length === 0) {
+            lista.innerHTML = `<div class="notice">Nenhum produto cadastrado ou encontrado na busca.</div>`;
+            return;
+        }
+
+        filtrados.forEach(produto => {
+            const indexOriginal = produtosPainel.findIndex(p => p.id === produto.id);
+            const item = document.createElement("div");
+            item.className = "product";
+
+            item.innerHTML = `
+                <div class="product-info">
+                    ${produto.imagem ? `<img class="product-image" src="${produto.imagem}" alt="${produto.nome}">` : `<div class="product-image" style="display:grid;place-items:center;color:#9ca3af;font-size:24px;">🍦</div>`}
+                    <div>
+                        <h4>${produto.nome}</h4>
+                        <p>${produto.categoria} • ${produto.descricao || "Sem descrição"}</p>
+                        <div class="product-price">R$ ${formatarPreco(produto.preco)}</div>
+                        <div class="badges">
+                            <span class="badge ${produto.disponivel !== false ? 'badge-active' : 'badge-inactive'}">
+                                ${produto.disponivel !== false ? 'Disponível' : 'Indisponível'}
+                            </span>
+                            ${produto.destaque ? '<span class="badge badge-highlight">⭐ Destaque</span>' : ''}
+                        </div>
+                    </div>
+                </div>
+                <div class="product-actions">
+                    <button class="btn btn-whatsapp" onclick="enviarProdutoIndividual(${indexOriginal})" title="Enviar este item no WhatsApp">
+                        Enviar no Whats
+                    </button>
+                    <button class="btn btn-secondary" onclick="editarProduto(${indexOriginal})">Editar</button>
+                    <button class="btn ${produto.disponivel !== false ? 'btn-danger' : 'btn-success'}" onclick="alternarDisponibilidade(${indexOriginal})">
+                        ${produto.disponivel !== false ? 'Pausar' : 'Ativar'}
+                    </button>
+                    <button class="btn btn-danger" onclick="excluirProduto(${indexOriginal})">Excluir</button>
+                </div>
+            `;
+            lista.appendChild(item);
+        });
+    }
+
+    function abrirNovoProduto() {
+        produtoEditando = null;
+        document.getElementById("modalTitulo").textContent = "Novo Produto";
+        document.getElementById("produtoNome").value = "";
+        document.getElementById("produtoCategoria").value = "";
+        document.getElementById("produtoPreco").value = "";
+        document.getElementById("produtoImagem").value = "";
+        document.getElementById("produtoDescricao").value = "";
+        document.getElementById("produtoDisponivel").value = "true";
+        document.getElementById("produtoDestaque").value = "false";
+        limparPreviaFoto();
+        document.getElementById("modalProduto").classList.add("active");
+    }
+
+    function editarProduto(index) {
+        produtoEditando = index;
+        const p = produtosPainel[index];
+        document.getElementById("modalTitulo").textContent = "Editar Produto";
+        document.getElementById("produtoNome").value = p.nome;
+        document.getElementById("produtoCategoria").value = p.categoria;
+        document.getElementById("produtoPreco").value = p.preco;
+        document.getElementById("produtoImagem").value = p.imagem && !p.imagem.startsWith("data:") ? p.imagem : "";
+        document.getElementById("produtoDescricao").value = p.descricao || "";
+        document.getElementById("produtoDisponivel").value = String(p.disponivel !== false);
+        document.getElementById("produtoDestaque").value = String(p.destaque === true);
+        
+        limparPreviaFoto();
+        if (p.imagem) {
+            const preview = document.getElementById("produtoImagemPreview");
+            preview.src = p.imagem;
+            preview.style.display = "block";
+        }
+        document.getElementById("modalProduto").classList.add("active");
+    }
+
+    function salvarProduto() {
+        const nome = document.getElementById("produtoNome").value.trim();
+        const categoria = document.getElementById("produtoCategoria").value.trim();
+        const preco = parseFloat(document.getElementById("produtoPreco").value);
+        const imgUrl = document.getElementById("produtoImagem").value.trim();
+        const imagemFinal = novaImagemProduto || imgUrl;
+        const descricao = document.getElementById("produtoDescricao").value.trim();
+        const disponivel = document.getElementById("produtoDisponivel").value === "true";
+        const destaque = document.getElementById("produtoDestaque").value === "true";
+
+        if (!nome || isNaN(preco)) {
+            alert("Preencha o nome e um preço válido.");
+            return;
+        }
+
+        if (produtoEditando === null) {
+            produtosPainel.push({
+                id: "prod-" + Date.now(),
+                nome, categoria: categoria || "Geral", preco, imagem: imagemFinal, descricao, disponivel, destaque
+            });
+        } else {
+            produtosPainel[produtoEditando] = {
+                ...produtosPainel[produtoEditando],
+                nome, categoria: categoria || "Geral", preco, imagem: imagemFinal, descricao, disponivel, destaque
+            };
+        }
+
+        salvarProdutosLocal();
+        fecharModal();
+        renderizarProdutos();
+        atualizarDashboard();
+    }
+
+    function salvarProdutosLocal() {
+        localStorage.setItem("hubProdutos", JSON.stringify(produtosPainel));
+    }
+
+    function alternarDisponibilidade(index) {
+        produtosPainel[index].disponivel = !(produtosPainel[index].disponivel !== false);
+        salvarProdutosLocal();
+        renderizarProdutos();
+        atualizarDashboard();
+    }
+
+    function excluirProduto(index) {
+        if (confirm(`Deseja excluir "${produtosPainel[index].nome}"?`)) {
+            produtosPainel.splice(index, 1);
+            salvarProdutosLocal();
+            renderizarProdutos();
+            atualizarDashboard();
+        }
+    }
+
+    function fecharModal() {
+        document.getElementById("modalProduto").classList.remove("active");
+        limparPreviaFoto();
+    }
+
+    function limparPreviaFoto() {
+        novaImagemProduto = "";
+        const preview = document.getElementById("produtoImagemPreview");
+        preview.src = "";
+        preview.style.display = "none";
+        document.getElementById("produtoImagemArquivo").value = "";
+    }
+
+    function selecionarImagemProduto(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = function(evt) {
+            const img = new Image();
+            img.onload = function() {
+                const canvas = document.createElement("canvas");
+                const max = 600;
+                let w = img.width, h = img.height;
+                if (w > max || h > max) {
+                    const ratio = Math.min(max / w, max / h);
+                    w = Math.round(w * ratio);
+                    h = Math.round(h * ratio);
+                }
+                canvas.width = w;
+                canvas.height = h;
+                canvas.getContext("2d").drawImage(img, 0, 0, w, h);
+                novaImagemProduto = canvas.toDataURL("image/jpeg", 0.8);
+                const preview = document.getElementById("produtoImagemPreview");
+                preview.src = novaImagemProduto;
+                preview.style.display = "block";
+                document.getElementById("produtoImagem").value = "";
+            };
+            img.src = evt.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+
+    /* GESTÃO EXCLUSIVA DO CARDÁPIO IMPRESSO (A4 / PDF) */
+    function carregarConfigImpresso() {
+        const conf = JSON.parse(localStorage.getItem("hubImpressoConfig") || "{}");
+        if (conf.modelo) document.getElementById("selectModeloImpresso").value = conf.modelo;
+        if (conf.primaria) {
+            document.getElementById("corImpressoPrimaria").value = conf.primaria;
+            document.getElementById("corImpressoPrimariaHex").value = conf.primaria;
+        }
+        if (conf.secundaria) {
+            document.getElementById("corImpressoSecundaria").value = conf.secundaria;
+            document.getElementById("corImpressoSecundariaHex").value = conf.secundaria;
+        }
+        if (conf.fundo) {
+            document.getElementById("corImpressoFundo").value = conf.fundo;
+            document.getElementById("corImpressoFundoHex").value = conf.fundo;
+        }
+        if (conf.aviso) {
+            document.getElementById("avisoImpresso").value = conf.aviso;
+        }
+    }
+
+    function salvarConfigImpresso() {
+        const conf = {
+            modelo: document.getElementById("selectModeloImpresso").value,
+            primaria: document.getElementById("corImpressoPrimariaHex").value,
+            secundaria: document.getElementById("corImpressoSecundariaHex").value,
+            fundo: document.getElementById("corImpressoFundoHex").value,
+            aviso: document.getElementById("avisoImpresso").value.trim()
+        };
+        localStorage.setItem("hubImpressoConfig", JSON.stringify(conf));
+        alert("Configurações do cardápio impresso salvas!");
+    }
+
+    function visualizarCardapioA4() {
+        salvarConfigImpresso();
+        const conf = JSON.parse(localStorage.getItem("hubImpressoConfig") || "{}");
+        const loja = JSON.parse(localStorage.getItem("hubLoja") || "{}");
+        
+        const folha = document.getElementById("folhaA4Container");
+        folha.style.setProperty("--print-cor-primaria", conf.primaria || "#f4b800");
+        folha.style.setProperty("--print-cor-secundaria", conf.secundaria || "#222222");
+        folha.style.setProperty("--print-cor-fundo", conf.fundo || "#ffffff");
+
+        document.querySelectorAll(".print-loja-nome").forEach(el => el.textContent = loja.nome || "MEU ESTABELECIMENTO");
+        document.querySelectorAll(".print-loja-whats").forEach(el => el.textContent = `📱 ${loja.whatsapp || "(21) 99999-9999"}`);
+        if (loja.logo) {
+            document.querySelectorAll(".print-loja-logo").forEach(el => el.src = loja.logo);
+        }
+        if (conf.aviso) {
+            const av = document.getElementById("printM2AvisoRodape");
+            if (av) av.textContent = conf.aviso;
+        }
+
+        const m1 = document.getElementById("printLayoutModelo1");
+        const m2 = document.getElementById("printLayoutModelo2");
+
+        if (conf.modelo === "modelo1") {
+            m1.style.display = "block";
+            m2.style.display = "none";
+            montarModelo1Flyer();
+        } else {
+            m1.style.display = "none";
+            m2.style.display = "block";
+            montarModelo2Faixas();
+        }
+
+        document.getElementById("modalPreviewImpresso").classList.add("active");
+    }
+
+    function fecharModalImpresso() {
+        document.getElementById("modalPreviewImpresso").classList.remove("active");
+    }
+
+    function montarModelo2Faixas() {
+        const col1 = document.getElementById("printM2Coluna1");
+        const col2 = document.getElementById("printM2Coluna2");
+        col1.innerHTML = "";
+        col2.innerHTML = "";
+
+        const categorias = [...new Set(produtosPainel.map(p => p.categoria).filter(Boolean))];
+        let badgeNum = 1;
+
+        categorias.forEach((cat, idx) => {
+            const itens = produtosPainel.filter(p => p.categoria === cat && p.disponivel !== false);
+            if (itens.length === 0) return;
+
+            const bloco = document.createElement("section");
+            bloco.className = "print-m2-bloco";
+
+            let topoPreco = (itens.length === 1) ? `<span>R$ ${formatarPreco(itens[0].preco)}</span>` : "";
+
+            let html = `
+                <div class="print-m2-faixa">
+                    <span><span class="print-m2-badge">${badgeNum++}</span> ${cat.toUpperCase()}</span>
+                    ${topoPreco}
+                </div>
+                <ul class="print-m2-lista">
+            `;
+
+            itens.forEach((p, subIdx) => {
+                html += `
+                    <li>
+                        <span><strong>${badgeNum - 1}.${subIdx + 1}</strong> - ${p.nome} ${p.descricao ? `(${p.descricao})` : ''}</span>
+                        ${itens.length > 1 ? `<strong>R$ ${formatarPreco(p.preco)}</strong>` : ''}
+                    </li>
+                `;
+            });
+
+            html += `</ul>`;
+            bloco.innerHTML = html;
+
+            if (idx < 2) {
+                col1.appendChild(bloco);
+            } else {
+                col2.appendChild(bloco);
+            }
+        });
+    }
+
+    function montarModelo1Flyer() {
+        const grid = document.getElementById("printM1Grid");
+        grid.innerHTML = "";
+
+        const itens = produtosPainel.filter(p => p.disponivel !== false);
+        itens.forEach(p => {
+            const card = document.createElement("div");
+            card.className = "print-m1-card";
+            card.innerHTML = `
+                ${p.imagem ? `<img src="${p.imagem}" alt="${p.nome}">` : `<div style="width:60px;height:60px;background:#eee;border-radius:6px;display:grid;place-items:center;">🍨</div>`}
+                <div>
+                    <h3>${p.nome}</h3>
+                    <p>${p.descricao || p.categoria}</p>
+                    <div class="preco">R$ ${formatarPreco(p.preco)}</div>
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+    }
+
+    /* INTEGRAÇÕES COM O WHATSAPP */
+    function obterNomeLoja() {
+        const loja = JSON.parse(localStorage.getItem("hubLoja") || "{}");
+        return loja.nome || "Nossa Loja";
+    }
+
+    function gerarMensagemCardapio() {
+        const nomeLoja = obterNomeLoja();
+        const urlCardapio = window.location.origin; 
+        return `👋 Olá! Seja bem-vindo(a) à *${nomeLoja}*.\n\n` +
+               `🍨 Confira nosso cardápio digital completo e faça seu pedido:\n` +
+               `👉 ${urlCardapio}\n\n` +
+               `Ficamos à disposição para montar o seu pedido!`;
+    }
+
+    function dispararLinkWhatsApp() {
+        const msg = encodeURIComponent(gerarMensagemCardapio());
+        window.open(`https://api.whatsapp.com/send?text=${msg}`, '_blank');
+    }
+
+    function copiarMensagemWhatsApp() {
+        navigator.clipboard.writeText(gerarMensagemCardapio()).then(() => alert("Mensagem do cardápio copiada!"));
+    }
+
+    function gerarTextoDestaques() {
+        const nomeLoja = obterNomeLoja();
+        const destaques = produtosPainel.filter(p => p.destaque && p.disponivel !== false);
+
+        if (destaques.length === 0) return null;
+
+        let txt = `⭐ *Destaques de Hoje - ${nomeLoja}* ⭐\n\n`;
+        destaques.forEach(item => {
+            txt += `▪️ *${item.nome}* — R$ ${formatarPreco(item.preco)}\n`;
+            if (item.descricao) txt += `   _${item.descricao}_\n`;
+        });
+        txt += `\n💬 Responda com o item desejado para confirmar seu pedido!`;
+        return txt;
+    }
+
+    function dispararDestaquesWhatsApp() {
+        const txt = gerarTextoDestaques();
+        if (!txt) { alert("Nenhum item marcado como destaque no momento."); return; }
+        window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(txt)}`, '_blank');
+    }
+
+    function copiarDestaquesWhatsApp() {
+        const txt = gerarTextoDestaques();
+        if (!txt) { alert("Nenhum item marcado como destaque no momento."); return; }
+        navigator.clipboard.writeText(txt).then(() => alert("Destaques copiados para colar no WhatsApp!"));
+    }
+
+    function enviarProdutoIndividual(index) {
+        const p = produtosPainel[index];
+        const nomeLoja = obterNomeLoja();
+        let txt = `🍧 *${p.nome}* na *${nomeLoja}*\n\n`;
+        if (p.descricao) txt += `📝 ${p.descricao}\n`;
+        txt += `💰 *Valor:* R$ ${formatarPreco(p.preco)}\n\n`;
+        txt += `Deseja que eu separe esse pedido para você?`;
+
+        window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(txt)}`, '_blank');
+    }
+
+    /* LOJA & HORÁRIOS */
+    function salvarLoja() {
+        const dados = {
+            nome: document.getElementById("lojaNome").value.trim(),
+            telefone: document.getElementById("lojaTelefone").value.trim(),
+            whatsapp: document.getElementById("lojaWhatsapp").value.trim(),
+            endereco: document.getElementById("lojaEndereco").value.trim(),
+            bairro: document.getElementById("lojaBairro").value.trim(),
+            cidade: document.getElementById("lojaCidade").value.trim(),
+            estado: document.getElementById("lojaEstado").value.trim().toUpperCase(),
+            cep: document.getElementById("lojaCep").value.trim(),
+            descricao: document.getElementById("lojaDescricao").value.trim(),
+            logo: window.logoLojaAtual || ""
+        };
+
+        if (!dados.nome) { alert("Informe o nome do seu estabelecimento."); return; }
+        
+        const lojaAntiga = JSON.parse(localStorage.getItem("hubLoja") || "{}");
+        const combinada = { ...lojaAntiga, ...dados };
+        localStorage.setItem("hubLoja", JSON.stringify(combinada));
+        
+        atualizarVisualizacaoLoja(combinada);
+        document.getElementById("dashboardNomeLoja").textContent = combinada.nome;
+        alert("Dados da loja atualizados!");
+    }
+
+    function carregarDadosLoja() {
+        const salvo = JSON.parse(localStorage.getItem("hubLoja") || "{}");
+        if (salvo.nome) document.getElementById("lojaNome").value = salvo.nome;
+        document.getElementById("lojaTelefone").value = salvo.telefone || "";
+        document.getElementById("lojaWhatsapp").value = salvo.whatsapp || "";
+        document.getElementById("lojaEndereco").value = salvo.endereco || "";
+        document.getElementById("lojaBairro").value = salvo.bairro || "";
+        document.getElementById("lojaCidade").value = salvo.cidade || "";
+        document.getElementById("lojaEstado").value = salvo.estado || "";
+        document.getElementById("lojaCep").value = salvo.cep || "";
+        document.getElementById("lojaDescricao").value = salvo.descricao || "";
+        window.logoLojaAtual = salvo.logo || "";
+        atualizarVisualizacaoLoja(salvo);
+    }
+
+    function atualizarVisualizacaoLoja(dados) {
+        document.getElementById("lojaPreviewNome").textContent = dados.nome || "Carioca Ice Cream";
+        const enderecoPartes = [dados.endereco, dados.bairro, dados.cidade, dados.estado].filter(Boolean);
+        document.getElementById("lojaPreviewEndereco").textContent = enderecoPartes.length ? enderecoPartes.join(" • ") : "Endereço não informado";
+        if (dados.logo) {
+            const imgPreview = document.getElementById("lojaPreviewLogoFinal");
+            imgPreview.src = dados.logo;
+            imgPreview.style.display = "block";
+        }
+    }
+
+    /* CATEGORIAS & DASHBOARD */
+    function renderizarCategorias() {
+        const container = document.getElementById("listaCategorias");
+        container.innerHTML = "";
+        const categorias = [...new Set(produtosPainel.map(p => p.categoria).filter(Boolean))];
+
+        if (categorias.length === 0) {
+            container.innerHTML = `<div class="notice">Nenhuma categoria encontrada.</div>`;
+            return;
+        }
+
+        categorias.forEach(cat => {
+            const count = produtosPainel.filter(p => p.categoria === cat).length;
+            const div = document.createElement("div");
+            div.className = "category";
+            div.innerHTML = `<strong>${cat}</strong><span>${count} produto(s)</span>`;
+            container.appendChild(div);
+        });
+    }
+
+    function atualizarDashboard() {
+        document.getElementById("totalProdutos").textContent = produtosPainel.length;
+        document.getElementById("totalCategorias").textContent = new Set(produtosPainel.map(p => p.categoria).filter(Boolean)).size;
+        document.getElementById("produtosAtivos").textContent = produtosPainel.filter(p => p.disponivel !== false).length;
+        document.getElementById("totalDestaques").textContent = produtosPainel.filter(p => p.destaque).length;
+    }
+
+    /* REDES SOCIAIS */
+    function carregarRedes() {
+        const redes = JSON.parse(localStorage.getItem("hubRedes") || "{}");
+        const loja = JSON.parse(localStorage.getItem("hubLoja") || "{}");
+        document.getElementById("instagram").value = redes.instagram || "";
+        document.getElementById("facebook").value = redes.facebook || "";
+        document.getElementById("tiktok").value = redes.tiktok || "";
+        document.getElementById("whatsappRede").value = redes.whatsapp || loja.whatsapp || "";
+        document.getElementById("googleAvaliacoes").value = redes.googleAvaliacoes || loja.googleAvaliacoes || "";
+        document.getElementById("linkMapa").value = redes.linkMapa || loja.linkMapa || "";
+    }
+
+    function salvarRedes() {
+        const redes = {
+            instagram: document.getElementById("instagram").value.trim(),
+            facebook: document.getElementById("facebook").value.trim(),
+            tiktok: document.getElementById("tiktok").value.trim(),
+            whatsapp: document.getElementById("whatsappRede").value.trim(),
+            googleAvaliacoes: document.getElementById("googleAvaliacoes").value.trim(),
+            linkMapa: document.getElementById("linkMapa").value.trim()
+        };
+        localStorage.setItem("hubRedes", JSON.stringify(redes));
+        
+        const loja = JSON.parse(localStorage.getItem("hubLoja") || "{}");
+        loja.whatsapp = redes.whatsapp;
+        loja.googleAvaliacoes = redes.googleAvaliacoes;
+        loja.linkMapa = redes.linkMapa;
+        localStorage.setItem("hubLoja", JSON.stringify(loja));
+
+        alert("Redes sociais salvas com sucesso!");
+    }
+
+    /* APARÊNCIA DIGITAL */
+    function aoTrocarModeloLayoutSimultaneo(modelo) {
+        const aparencia = JSON.parse(localStorage.getItem("hubAparencia") || "{}");
+        aparencia.modelo = modelo;
+        localStorage.setItem("hubAparencia", JSON.stringify(aparencia));
+    }
+
+    function carregarAparencia() {
+        const aparencia = JSON.parse(localStorage.getItem("hubAparencia") || "{}");
+        
+        if (aparencia.principal) {
+            document.getElementById("aparenciaCorPrincipal").value = aparencia.principal;
+            document.getElementById("aparenciaCorPrincipalHex").value = aparencia.principal;
+        }
+        if (aparencia.secundaria) {
+            document.getElementById("aparenciaCorSecundaria").value = aparencia.secundaria;
+            document.getElementById("aparenciaCorSecundariaHex").value = aparencia.secundaria;
+        }
+        if (aparencia.tema) {
+            const radio = document.querySelector(`input[name="aparenciaTema"][value="${aparencia.tema}"]`);
+            if (radio) radio.checked = true;
+        }
+        if (aparencia.estilo) {
+            document.getElementById("aparenciaEstilo").value = aparencia.estilo;
+        }
+
+        const modeloSalvo = aparencia.modelo || "hub_classico";
+        document.getElementById("selectModeloLayout").value = modeloSalvo;
+        aplicarPreviewTema();
+    }
+
+    function salvarAparencia() {
+        const aparenciaSalva = JSON.parse(localStorage.getItem("hubAparencia") || "{}");
+        const dados = {
+            ...aparenciaSalva,
+            principal: document.getElementById("aparenciaCorPrincipalHex").value,
+            secundaria: document.getElementById("aparenciaCorSecundariaHex").value,
+            tema: document.querySelector('input[name="aparenciaTema"]:checked').value,
+            estilo: document.getElementById("aparenciaEstilo").value,
+            modelo: document.getElementById("selectModeloLayout").value
+        };
+        localStorage.setItem("hubAparencia", JSON.stringify(dados));
+        aplicarPreviewTema();
+        alert("Aparência digital salva com sucesso!");
+    }
+
+    function restaurarAparencia() {
+        document.getElementById("aparenciaCorPrincipal").value = "#FFD400";
+        document.getElementById("aparenciaCorPrincipalHex").value = "#FFD400";
+        document.getElementById("aparenciaCorSecundaria").value = "#7B2CBF";
+        document.getElementById("aparenciaCorSecundariaHex").value = "#7B2CBF";
+        document.querySelector('input[name="aparenciaTema"][value="claro"]').checked = true;
+        document.getElementById("aparenciaEstilo").value = "moderno";
+        document.getElementById("selectModeloLayout").value = "hub_classico";
+        aplicarPreviewTema();
+        salvarAparencia();
+    }
+
+    function aplicarPreviewTema() {
+        const box = document.getElementById("aparenciaPreview");
+        const cp = document.getElementById("aparenciaCorPrincipal").value;
+        const cs = document.getElementById("aparenciaCorSecundaria").value;
+        const tema = document.querySelector('input[name="aparenciaTema"]:checked').value;
+        
+        box.style.setProperty("--preview-primary", cp);
+        box.style.setProperty("--preview-secondary", cs);
+        box.classList.toggle("dark", tema === "escuro");
+    }
+
+    /* CONFIGURAÇÕES E BACKUP */
+    function salvarConfigRecursosHub() {
+        const loja = JSON.parse(localStorage.getItem("hubLoja") || "{}");
+        loja.exibirMusica = document.getElementById("checkExibirMusica").checked;
+        loja.exibirWifi = document.getElementById("checkExibirWifi").checked;
+        localStorage.setItem("hubLoja", JSON.stringify(loja));
+    }
+
+    function atualizarResumoConfiguracoes() {
+        const p = JSON.parse(localStorage.getItem("hubProdutos") || "[]");
+        document.getElementById("resumoProdutos").textContent = p.length;
+        const cats = new Set(p.map(x => x.categoria).filter(Boolean));
+        document.getElementById("resumoCategorias").textContent = cats.size;
+
+        const ap = JSON.parse(localStorage.getItem("hubAparencia") || "{}");
+        document.getElementById("resumoAparencia").textContent = ap.principal ? "Personalizada" : "Padrão";
+
+        const redes = JSON.parse(localStorage.getItem("hubRedes") || "{}");
+        document.getElementById("resumoRedes").textContent = (redes.whatsapp || redes.instagram) ? "Configuradas" : "Não configuradas";
+
+        const loja = JSON.parse(localStorage.getItem("hubLoja") || "{}");
+        document.getElementById("checkExibirMusica").checked = loja.exibirMusica !== false;
+        document.getElementById("checkExibirWifi").checked = loja.exibirWifi !== false;
+    }
+
+    function exportarDados() {
+        const backup = {
+            produtos: produtosPainel,
+            loja: JSON.parse(localStorage.getItem("hubLoja") || "{}"),
+            redes: JSON.parse(localStorage.getItem("hubRedes") || "{}"),
+            aparencia: JSON.parse(localStorage.getItem("hubAparencia") || "{}"),
+            impresso: JSON.parse(localStorage.getItem("hubImpressoConfig") || "{}")
+        };
+        const blob = new Blob([JSON.stringify(backup, null, 2)], { type: "application/json" });
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = `backup-hub-${Date.now()}.json`;
+        a.click();
+    }
+
+    function importarDados(file) {
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            try {
+                const dados = JSON.parse(e.target.result);
+                if (dados.produtos) localStorage.setItem("hubProdutos", JSON.stringify(dados.produtos));
+                if (dados.loja) localStorage.setItem("hubLoja", JSON.stringify(dados.loja));
+                if (dados.redes) localStorage.setItem("hubRedes", JSON.stringify(dados.redes));
+                if (dados.aparencia) localStorage.setItem("hubAparencia", JSON.stringify(dados.aparencia));
+                if (dados.impresso) localStorage.setItem("hubImpressoConfig", JSON.stringify(dados.impresso));
+                alert("Dados restaurados! Recarregando página...");
+                location.reload();
+            } catch (err) {
+                alert("Arquivo de backup inválido.");
+            }
+        };
+        reader.readAsDataURL(file);
+    }
+
+    function limparDados() {
+        if (confirm("Atenção: todos os cadastros e imagens locais serão apagados. Deseja continuar?")) {
+            localStorage.clear();
+            location.reload();
+        }
+    }
+
+    /* EVENTOS INICIAIS */
+    document.addEventListener("DOMContentLoaded", () => {
+        carregarDadosLoja();
+        carregarRedes();
+        atualizarDashboard();
+        renderizarProdutos();
+        renderizarCategorias();
+        carregarAparencia();
+        carregarConfigImpresso();
+        atualizarResumoConfiguracoes();
+
+        // Sincronização de cores da Aparência Digital
+        const cp = document.getElementById("aparenciaCorPrincipal");
+        const cpHex = document.getElementById("aparenciaCorPrincipalHex");
+        const cs = document.getElementById("aparenciaCorSecundaria");
+        const csHex = document.getElementById("aparenciaCorSecundariaHex");
+
+        cp.addEventListener("input", () => { cpHex.value = cp.value.toUpperCase(); aplicarPreviewTema(); });
+        cpHex.addEventListener("input", () => { cp.value = cpHex.value; aplicarPreviewTema(); });
+        cs.addEventListener("input", () => { csHex.value = cs.value.toUpperCase(); aplicarPreviewTema(); });
+        csHex.addEventListener("input", () => { cs.value = csHex.value; aplicarPreviewTema(); });
+        document.querySelectorAll('input[name="aparenciaTema"]').forEach(r => r.addEventListener("change", aplicarPreviewTema));
+
+        // Sincronização de cores do Cardápio Impresso
+        const cip = document.getElementById("corImpressoPrimaria");
+        const cipHex = document.getElementById("corImpressoPrimariaHex");
+        const cis = document.getElementById("corImpressoSecundaria");
+        const cisHex = document.getElementById("corImpressoSecundariaHex");
+        const cif = document.getElementById("corImpressoFundo");
+        const cifHex = document.getElementById("corImpressoFundoHex");
+
+        cip.addEventListener("input", () => cipHex.value = cip.value.toUpperCase());
+        cipHex.addEventListener("input", () => cip.value = cipHex.value);
+        cis.addEventListener("input", () => cisHex.value = cis.value.toUpperCase());
+        cisHex.addEventListener("input", () => cis.value = cisHex.value);
+        cif.addEventListener("input", () => cifHex.value = cif.value.toUpperCase());
+        cifHex.addEventListener("input", () => cif.value = cifHex.value);
+    });
+</script>
+
+</body>
+</html>
