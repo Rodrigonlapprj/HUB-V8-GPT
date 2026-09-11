@@ -39,7 +39,7 @@
 
     .main-wrapper { width: 100%; max-width: 600px; padding: 16px; }
 
-    /* MÚSICA NO TOPO - VISÍVEL EM TODOS OS LAYOUTS */
+    /* MÚSICA NO TOPO DO HUB CLÁSSICO */
     .hub-music-container {
       width: 100%;
       display: flex;
@@ -85,7 +85,7 @@
     .hub-btn:active { transform: scale(0.98); }
     .hub-btn.highlight { background: var(--primary-color); color: #111827; }
 
-    /* CARD WI-FI */
+    /* CARD WI-FI NO FINAL DO HUB CLÁSSICO */
     .hub-wifi-box {
       background: var(--card-bg);
       border: 2px solid var(--border-color);
@@ -278,20 +278,21 @@
 
   <div class="main-wrapper">
 
-    <!-- BARRA DE MÚSICA GLOBAL (FUNCIONA EM TODOS OS LAYOUTS) -->
-    <div id="boxMusicaHub" class="hub-music-container" style="display:none;">
-      <div class="music-pill-box">
-        <button id="btnPlayMusica" class="music-btn" onclick="alternarAudio()">🎵</button>
-        <span id="labelAudio" class="music-label">Música da Loja</span>
-        <audio id="audioFundo" loop preload="auto">
-          <source src="música.mp3" type="audio/mpeg">
-          <source src="musica.mp3" type="audio/mpeg">
-        </audio>
-      </div>
-    </div>
-
     <!-- 1. HUB CLÁSSICO -->
     <div id="layoutHubClassico" class="layout-hub-classico" style="display:none;">
+      
+      <!-- REPRODUTOR DE MÚSICA EXCLUSIVO DO HUB CLÁSSICO -->
+      <div id="boxMusicaHub" class="hub-music-container" style="display:none;">
+        <div class="music-pill-box">
+          <button id="btnPlayMusica" class="music-btn" onclick="alternarAudio()">🎵</button>
+          <span id="labelAudio" class="music-label">Música da Loja</span>
+          <audio id="audioFundo" loop preload="auto">
+            <source src="música.mp3" type="audio/mpeg">
+            <source src="musica.mp3" type="audio/mpeg">
+          </audio>
+        </div>
+      </div>
+
       <div class="hub-header">
         <img id="hubLogoImg" class="hub-logo" src="logo.png" alt="Logo">
         <h1 id="hubNomeLoja" class="hub-title">Carioca Ice Cream</h1>
@@ -316,6 +317,7 @@
         </a>
       </div>
 
+      <!-- CARD DE WI-FI EXCLUSIVO DO HUB CLÁSSICO -->
       <div id="boxWifiHub" class="hub-wifi-box" style="display:none;">
         <div class="hub-wifi-header">
           <div class="hub-wifi-icon">📶</div>
@@ -329,6 +331,7 @@
           <button id="btnVerWifi" type="button" class="hub-wifi-btn" onclick="alternarWifiSenha()">Ver Senha</button>
         </div>
       </div>
+
     </div>
 
     <!-- 2. VITRINE COM ABAS -->
@@ -373,7 +376,7 @@
       </div>
     </div>
 
-    <!-- CATÁLOGO COMPARTILHADO -->
+    <!-- CATÁLOGO DE PRODUTOS COMPARTILHADO -->
     <div id="catalogoProdutosContainer">
       <div class="search-box">
         <input type="text" id="campoBusca" placeholder="🔍 Buscar no cardápio..." oninput="filtrarProdutos()">
@@ -648,10 +651,12 @@
         document.getElementById("appLogoImg").src = dadosLoja.logo;
       }
 
+      // Configurações do Wi-Fi
       const nomeRede = dadosLoja.wifiRede || `${nome.replace(/\s+/g, '_')}_Clientes`;
       senhaWifiReal = dadosLoja.wifiSenha || "sorvete123";
       document.getElementById("wifiNomeRede").textContent = nomeRede;
 
+      // Configurações da Música
       const audioUrl = dadosLoja.musicaUrl || (typeof loja !== 'undefined' ? loja.musicaUrl : "");
       if (audioUrl) {
         document.getElementById("audioFundo").src = audioUrl;
@@ -675,24 +680,24 @@
       l1.style.display = "none";
       l2.style.display = "none";
       l3.style.display = "none";
-
-      // Música disponível em todos os layouts
-      const exibirMusica = dadosLoja.exibirMusica !== false;
-      boxMusica.style.display = exibirMusica ? "flex" : "none";
+      boxMusica.style.display = "none";
+      boxWifi.style.display = "none";
 
       if (modelo === "hub_classico") {
         l1.style.display = "block";
         catalogo.style.display = "none";
+
+        // Música e Wi-Fi exclusivos no Hub Clássico
+        const exibirMusica = dadosLoja.exibirMusica !== false;
         const exibirWifi = dadosLoja.exibirWifi !== false;
+        boxMusica.style.display = exibirMusica ? "flex" : "none";
         boxWifi.style.display = exibirWifi ? "flex" : "none";
       } else if (modelo === "vitrine_abas") {
         l2.style.display = "block";
         catalogo.style.display = "block";
-        boxWifi.style.display = "none";
       } else {
         l3.style.display = "block";
         catalogo.style.display = "block";
-        boxWifi.style.display = "none";
       }
     }
 
@@ -707,7 +712,7 @@
       const btn = document.getElementById("btnPlayMusica");
       const label = document.getElementById("labelAudio");
 
-      if (audio && audio.paused && dadosLoja.exibirMusica !== false) {
+      if (audio && audio.paused && dadosLoja.exibirMusica !== false && (dadosAparencia.modelo || "hub_classico") === "hub_classico") {
         audio.play().then(() => {
           if (btn) btn.textContent = "⏸️";
           if (label) label.textContent = "Tocando...";
@@ -964,7 +969,7 @@
       });
     }
 
-    /* FINALIZAÇÃO CORRIGIDA DO WHATSAPP */
+    /* FINALIZAR PEDIDO NO WHATSAPP COM TRATAMENTO SEGURO */
     function finalizarPedidoWhatsApp() {
       const chaves = Object.keys(carrinho);
       if (chaves.length === 0) {
@@ -989,13 +994,13 @@
         comp = document.getElementById("pedidoComplemento").value.trim() || "Não informado";
 
         if (!rua || !numero || !bairro) {
-          alert("Por favor, informe Rua, Número e Bairro para entrega.");
+          alert("Por favor, preencha Rua, Número e Bairro de entrega.");
           return;
         }
       }
 
-      const radioSelecionado = document.querySelector('input[name="formaPagamentoOpcao"]:checked');
-      const formaPagamento = radioSelecionado ? radioSelecionado.value : "A combinar";
+      const radioChecked = document.querySelector('input[name="formaPagamentoOpcao"]:checked');
+      const formaPagamento = radioChecked ? radioChecked.value : "PIX Online";
 
       let detalhePagto = formaPagamento;
       if (formaPagamento === "Dinheiro") {
@@ -1006,6 +1011,7 @@
       }
 
       const obs = document.getElementById("pedidoObservacao").value.trim();
+
       const subtotal = calcularSubtotal();
       const total = subtotal + (isEntrega ? taxaAtualEntrega : 0);
 
@@ -1020,6 +1026,7 @@
       msg += `----------------------------------------\n`;
       msg += `*Cliente:* ${nome}\n`;
       msg += `*Tipo:* ${tipo}\n\n`;
+
       msg += `*ITENS DO PEDIDO:*\n`;
       msg += txtItens;
       msg += `\n*Subtotal:* R$ ${formatarMoeda(subtotal)}\n`;
@@ -1032,7 +1039,7 @@
       if (isEntrega) {
         msg += `*ENDEREÇO DE ENTREGA:*\n`;
         msg += `Rua: ${rua}, Nº ${numero}\n`;
-        msg += `Bairro: ${bairro}\n`;
+        msg += `Bairro: ${bairro} - Rio de Janeiro\n`;
         msg += `Complemento: ${comp}\n\n`;
       }
 
